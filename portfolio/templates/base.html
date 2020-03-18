@@ -1,0 +1,36 @@
+
+<!doctype html>
+<head>
+  <title>{% block title %}{% endblock %} Flask</title>
+  <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/base.css') }}">
+  <link href="https://fonts.googleapis.com/css?family=Nanum+Myeongjo&display=swap" rel="stylesheet">
+</head>
+
+<body>
+  <div class="header">
+    <h1>Jan Kowalski</h1>
+    </div>
+
+    <ul>
+      <li class="dropdown">
+        <a href="javascript:void(0)" class="dropbtn">Session</a>
+        <div class="dropdown-content">
+          <a href="#">Spring</a>
+          <a href="#">Summer</a>
+          <a href="#">Autumn</a>
+          <a href="#">Winter</a>
+        </div>
+      </li>
+      <li class="dropdown">
+        <a href="javascript:void(0)" class="dropbtn">Album</a>
+        <div class="dropdown-content">
+          <a href="#">Cats</a>
+          <a href="#">Dogs</a>
+          <a href="#">Chicken</a>
+        </div>
+      </li>
+      <li><a href="#">About</a></li>
+      <li><a href="#">Contact</a></li>
+    </ul>
+  
+</body>
