@@ -1,36 +1,56 @@
 
 <!doctype html>
 <head>
-  <title>{% block title %}{% endblock %} Flask</title>
+  {% if title %}
+  <title>{{ title }}</title>
+  {% else %}
+  <title> Photographer portfolio </title>
+  {% endif %}
   <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/base.css') }}">
   <link href="https://fonts.googleapis.com/css?family=Nanum+Myeongjo&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  {% block header %}{% endblock %}
 </head>
 
 <body>
-  <div class="header">
-    <h1>Jan Kowalski</h1>
-    </div>
-
+  <header class="header">
+    <h1>{{ name }}</h1>
+  </header>
+  
+  <nav class="main-nav">
     <ul>
       <li class="dropdown">
-        <a href="javascript:void(0)" class="dropbtn">Session</a>
-        <div class="dropdown-content">
-          <a href="#">Spring</a>
-          <a href="#">Summer</a>
-          <a href="#">Autumn</a>
-          <a href="#">Winter</a>
-        </div>
-      </li>
-      <li class="dropdown">
-        <a href="javascript:void(0)" class="dropbtn">Album</a>
-        <div class="dropdown-content">
-          <a href="#">Cats</a>
-          <a href="#">Dogs</a>
-          <a href="#">Chicken</a>
-        </div>
-      </li>
-      <li><a href="#">About</a></li>
-      <li><a href="#">Contact</a></li>
-    </ul>
+          <a href="javascript:void(0)" class="dropbtn">Session</a>
+          <div class="dropdown-content">
+            <a href="#">Spring</a>
+            <a href="#">Summer</a>
+            <a href="#">Autumn</a>
+            <a href="#">Winter</a>
+          </div>
+        </li>
+        <li class="dropdown">
+          <a href="javascript:void(0)" class="dropbtn">Album</a>
+          <div class="dropdown-content">
+            <a href="#">Cats</a>
+            <a href="#">Dogs</a>
+            <a href="#">Chicken</a>
+          </div>
+        </li>
+        <li><a href="#">About</a></li>
+        <li><a href="#">Contact</a></li>
+      </ul>
+  </nav>  
+    {% block content %}{% endblock %}
+
+  <footer>
+    <div class="footer">
+      <p> © {{ name }} 2019. All Right Reserved. </p>
+      <div class="social">
+        <a href="#" class="fa fa-facebook"></a>
+        <a href="#" class="fa fa-twitter"></a>
+        <a href="#" class="fa fa-instagram"></a>
+      </div>
+    </div>
+  </footer>
   
 </body>
