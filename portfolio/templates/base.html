@@ -13,7 +13,7 @@
 </head>
 
 <body>
-  <header class="header">
+  <header class="header" href="{{ url_for('home') }}">
     <h1>{{ name }}</h1>
   </header>
   
@@ -36,8 +36,8 @@
             <a href="#">Chicken</a>
           </div>
         </li>
-        <li><a href="#">About</a></li>
-        <li><a href="#">Contact</a></li>
+        <li><a href="/about">About</a></li>
+        <li><a href="/contact">Contact</a></li>
       </ul>
   </nav>  
     {% block content %}{% endblock %}
