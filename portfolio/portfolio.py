@@ -10,11 +10,11 @@ def home():
 
 @app.route("/about")
 def about():
-    return render_template('about.html', title='About')
+    return render_template('about.html', title='About', name='Jan Kowalski')
 
 @app.route("/contact")
 def contact():
-    return render_template('contact.html', title='Contact')
+    return render_template('contact.html', title='Contact', name='Jan Kowalski')
 
 if __name__ == "__main__":
     app.run(debug==True)
