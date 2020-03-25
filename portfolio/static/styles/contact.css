@@ -24,7 +24,7 @@ input, textarea, select {
     border-left: 20px solid transparent;
     border-right: 20px solid transparent;
     display: block;
-    border-top: 20px solid #f00;
+    border-top: 20px solid rgb(134, 76, 76);
   }
   
   input[type="text"]::placeholder {
@@ -110,4 +110,8 @@ input, textarea, select {
     background: white;
     width: 80%;
     margin: auto;
+  }
+
+  .contact-text{
+    text-align: center;
   }

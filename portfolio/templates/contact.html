@@ -1,10 +1,10 @@
 {% extends "base.html" %}
 {% block header %}
-<link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/contact.css') }}">
+<link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',path='styles/contact.css') }}">
 {% endblock %}
 {% block content %}
   <div class="main-res">
-    <h1> Contact </h1>
+    <h1 class="contact-text"> Contact </h1>
     <div class="formwrapper">
       <form method="POST" action="/">
         <div class="form-field">{{ form.person.label }} {{ form.person }}
