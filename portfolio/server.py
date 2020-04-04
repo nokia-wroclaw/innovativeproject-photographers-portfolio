@@ -24,7 +24,11 @@ async def about(request: Request):
 
 
 @app.get("/contact")
-async def contact(request: Request, cname: str = Form(...), cmail: str = Form(...), ctitle: str = Form(...), cbody: str = Form(...)):
+async def contact(request: Request):
     return templates.TemplateResponse(
-        'contact.html',{"request": request, "title":"Contact", "name":"Jan Kowalski", "cname": cname, "cmail": cmail, "ctitle": ctitle, "cbody": cbody}
+        "contact.html", {"request": request, "title":"Contact", "name":"Jan Kowalski"}
     )
+
+@app.post("/contact")
+async def postContact(*, cfname: str = Form(...), clname: str = Form(...), cmail: str = Form(...), ctitle: str = Form(...), cbody: str = Form(...)):
+    return { "cfname": cfname, "clname": clname, "cmail": cmail, "ctitle": ctitle, "cbody": cbody}
