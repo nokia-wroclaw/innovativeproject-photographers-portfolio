@@ -138,9 +138,6 @@ dmypy.json
 # Cython debug symbols
 cython_debug/
 
-<<<<<<< HEAD
 
 # VScode
 .vscode/
-=======
->>>>>>> master
