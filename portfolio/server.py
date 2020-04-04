@@ -1,7 +1,6 @@
-from fastapi import FastAPI, Request
+from fastapi import FastAPI, Request, Form
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
-from forms import ContactForm
 import os
 
 app = FastAPI()
@@ -25,11 +24,7 @@ async def about(request: Request):
 
 
 @app.get("/contact")
-async def contact(request: Request):
-    form = ContactForm()
-    if form.validate_on_submit():
-        person = form.person.data
-        form.person.data = ''
+async def contact(request: Request, cname: str = Form(...), cmail: str = Form(...), ctitle: str = Form(...), cbody: str = Form(...)):
     return templates.TemplateResponse(
-        'contact.html',{"request": request, "title":"Contact", "name":"Jan Kowalski", "form":form}
+        'contact.html',{"request": request, "title":"Contact", "name":"Jan Kowalski", "cname": cname, "cmail": cmail, "ctitle": ctitle, "cbody": cbody}
     )
