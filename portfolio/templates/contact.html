@@ -6,35 +6,29 @@
   <div class="main-res">
     <h1 class="contact-text"> Contact </h1>
     <div class="formwrapper">
-      <form method="POST" action="/">
-        <div class="form-field">{{ form.person.label }} {{ form.person }}
-          {% if form.person.errors %}
-            <ul class="errors">
-              {% for error in form.person.errors %}
-                <li>{{ error }}</li>
-              {% endfor %}
-            </ul>
-          {% endif %}
-        </div>
-        <div class="form-field">{{ form.email.label }} {{ form.email }}
-          {% if form.email.errors %}
-            <ul class="errors">
-              {% for error in form.email.errors %}
-                <li>{{ error }}</li>
-              {% endfor %}
-            </ul>
-          {% endif %}
-        </div>
-        <div class="form-field">{{ form.body.label }} {{ form.body }}
-          {% if form.body.errors %}
-            <ul class="errors">
-              {% for error in form.body.errors %}
-                <li>{{ error }}</li>
-              {% endfor %}
-            </ul>
-          {% endif %}
-        </div>
-        {{ form.submit }}
+      <form method="POST" action="/contact" enctype="multipart/form-data">
+        <table>
+          <div class="col1">
+              <label for="cfname"><b>First Name </b></label>
+              <input type="text" placeholder="Enter First Name" name="cfname" required>
+              <label for="clname"><b>Last Name </b></label>
+              <input type="text" placeholder="Enter Last Name" name="clname" required>
+          </div>
+          <div class="form-field">
+              <label for="cmail"><b> Email </b></label>
+              <input type="text" placeholder="Enter Email" name="cmail" required>
+          </div>
+          <div class="form-field">
+              <label for="ctitle"><b>Title </b></label>
+              <input type="text" placeholder="Enter Title" name="ctitle" required>
+          </div>
+          <div class="form-field">
+              <label for="cbody"><b>Message </b></label>
+              <input class = "body" type="text" placeholder="Write your message" name="cbody" required>
+          </div>
+            <input type="submit" value = "Sent">
+
+      </table>
       </form>
     </div>
   </div>
