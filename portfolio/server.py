@@ -15,7 +15,6 @@ async def home(request: Request):
         "index.html", {"request": request, "name": "Jan Kowalski", "pics": pics}
     )
 
-
 @app.get("/about")
 async def about(request: Request):
     return templates.TemplateResponse(
@@ -28,12 +27,12 @@ async def sign_in(request: Request):
         "login.html", {"request": request, "title": "Login"}
     )
 
-@app.get("/register")
-async def sign_up(request: Request):
+@app.get("/contact")
+async def contact(request: Request):
     return templates.TemplateResponse(
-        "register.html", {"request": request, "title": "Register"}
+        "contact.html", {"request": request, "title":"Contact", "name":"Jan Kowalski"}
     )
 
-@app.post("/register")
-async def create_user(*, fname: str = Form(...), lname: str = Form(...), email: str = Form(...)):
-    return {"fname": fname, "lname": lname, "email": email}
+@app.post("/contact")
+async def postContact(*, cfname: str = Form(...), clname: str = Form(...), cmail: str = Form(...), ctitle: str = Form(...), cbody: str = Form(...)):
+    return { "cfname": cfname, "clname": clname, "cmail": cmail, "ctitle": ctitle, "cbody": cbody}
