@@ -21,12 +21,6 @@ async def about(request: Request):
         "about.html", {"request": request, "title": "About", "name": "Jan Kowalski"}
     )
 
-@app.get("/login")
-async def sign_in(request: Request):
-    return templates.TemplateResponse(
-        "login.html", {"request": request, "title": "Login"}
-    )
-
 @app.get("/contact")
 async def contact(request: Request):
     return templates.TemplateResponse(
