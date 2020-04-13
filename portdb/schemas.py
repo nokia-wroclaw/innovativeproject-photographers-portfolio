@@ -1,35 +1,26 @@
 from typing import List
-
+from datetime import date, datetime, time, timedelta
 from pydantic import BaseModel
 
-#User
-class UserBase(BaseModel):
-    firt_name: str
-    last_name: str
-    email: str
-    nickname: str = None
-    additional_email: str = None
-class UserCreate(UserBase):
-    password: str
-class User(UserBase):
-    id: int 
-    social_media = List[Social_media_links] = []
-    msg = List[Message] = []
-    pages = List[List] = []
-class Config:
-    orm_mode = True
+
+#Token
+class Token(BaseModel):
+    access_token: str
+    token_type: str
+
+class TokenData(BaseModel):
+    username: str = None
+
 
 #Social
-class Social_media_linksBase(BaseModel):
+class Social_media_linkBase(BaseModel):
     sm_url: str
     sm_icon: str
-class Social_media_linksCreate(Social_media_linksBase):
-    pass
-class Social_media_links(Social_media_linksBase):
+class Social_media_link(Social_media_linkBase):
     id: int
     owner_id: int
-class Config:
-    orm_mode = True
+    class Config:
+        orm_mode = True
 
 #Message
 class MessageBase(BaseModel):
@@ -38,25 +29,29 @@ class MessageBase(BaseModel):
     sender_email_address: str
     subject: str
     message_content: str
+    date: date
 class MessageCreate(MessageBase):
     pass
 class Message(MessageBase):
-    id: int
+    id: int    
     receiver_id: int
-class Config:
-    orm_mode = True
+    status: str
+    class Config:
+        orm_mode = True
 
-#Main_page
-class Main_pageBase(BaseModel):
-    page_url: str
-    album_type: str
-class Main_pageCreate(Main_pageBase):
+#Photos
+class PhotosBase(BaseModel):
+    path_and_name: str   
+class PhotosCreate(PhotosBase):
     pass
-class Main_page(Main_pageBase):
+class Photos(PhotosBase):
     id: int
-    photographer_id: int
-class Config:
-    orm_mode = True
+    page_id: int
+    list_content: bool
+    id_list_content: int = None
+    id_content: int = None
+    class Config:
+        orm_mode = True
 
 #List_of_contents
 class List_of_contentsBase(BaseModel):
@@ -71,8 +66,9 @@ class List_of_contentsCreate(List_of_contentsBase):
 class List_of_contents(List_of_contentsBase):
     id: int
     page_id: int
-class Config:
-    orm_mode = True
+    photos: List[Photos] = []
+    class Config:
+        orm_mode = True
 
 #Contents
 class ContentsBase(BaseModel):
@@ -82,17 +78,38 @@ class ContentsCreate(ContentsBase):
 class Contents(ContentsBase):
     id: int
     list_id: int
-class Config:
-    orm_mode = True
+    photos: List[Photos] = []
+    class Config:
+        orm_mode = True
 
-#Photos
-class PhotosBase(BaseModel):
-    path_and_name: str
-    label_type: bool
-class PhotosCreate(PhotosBase):
+#Main_page
+class Main_pageBase(BaseModel):
+    page_url: str
+    album_type: str
+class Main_pageCreate(Main_pageBase):
     pass
-class Photos(PhotosBase):
+class Main_page(Main_pageBase):
     id: int
-    page_id: int
-class Config:
-    orm_mode = True
+    photographer_id: int
+    photos: List[Photos] = []
+    content_list: List[List_of_contents] = []
+    class Config:
+        orm_mode = True
+
+#User
+class UserBase(BaseModel):
+    email_address: str
+class UserCreate(UserBase):
+    first_name: str
+    last_name: str
+    nickname: str = None
+    additional_email: str = None
+    password: str
+class User(UserBase):
+    id: int 
+    social_media: List[Social_media_link] = []
+    msg: List[Message] = []
+    pages: List[Main_page] = [] 
+
+    class Config:
+        orm_mode = True

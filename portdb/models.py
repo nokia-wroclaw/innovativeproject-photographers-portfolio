@@ -1,7 +1,9 @@
 from sqlalchemy import Column, Integer, String, DateTime, Boolean, ForeignKey
 from sqlalchemy.orm import relationship
 
-from .database import Base
+#from .database import Base
+
+from database import Base
 
 
 class User(Base):
@@ -9,12 +11,12 @@ class User(Base):
 
     id = Column(Integer, primary_key=True, index=True)
 
-    email_address = Column(String(100), unique=True)
+    email_address = Column(String(100), unique=True, nullable=False)
     first_name = Column(String(50), nullable=False)
     last_name = Column(String(100), nullable=False)
-    nickname = Column(String(30))
-    additional_email = Column(String(100), unique=True, nullable=False)
-    password = Column(String(32), nullable=False)
+    nickname = Column(String(30), nullable=True)
+    additional_email = Column(String(100), nullable=True)
+    password = Column(String(300), nullable=False)
 
     social_media = relationship("Social_media_link", back_populates="owner_of")
     msg = relationship("Message", back_populates="receiver")
@@ -29,7 +31,7 @@ class Social_media_link(Base):
     sm_url = Column(String)
     sm_icon = Column(String)
 
-    owner_of = relationship("Users", back_populates="social_media")
+    owner_of = relationship("User", back_populates="social_media")
     
 class Message(Base):
     __tablename__ = "MESSAGE"
@@ -43,9 +45,10 @@ class Message(Base):
     subject = Column(String(50))
     message_content = Column(String(300))
     date = Column(DateTime, nullable=False)
-    status = Column(String(30), nullable=False)
+    status = Column(String(30), default="Nie przeczytane", nullable=False)
 
-    receiver = relationship("Users", back_populates="msg")
+    receiver = relationship("User", back_populates="msg")
+
 
 class Main_page(Base):
     __tablename__ = "MAIN_PAGE"
@@ -56,7 +59,7 @@ class Main_page(Base):
     page_url = Column(String(100), nullable=False, index=True)
     album_type = Column(String(100), nullable=False)
 
-    photographer = relationship("Users", back_populates="pages")
+    photographer = relationship("User", back_populates="pages")
     list_ofc = relationship("List_of_Contents", back_populates="m_page")
     photos = relationship("Photos", back_populates="m_page")
 
@@ -88,6 +91,8 @@ class Photos(Base):
     page_id  = Column(Integer, ForeignKey("MAIN_PAGE.id"))
 
     path_and_name = Column(String(100), unique=True, nullable=False)
-    label_type = Column(Boolean, default=True) #CZY NA PEWNO BOOLEAN?
+    list_content = Column(Boolean, default=True, nullable=False) #CZY NA PEWNO BOOLEAN?
+    id_list_content = Column(Integer, nullable=True)
+    id_content = Column(Integer, nullable=True)
 
     m_page = relationship("Main_page", back_populates="photos")
