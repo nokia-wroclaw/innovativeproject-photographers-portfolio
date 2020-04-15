@@ -1,22 +1,20 @@
 from typing import List
 from datetime import datetime, timedelta
-from fastapi import Depends, FastAPI, HTTPException, Request, Response, File, UploadFile, status
+from fastapi import Depends, FastAPI, HTTPException, Request, Response, Form, status
 from sqlalchemy.orm import Session
-import uvicorn
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 import jwt
 from jwt import PyJWTError
 from passlib.context import CryptContext
+from fastapi.staticfiles import StaticFiles
+from fastapi.templating import Jinja2Templates
+
 
 from .database import SessionLocal, engine
-from . import models
-from . import schemas
-from . import crud
+from . import models, schemas, crud
 
-# from database import SessionLocal, engine
-# import models
-# import schemas
-# import crud
+#from database import SessionLocal, engine
+#import models, schemas, crud
 
 SECRET_KEY = "09d25e094faa6ca2556c818166b7a9563b93f7099f6f0f4caa6cf63b88e8d3e7"
 ALGORITHM = "HS256"
@@ -24,10 +22,14 @@ ACCESS_TOKEN_EXPIRE_MINUTES = 30
 
 models.Base.metadata.create_all(bind=engine)
 
-pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
-oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/login")
+class Tok:
+    access_token: str
+    token_type: str
 
-app = FastAPI()
+
+token1 = Tok()
+token1.access_token = ""
+token1.token_type = "Bearer"    
 
 # Dependency
 def get_db():
@@ -36,6 +38,15 @@ def get_db():
         yield db
     finally:
         db.close()
+
+def get_access_token():
+    return token1
+
+app = FastAPI()
+
+pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
+
+#oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/login")
 
 
 def create_access_token(*, data: dict, expires_delta: timedelta = None):
@@ -48,7 +59,6 @@ def create_access_token(*, data: dict, expires_delta: timedelta = None):
 
     encoded_jwt = jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
     return encoded_jwt        
-
 
 @app.post("/login", response_model=schemas.Token)
 async def login_for_access_token(form_data: OAuth2PasswordRequestForm = Depends(), db: Session = Depends(get_db)):
@@ -63,21 +73,23 @@ async def login_for_access_token(form_data: OAuth2PasswordRequestForm = Depends(
     access_token = create_access_token(
         data={"sub": user.email_address}, expires_delta=access_token_expires
     )
+    token1.access_token = access_token
     return {"access_token": access_token, "token_type": "bearer"}
 
 #User
-async def get_current_user(token: str = Depends(oauth2_scheme), db: Session = Depends(get_db)):
+#async def get_current_user(token: str = Depends(oauth2_scheme), db: Session = Depends(get_db)):
+async def get_current_user(token = Depends(get_access_token), db: Session = Depends(get_db)):
     credentials_exception = HTTPException(
         status_code=status.HTTP_401_UNAUTHORIZED,
         detail="Could not validate credentials",
         headers={"WWW-Authenticate": "Bearer"},
     )
     try:
-        payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
+        payload = jwt.decode(token.access_token, SECRET_KEY, algorithms=[ALGORITHM])
         username: str = payload.get("sub")
         if username is None:
             raise credentials_exception
-        token_data = TokenData(username=username)
+        token_data = schemas.TokenData(username=username)
     except PyJWTError:
         raise credentials_exception
     
@@ -86,7 +98,7 @@ async def get_current_user(token: str = Depends(oauth2_scheme), db: Session = De
         raise credentials_exception
     return user
 
-@app.get("/users/me/", response_model=schemas.User)
+@app.get("/user/me", response_model=schemas.User)
 async def read_users_me(current_user: schemas.User = Depends(get_current_user)):
     return current_user
 
@@ -106,24 +118,23 @@ def create_user(user: schemas.UserCreate, db: Session = Depends(get_db)):
 
 #Message
 @app.post("/message/", response_model=schemas.Message)
-def create_message_for_users(user_id: int, message: schemas.MessageCreate, db: Session = Depends(get_db), token: str = Depends(oauth2_scheme)):
+def create_message_for_users(user_id: int, message: schemas.MessageCreate, db: Session = Depends(get_db)):
     return crud.create_message(db, message, user_id) 
 
 
 #Page
 @app.post("/page/", response_model=schemas.Main_page)
-def create_message_for_users(user_id: int, page: schemas.Main_pageCreate, db: Session = Depends(get_db), token: str = Depends(oauth2_scheme)):
+def create_message_for_users(user_id: int, page: schemas.Main_pageCreate, db: Session = Depends(get_db)):
     return crud.create_user_page(db, page, user_id)     
 
 
 #Photos
 @app.post("/photos/", response_model=schemas.Photos)
-def create_photos(page_id: int, content_id: int, cont_list: bool, photos: schemas.PhotosCreate, db: Session = Depends(get_db), token: str = Depends(oauth2_scheme)):
+def create_photos(page_id: int, content_id: int, cont_list: bool, photos: schemas.PhotosCreate, db: Session = Depends(get_db)):
     return "aa"
 
 
 
-
-
 if __name__ == "__main__":
+    import uvicorn
     uvicorn.run(app, host="0.0.0.0", port=8000)     
