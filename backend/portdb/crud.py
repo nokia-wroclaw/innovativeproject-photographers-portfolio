@@ -3,6 +3,8 @@ from passlib.context import CryptContext
 
 from . import models, schemas
 
+#import models, schemas
+
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
 #User
@@ -71,3 +73,4 @@ def create_user_page(portfolio_db: Session, page: schemas.Main_pageCreate, user_
     portfolio_db.commit()
     portfolio_db.refresh(portfolio_db_page)
     return portfolio_db_page
+

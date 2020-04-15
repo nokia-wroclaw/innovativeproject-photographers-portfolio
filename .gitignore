@@ -138,6 +138,9 @@ dmypy.json
 # Cython debug symbols
 cython_debug/
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 9270a6b99eb90deec422c4a5f3b0b6b0eef86d23
 # VScode
 .vscode/
