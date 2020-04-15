@@ -5,7 +5,7 @@ import { FacebookLoginButton} from 'react-social-login-buttons';
 import Footer from './components/Footer'
 
 function App() {
-  return (   
+  return (
     <div>
       <h1  class="header" >Photographer's portfolio</h1>
       <Form className="login-form">
@@ -20,7 +20,7 @@ function App() {
         <Button className="btn-lg btn-dark btn-block">
           Log in
         </Button>
-        <div className="text-center pt-3" style={{color:'white'}}> 
+        <div className="text-center pt-3" style={{color:'white'}}>
           Or continue with your social account
         </div>
         <FacebookLoginButton className="mt-3 mb-3"/>
@@ -33,7 +33,7 @@ function App() {
       </Form>
       <Footer />
     </div>
-    
+
   );
 }
 

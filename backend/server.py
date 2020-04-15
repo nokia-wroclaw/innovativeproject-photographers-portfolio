@@ -4,13 +4,13 @@ from fastapi.templating import Jinja2Templates
 import os
 
 app = FastAPI()
-app.mount("/static", StaticFiles(directory="portfolio/static"), name="static")
-templates = Jinja2Templates(directory="portfolio/templates")
+app.mount("/static", StaticFiles(directory="static"), name="static")
+templates = Jinja2Templates(directory="templates")
 
 
 @app.get("/")
 async def home(request: Request):
-    pics = os.listdir("portfolio/static/img/jan/")
+    pics = os.listdir("static/img/jan/")
     return templates.TemplateResponse(
         "index.html", {"request": request, "name": "Jan Kowalski", "pics": pics}
     )

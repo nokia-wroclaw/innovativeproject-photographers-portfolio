@@ -29,7 +29,7 @@ class Tok:
 
 token1 = Tok()
 token1.access_token = ""
-token1.token_type = "Bearer"    
+token1.token_type = "Bearer"
 
 # Dependency
 def get_db():
@@ -58,7 +58,7 @@ def create_access_token(*, data: dict, expires_delta: timedelta = None):
     to_encode.update({"exp": expire})
 
     encoded_jwt = jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
-    return encoded_jwt        
+    return encoded_jwt
 
 @app.post("/login", response_model=schemas.Token)
 async def login_for_access_token(form_data: OAuth2PasswordRequestForm = Depends(), db: Session = Depends(get_db)):
@@ -92,7 +92,7 @@ async def get_current_user(token = Depends(get_access_token), db: Session = Depe
         token_data = schemas.TokenData(username=username)
     except PyJWTError:
         raise credentials_exception
-    
+
     user = crud.get_user_by_email(db, token_data.username)
     if user is None:
         raise credentials_exception
@@ -114,18 +114,18 @@ def create_user(user: schemas.UserCreate, db: Session = Depends(get_db)):
     db_user = crud.get_user_by_email(db, email=user.email_address)
     if db_user:
         raise HTTPException(status_code=400, detail="Emali istnieje w bazie")
-    return crud.create_user(db, user=user)       
+    return crud.create_user(db, user=user)
 
 #Message
 @app.post("/message/", response_model=schemas.Message)
 def create_message_for_users(user_id: int, message: schemas.MessageCreate, db: Session = Depends(get_db)):
-    return crud.create_message(db, message, user_id) 
+    return crud.create_message(db, message, user_id)
 
 
 #Page
 @app.post("/page/", response_model=schemas.Main_page)
 def create_message_for_users(user_id: int, page: schemas.Main_pageCreate, db: Session = Depends(get_db)):
-    return crud.create_user_page(db, page, user_id)     
+    return crud.create_user_page(db, page, user_id)
 
 
 #Photos
@@ -135,6 +135,6 @@ def create_photos(page_id: int, content_id: int, cont_list: bool, photos: schema
 
 
 
-if __name__ == "__main__":
-    import uvicorn
-    uvicorn.run(app, host="0.0.0.0", port=8000)     
+# if __name__ == "__main__":
+#     import uvicorn
+#     uvicorn.run(app, host="0.0.0.0", port=8000)
