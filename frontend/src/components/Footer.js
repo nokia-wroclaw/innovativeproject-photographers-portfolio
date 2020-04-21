@@ -1,5 +1,6 @@
 import React from 'react';
 import './Footer.css';
+
 function Footer(){
     return (
         <footer className="footer text-center" style={{position:'fixed', bottom: '0', width:'100%', backgroundColor:'#3d3d3d'}}>
