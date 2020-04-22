@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>React! React! React!</title>
+        <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
+        <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+        <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+
+    </head>
+    <style>
+        #container {
+            padding: 50px;
+            background-color: #FFF;
+        }
+    </style>
+    
+    <body>
+        <div id="container"></div>
+        <script type="text/babel">
+            var destination = document.querySelector("#container");
+            class MyForm extends React.Component {
+                constructor(props) {
+                    super(props);
+                    
+                    this.state = {email_address: ''};
+                    this.state = {first_name: ''};
+                    this.state = {last_name: ''};
+                    this.state = {nickname: ''};
+                    this.state = {additional_email: ''};
+                    this.state = {password: ''};
+
+                    this.handleChange = this.handleChange.bind(this);
+                    this.handleSubmit = this.handleSubmit.bind(this);                   
+                }
+
+                handleChange(event){
+
+                    const target = event.target;
+                    const value = target.value;
+                    const name = target.name;
+
+                    this.setState({
+                        [name]: value
+                    });
+                }
+
+                handleSubmit(event) {
+                    event.preventDefault();
+                    const data = new FormData(event.target);
+                    fetch('/user', {
+                        method: 'POST',
+                        headers: {
+                            Accept: 'application/json',
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            email_address: this.state.email_address,
+                            first_name: this.state.first_name,
+                            last_name: this.state.last_name,
+                            nickname: this.state.nickname,
+                            additional_email : this.state.additional_email,
+                            password: this.state.password,
+
+                        }),
+                    });
+                }
+
+            render() {
+                return (
+                    <form onSubmit={this.handleSubmit}>
+                        <label htmlFor="email_address">Enter email</label>
+                        <input id="email_address" name="email_address" type="email" value={this.state.email_address} onChange = {this.handleChange}/>
+
+                        <label htmlFor="first_name">Enter First name</label>
+                        <input id="first_name" name="first_name" type="text" value={this.state.first_name}  onChange = {this.handleChange}/>
+
+                        <label htmlFor="last_name">Enter First name</label>
+                        <input id="last_name" name="last_name" type="text" value={this.state.last_name}  onChange = {this.handleChange}/>
+
+                        <label htmlFor="nickname">Enter Nick name</label>
+                        <input id="nickname" name="nickname" type="text" value={this.state.nickname}  onChange = {this.handleChange}/>
+
+                        <label htmlFor="additional_email">Enter Additional email</label>
+                        <input id="additional_email" name="additional_email" type="text" value={this.state.additional_email}  onChange = {this.handleChange}/>
+
+                        <label htmlFor="password">Enter password</label>
+                        <input id="password" name="password" type="password" value={this.state.password}  onChange = {this.handleChange}/>
+
+                        <button>Send data!</button>
+                    </form>
+                );
+            }
+            }
+
+            ReactDOM.render(
+                <div>
+                    <MyForm/>
+                </div>,
+                destination
+            );
+        </script>
+    </body>
+</html>

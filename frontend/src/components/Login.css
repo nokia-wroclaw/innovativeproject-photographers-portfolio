@@ -1,0 +1,62 @@
+@media screen and (min-width:1700px){
+    .login-form{
+        width: 100%;
+        max-width:400px;
+        padding-top: 8vh;
+        max-height: 100vh;
+        margin: auto;
+        margin-bottom: 0;
+        position: sticky;
+    }
+
+    .box{
+        width: 100%;
+        padding:20px;
+        border-style:none;
+        
+        border-radius: 20px;
+        box-shadow: 0 50px 50px 0 rgba(0, 0, 0, 0.2), 0 10px 30px 0 rgba(0, 0, 0, 0.19);
+        margin:auto;
+    }
+    h1.signIn{
+        text-align: center;
+        color: white;
+        font-family: 'Gruppo';
+        src:url('../fonts/Gruppo-Regular.ttf');
+        font-weight: bold;
+    }
+
+}
+
+@media screen and (max-width:800px){
+    .login-form{
+        width: 100%;
+        max-width:200px;
+        padding-top: 4vh;
+        height: 50vh;
+        margin: auto;
+        margin-bottom: 0;
+        position: sticky;
+    }
+
+    .box{
+        width: 100%;
+        padding:20px;
+        border-style:none;
+        /*background-color: #737373;*/
+        border-radius: 20px;
+        box-shadow: 0 50px 50px 0 rgba(0, 0, 0, 0.2), 0 10px 30px 0 rgba(0, 0, 0, 0.19);
+        margin:auto;
+    }
+    h1.signIn{
+        text-align: center;
+        color: white;
+        font-size: 20px;
+    }
+}
+
+a:link {
+    color: whitesmoke;
+    text-decoration: none;
+}
+
