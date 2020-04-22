@@ -17,7 +17,9 @@ RUN apt-get install -y git &&\
     apt update &&\
     apt install -y python3-pip
 RUN pip3 install poetry
-RUN alias pip=pip3
-RUN mkdir Nokia && cd Nokia 
+RUN alias pip=pip3 
 
-    
+COPY requiremets.txt /
+RUN pip3 install -r requirements.txt
+COPY pyproject.toml poetry.lock README.md /
+RUN poetry install --no-dev
