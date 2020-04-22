@@ -1,32 +1,23 @@
-FROM Ubuntu
+FROM ubuntu:18.04
+MAINTAINER Adam Krolewiecki Akrolewiecki985@gmail.com
 
-RUN sudo apt-get update
-RUN sudo apt-get upgrade
 
-RUN sudo cd /
+RUN apt update -y
 
-RUN sudo apt install build-essentails zlib1g-dev libncurses5-dev libgdbm-dev libgdm-dev libnss3-dev libssl-dev libreadline-dev libffi-dev libsqlite3-dev wget
+RUN cd /opt &&\
+    apt-get update &&\
+    apt-get upgrade -y &&\
+    apt install -y  software-properties-common &&\
+    add-apt-repository ppa:deadsnakes/ppa &&\
+    apt install -y  python3.8 &&\
+    alias python3=python3.8.2 
+    
 
-RUN wget https://www.python.org/ft[/python/3.8.2/Python-3.8.2.tgz
-RUN tar -xf Python-3.8.2.tgz
-RUN cd Python-3.8.2
-RUN ./configure --enable-optimizations
-RUN make -j 8
-RUN sudo make install
-RUN alias python=python3
-RUN python --version
-
-RUN sudo apt install curl
-RUN curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python
-RUN sudo poetry self update
-
-RUN sudo apt install git
-RUN sudo git init
-RUN sudo git pull https://github.com/nokia-wroclaw/innovativeproject-photographers-portfolio.git
-
+RUN apt-get install -y git &&\
+    apt update &&\
+    apt install -y python3-pip
+RUN pip3 install poetry
 RUN alias pip=pip3
-RUN sudo poetry install
+RUN mkdir Nokia && cd Nokia 
 
-COPY . /opt/source-code
-
-ENNTRYPOINT sudo poetry run task dev-server
+    
