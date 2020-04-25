@@ -1,7 +1,17 @@
 @media screen and (min-width:1700px){
+    h1.header{
+        text-align: center;
+        padding-top: 7vh;
+        font-size: 90px;
+        font-family: 'Gruppo';
+        src:url('../fonts/Gruppo-Regular.ttf');
+        color: white;
+        text-shadow: 2px 2px 4px #000000;
+      }
+      
     .register-form{
         width: 100%;
-        max-width:400px;
+        max-width:800px;
         padding-top: 5vh;
         max-height: 100vh;
         margin: auto;
@@ -13,6 +23,7 @@
         border-radius: 20px;
         box-shadow: 0 50px 50px 0 rgba(0, 0, 0, 0.2), 0 10px 30px 0 rgba(0, 0, 0, 0.19);
         margin:auto;
+        padding:10px;
     }
     h1.signIn{
         text-align: center;
@@ -22,4 +33,12 @@
         font-weight: bold;
     }
 
+    .vertical-divider {
+        position: absolute;
+        display: table;
+        text-align: center;
+        
+        height: 100%; 
+        width: 100%;
+    }
 }
