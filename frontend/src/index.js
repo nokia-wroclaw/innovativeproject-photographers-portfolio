@@ -2,14 +2,22 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
+import Login from './components/Login'
+import Register from './components/Register'
 import * as serviceWorker from './serviceWorker';
+import { Router, Route, browserHistory } from 'react-router'
 import 'bootstrap/dist/css/bootstrap.css';
 
 
 ReactDOM.render(
-  <React.StrictMode>
+  <Router history={browserHistory}>
+    <Route path="/" component={App} />
+    <Route path="/login" component={Login} />
+    <Route path="/register" component={Register} />
+  </Router>,
+  /*<React.StrictMode>
     <App />
-  </React.StrictMode>,
+  </React.StrictMode>,*/
   document.getElementById('root')
 );
 
