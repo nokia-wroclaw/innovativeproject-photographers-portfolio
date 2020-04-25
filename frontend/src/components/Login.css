@@ -1,4 +1,14 @@
 @media screen and (min-width:1700px){
+    h1.header{
+        text-align: center;
+        padding-top: 7vh;
+        font-size: 90px;
+        font-family: 'Gruppo';
+        src:url('../fonts/Gruppo-Regular.ttf');
+        color: white;
+        text-shadow: 2px 2px 4px #000000;
+      }
+
     .login-form{
         width: 100%;
         max-width:400px;
