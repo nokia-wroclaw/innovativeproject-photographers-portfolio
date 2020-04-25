@@ -1,25 +1,41 @@
-FROM ubuntu:18.04
-MAINTAINER Adam Krolewiecki Akrolewiecki985@gmail.com
+FROM python:3.8.2-buster
 
+LABEL maintainer="akrolewiecki985@gmail.com"
 
-RUN apt update -y
+ARG FASTAPI_ENV
 
-RUN cd /opt &&\
-    apt-get update &&\
-    apt-get upgrade -y &&\
-    apt install -y  software-properties-common &&\
-    add-apt-repository ppa:deadsnakes/ppa &&\
-    apt install -y  python3.8 &&\
-    alias python3=python3.8.2 
+ENV FASTAPI_ENV=${FASTAPI_ENV} \
+    PYTHONFAULTHANDLER=1 \
+    PYTHONHASHSEED=random \
+    PYTHONUNBUFFERED=1 \
+    PIP_NO_CACHE_DIR=off \
+    PIP_DISABLE_PIP_VERSION_CHCECK=on \
+    PIP_DEFAULT_TIMEOUT=100 \
+    DOCKERIZE_VERSION=v0.6.1 \
+    POETRY_VERSION=1.0.5 \
+    POETRY_VIRTUALENVS_CREATE=false \
+    POETRY_CACHE_DIR='/var/cache/pypoetry'
     
 
-RUN apt-get install -y git &&\
-    apt update &&\
-    apt install -y python3-pip
-RUN pip3 install poetry
-RUN alias pip=pip3 
+RUN apt-get update  &&\
+    apt-get install -y \
+    bash \
+    build-essential \
+    curl \
+    git \
+    libpq-dev \
+    wget \
 
-COPY requiremets.txt /
-RUN pip3 install -r requirements.txt
-COPY pyproject.toml poetry.lock README.md /
-RUN poetry install --no-dev
+    && apt-get autoremove && apt-get clean && rm -rf /var/lib/apt/lists/* \
+
+    && wget "https://github.com/jwilder/dockerize/releases/download/${DOCKERIZE_VERSION}/dockerize-linux-amd64-${DOCKERIZE_VERSION}.tar.gz" \
+    && tar -C /usr/local/bin -xzvf "dockerize-linux-amd64-${DOCKERIZE_VERSION}.tar.gz" \
+    && rm "dockerize-linux-amd64-${DOCKERIZE_VERSION}.tar.gz" && dockerize --version \
+    && pip install "poetry==$POETRY_VERSION" && poetry --version
+
+    WORKDIR /NOKIA
+    COPY /backend/poetry.lock /backend/pyproject.toml /NOKIA/
+
+    RUN echo "$FASTAPI_ENV" \
+    	poetry install
+    WORKDIR / 
