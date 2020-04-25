@@ -34,8 +34,8 @@ RUN apt-get update  &&\
     && pip install "poetry==$POETRY_VERSION" && poetry --version
 
     WORKDIR /NOKIA
-    COPY /backend/poetry.lock /backend/pyproject.toml /NOKIA/
+    COPY ./  /NOKIA/
+    WORKDIR /NOKIA/backend
+    RUN poetry install
 
-    RUN echo "$FASTAPI_ENV" \
-    	poetry install
-    WORKDIR / 
+    EXPOSE 8000
