@@ -14,7 +14,8 @@ ENV FASTAPI_ENV=${FASTAPI_ENV} \
     DOCKERIZE_VERSION=v0.6.1 \
     POETRY_VERSION=1.0.5 \
     POETRY_VIRTUALENVS_CREATE=false \
-    POETRY_CACHE_DIR='/var/cache/pypoetry'
+    POETRY_CACHE_DIR='/var/cache/pypoetry'\
+    FLAKE8_VERSION=3.7.9
     
 RUN apt-get update  &&\
     apt-get install -y \
@@ -36,6 +37,8 @@ WORKDIR /NOKIA
 COPY ./  /NOKIA/
 WORKDIR /NOKIA/backend
 RUN poetry install
+
+RUN pip install "flake8==$FLAKE8_VERSION" && flake8 --version 
 
 EXPOSE 8080
 
