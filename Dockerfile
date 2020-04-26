@@ -16,7 +16,6 @@ ENV FASTAPI_ENV=${FASTAPI_ENV} \
     POETRY_VIRTUALENVS_CREATE=false \
     POETRY_CACHE_DIR='/var/cache/pypoetry'
     
-
 RUN apt-get update  &&\
     apt-get install -y \
     bash \
@@ -30,12 +29,16 @@ RUN apt-get update  &&\
 
     && wget "https://github.com/jwilder/dockerize/releases/download/${DOCKERIZE_VERSION}/dockerize-linux-amd64-${DOCKERIZE_VERSION}.tar.gz" \
     && tar -C /usr/local/bin -xzvf "dockerize-linux-amd64-${DOCKERIZE_VERSION}.tar.gz" \
-    && rm "dockerize-linux-amd64-${DOCKERIZE_VERSION}.tar.gz" && dockerize --version \
-    && pip install "poetry==$POETRY_VERSION" && poetry --version
+    && rm "dockerize-linux-amd64-${DOCKERIZE_VERSION}.tar.gz" && dockerize --version 
+RUN pip install "poetry==$POETRY_VERSION" && poetry --version
 
-    WORKDIR /NOKIA
-    COPY ./  /NOKIA/
-    WORKDIR /NOKIA/backend
-    RUN poetry install
+WORKDIR /NOKIA
+COPY ./  /NOKIA/
+WORKDIR /NOKIA/backend
+RUN poetry install
 
-    EXPOSE 8000
+EXPOSE 8080
+
+ENTRYPOINT ["poetry"]
+
+CMD ["run", "task", "dev-server"]
