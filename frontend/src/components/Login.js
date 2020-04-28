@@ -31,7 +31,7 @@ class Login extends Component{
         <div className="box">
           <h1 className="signIn">Sign In</h1>
         <FormGroup style={{paddingBottom:'5%', paddingTop:'5%'}}>
-          <Input id="user" name="user" type="user" placeholder="Email"/>
+          <Input id="user" name="user" type="email" placeholder="Email"/>
         </FormGroup>
         <FormGroup style={{paddingBottom:'5%'}}>
           <Input id="password" name="password" type="password" placeholder="Password"/>
