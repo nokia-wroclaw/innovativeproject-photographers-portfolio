@@ -11,23 +11,23 @@
     font-family: 'Raleway Light';
     src:url('../fonts/Raleway-Light.ttf');
     font-weight: bold;
-    
+
     &.subHeader{
         @extend .text;
         font-size: 40px;
         color: #FFCB9A;
         float: left;
-        
+
     }
 }
 
 .red{
    padding-top:5px;
    padding-bottom:5px;
-   border-color: #D9B08C; 
-   border-style: none none solid none;  
+   border-color: #D9B08C;
+   border-style: none none solid none;
    border-width: 7px;
-   
+
    background-color: rgba(209, 232, 226,0.2);
    border-radius: 20px;
    box-shadow: 0 50px 50px 0 rgba(0, 0, 0, 0.2), 0 10px 30px 0 rgba(0, 0, 0, 0.19);
