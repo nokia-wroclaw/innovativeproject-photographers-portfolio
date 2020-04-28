@@ -1,13 +1,19 @@
 @media screen and (min-width:1700px){
+  .bkgd{
+    background-image:url('../images/backgroundv2.png'); 
+    background-size:auto;
+    height: 100vh;
+    }
+    
     h1.header{
         text-align: center;
-        padding-top: 7vh;
-        font-size: 90px;
-        font-family: 'Gruppo';
-        src:url('../fonts/Gruppo-Regular.ttf');
+        padding-top: 10vh;
+        font-size: 80px;
+        font-family: 'Raleway Light';
+        src:url('../fonts/Raleway-Light.ttf');
         color: white;
         text-shadow: 2px 2px 4px #000000;
-      }
+    }
       
     .register-form{
         width: 100%;
@@ -28,9 +34,9 @@
     h1.signIn{
         text-align: center;
         color: white;
-        font-family: 'Gruppo';
-        src:url('../fonts/Gruppo-Regular.ttf');
-        font-weight: bold;
+        font-family: 'Raleway Light';
+        src:url('../fonts/Raleway-Light.ttf');
+        
     }
 
    .vertical{
