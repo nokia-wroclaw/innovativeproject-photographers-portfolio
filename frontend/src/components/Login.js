@@ -24,7 +24,6 @@ class Login extends Component{
 
     return(
       <Container className="bkgd" fluid>
-        <title> Login </title>
       <h1  className="header" >Photographer's portfolio</h1>
 
         <Form className="login-form" onSubmit={this.handleSubmit}>

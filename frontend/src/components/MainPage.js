@@ -8,8 +8,8 @@ import { IconContext } from 'react-icons';
 
 class MainPage extends Component{
     render(){
-        return(    
-            <Container className="mainPageBkgd" fluid style={{paddingLeft:'0', paddingRight:'0'}}>      
+        return(
+            <Container className="mainPageBkgd" fluid style={{paddingLeft:'0', paddingRight:'0'}}>
                 <Navbar collapseOnSelect expand="xl" className="color-nav" variant="dark" fixed="">
                   <Navbar.Brand href="#home" className="text" style={{color:'#FFCB9A'}}>Alusia Pimpusia</Navbar.Brand>
                   <Navbar.Toggle aria-controls="responsive-navbar-nav" />
@@ -27,13 +27,13 @@ class MainPage extends Component{
                       </Nav.Link>
                     </Nav>
                   </Navbar.Collapse>
-                </Navbar>            
+                </Navbar>
                 <Container fluid style={{paddingTop:'60px', paddingLeft:'50px', paddingRight:'50px'}}>
                   <Container className="text subHeader red" style={{maxWidth:'350px', paddingLeft:'25px'}}>My albums</Container>
-                  
+
                 </Container>
-            </Container> 
-            
+            </Container>
+
         );
     }
 }
