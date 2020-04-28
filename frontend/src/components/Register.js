@@ -30,7 +30,7 @@ class Register extends Component{
   }
   render(){
       return(
-      <Container>
+      <Container className="bkgd" fluid>
         <h1  className="header" >Photographer's portfolio</h1> 
         <Form className="register-form">
           <Container className="box vertical-divider" >
@@ -84,7 +84,9 @@ class Register extends Component{
               <FormGroup style={{paddingBottom:'5%'}}>
                 <Input value={this.state.password} onChange={(ev)=>this.setState({password:ev.target.value})} type="password" placeholder="Password"/>
               </FormGroup>
-              <Button type="submit" className="btn-lg btn-dark btn-block">Sign in</Button>
+              <Link to="/mainPage" type="submit" className="btn-lg btn-dark btn-block" renderAs={Button} style={{textDecoration: 'none'}}>
+                Sign in
+              </Link>
         {/*
         <div className="text-center">
           <Container style={{paddingTop: '9%'}}>

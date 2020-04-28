@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { Button, Form, FormGroup, Input} from 'reactstrap';
+import { Button, Form, FormGroup, Input, Container} from 'reactstrap';
 import './Login.css';
 import { Link } from 'react-router';
 import Register from './Register';
@@ -31,7 +31,7 @@ class Login extends Component{
   render(){
     
     return(
-      <div>
+      <Container className="bkgd" fluid>
       <h1  className="header" >Photographer's portfolio</h1>
         <Form className="login-form" onSubmit={this.handleSubmit}>
         <div className="box">
@@ -41,11 +41,11 @@ class Login extends Component{
         </FormGroup>
         <FormGroup style={{paddingBottom:'5%'}}>
           <Input value={this.state.password} onChange={(ev)=>this.setState({password:ev.target.value})} type="password" placeholder="Password"/>
-        </FormGroup>
-        <Button type="submit" className="btn-lg btn-dark btn-block">
+        </FormGroup>    
+        <Link to="/mainPage" type="submit" className="btn-lg btn-dark btn-block text-center" renderAs={Button} style={{textDecoration: 'none'}}>
           Sign in
-        </Button>
-        <div className="text-center">
+        </Link>
+        <div className="text-center" style={{paddingTop:'8%'}}>
           <Link to="/register" className="btn btn-dark" role="button">Sign Up</Link>
           <span className="p-2"></span>
           <a href="/forgot-password" className="btn btn-dark" role="button">Forgot Password</a>
@@ -55,7 +55,7 @@ class Login extends Component{
         </div>
         </div>
       </Form>
-      </div>
+      </Container>
     );
   }
 }
