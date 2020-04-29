@@ -1,6 +1,6 @@
 # innovativeproject-photographers-portfolio
 
-## Suggestions about docker image
+### Suggestions about docker image
 1. First, You have to build your image. For that, You have to use the following command
 `sudo docker build -t <name_of_the_image>`, where `-t` stands for "tag".
 2. Next, You should run builded image. Fot that, use the following command:
