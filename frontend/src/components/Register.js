@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import { Button, Form, FormGroup, Input, Container, Row, Col} from 'reactstrap';
 import { Link } from 'react-router';
 import './Register.scss';
+import ky from 'ky';
 
 class Register extends Component{
   constructor(props) {
@@ -17,27 +18,18 @@ class Register extends Component{
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
-}
+  }
 
-    handleSubmit = e => {
-    e.preventDefault();
-    const data = new FormData(e.target);
-    const requestOptions = {
-        method: 'POST',
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'},
-        body: JSON.stringify({
+    async handleSubmit(event) {
+        event.preventDefault();
+        await ky.post('http://localhost:3000/register', {json: {
             email_address: this.state.email_address,
             first_name: this.state.first_name,
             last_name: this.state.last_name,
             nickname: this.state.nickname,
             additional_email : this.state.additional_email,
-            password: this.state.password})
-        };
-    fetch('/register', requestOptions)
-        .then(response => response.json())
-        .then(data => this.setState({postId:data.id}));
+            password: this.state.password
+    }}).json();
     }
 
     render(){
