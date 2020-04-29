@@ -9,4 +9,5 @@
 
 ### With docker-compose
 Alternative way to build and run this image is by running following command in the main directory:
+
 `docker-compose up`
