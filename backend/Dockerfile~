@@ -35,13 +35,11 @@ RUN pip install "poetry==$POETRY_VERSION" && poetry --version
 
 WORKDIR /NOKIA
 COPY ./  /NOKIA/
-WORKDIR /NOKIA/backend
 RUN poetry install
 
 RUN pip install "flake8==$FLAKE8_VERSION" && flake8 --version 
 
-EXPOSE 8080
 
 ENTRYPOINT ["poetry"]
 
-CMD ["run", "task", "dev-server"]
+CMD ["run", "task", "dev-server", "--host", "0.0.0.0"]
