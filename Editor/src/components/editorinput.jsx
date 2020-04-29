@@ -1,5 +1,7 @@
-import React from "react";
+import React, {Component,useState} from "react";
 import styled from "styled-components";
+import { Button, Form, FormGroup, Input,} from 'reactstrap';
+import ky from "ky";
 
 const Container =styled.div`
     width: 50%;
@@ -30,16 +32,70 @@ const TextArea = styled.textarea`
     // background: #737373;
     `; 
 
+
     
 
 
 
-export function EInput(props) {
-        return <Container>
-            <Title>Jinja2 code </Title>
-            <TextArea id="text"> Hello world </TextArea>  
-        </Container>
-    }
 
+      
+
+//  function handleClick(e) {
+//       e.preventDefault();
+//       console.log('Kliknięto w link.');
+//      }
+    
+
+    
+
+
+// export function EInput(props) {
+
+
+    class Texted extends Component{
+     constructor(props){
+     super(props)
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.state={
+    description: ""
+        
+        }
+
+     }
+
+
+     handleSubmit = e => {
+         e.preventDefault()
+         fetch('/', {
+                   method: 'post',
+                   headers: {'Content-Type':'application/json'},
+                   body: JSON.stringify({
+                    "description": this.state.description
+                   })
+                 })
+                 .then(response => response.json())
+                 .then(data => this.setState({postId:data.id}));
+     }
+
+
+
+
+
+     render(){
+    
+        return( 
+        <Container>
+            <Form className="text-description" onSubmit={this.handleSubmit}>
+            <Title>Jinja2 code </Title>
+            <button type="submit" >Test</button>
+            <TextArea id="description" value={this.state.description} onChange={(ev)=>this.setState({description:ev.target.value})} /> 
+           
+            </Form>
+        </Container>
+        );}}
+    export default Texted;
+///////////////////////////////////////////////////////////////////////////////////
+
+    
 
     

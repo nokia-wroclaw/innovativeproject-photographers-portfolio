@@ -2,9 +2,9 @@ import React from 'react';
 
 import './App.css';
 import styled from "styled-components";
-import { EInput } from './components/editorinput';
-import { Result } from './components/result';
-
+import  {EInput}  from './components/editorinput';
+import { Result } from './components/result'
+import  Texted  from './components/editorinput'
 
 
 const AppContainer = styled.div`
@@ -36,7 +36,8 @@ export default function App() {
     <AppContainer>
       <Title>Editor UI</Title>
      <EditorContainer>
-     <EInput />
+      <Texted /> 
+     {/* <EInput />  */}
      <Result />
      </EditorContainer>
     </AppContainer>

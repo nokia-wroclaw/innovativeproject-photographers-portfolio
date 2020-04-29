@@ -19,5 +19,6 @@ border-bottom: 1px solid rgba(15,15,15,0.3);
 export function Result(props){
     return <Container>
         <Title>Preview</Title>
+        <button>Save</button>
     </Container>
 }
