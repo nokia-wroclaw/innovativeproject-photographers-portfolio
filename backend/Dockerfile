@@ -2,8 +2,6 @@ FROM python:3.8.2-buster
 
 LABEL maintainer="akrolewiecki985@gmail.com"
 
-ARG FASTAPI_ENV
-
 ENV FASTAPI_ENV=${FASTAPI_ENV} \
     PYTHONFAULTHANDLER=1 \
     PYTHONHASHSEED=random \
