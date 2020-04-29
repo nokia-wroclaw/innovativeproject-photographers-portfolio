@@ -1,0 +1,13 @@
+version: '3'
+
+services:
+  backend:
+   build:
+    context: './backend'
+    dockerfile: 'Dockerfile'
+   container_name: 'photographers_portfolio'
+   ports:
+    - '8000:8000'
+   volumes:
+    - './backend:/usr/src/app'
+   
