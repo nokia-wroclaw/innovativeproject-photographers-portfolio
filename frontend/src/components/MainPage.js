@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import { Navbar, Nav} from 'react-bootstrap';
-import { Link } from 'react-router';
 import { Container } from 'reactstrap';
 import './MainPage.scss';
 import {TiPower} from 'react-icons/ti'
