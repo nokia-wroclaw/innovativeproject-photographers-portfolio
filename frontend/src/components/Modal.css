@@ -1,0 +1,40 @@
+.popup {  
+    position: absolute;  
+    width: 100%;  
+    height: 100%;  
+    justify-content: center;
+    align-items: center; 
+    top:0;
+    left: 0;
+    display:flex;
+    background-color: rgba(0,0,0, 0.7);  
+  }  
+  .popup-inner {  
+    position: absolute;  
+    width:500px;
+    height:200px;     
+    border-radius: 20px;  
+    background-color: rgba(51, 51, 51,0.2);  
+    text-align: center;
+    border-style: solid;
+    border-width: 5px;
+    border-color: rgba(111, 68, 78,1);
+  }
+
+  h1.text{
+    font-family: 'Raleway Light';
+    src:url('../fonts/Raleway-Light.ttf');
+    font-weight: bold;
+    font-size: 30px;
+    color:#98878f;
+}
+
+button.close{
+    right:0;
+    background-color: rgba(111, 68, 78,1); 
+    border-color: rgba(111, 68, 78,1);
+}
+
+.btn-brown{
+  background-color:  #98878f;
+}
