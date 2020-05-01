@@ -6,12 +6,12 @@ import ky from "ky";
 
 
 class Login extends Component{
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
-    handleSubmit(event) {
+     handleSubmit(event) {
         event.preventDefault();
         const data = new FormData(event.target);
         (async () => {
