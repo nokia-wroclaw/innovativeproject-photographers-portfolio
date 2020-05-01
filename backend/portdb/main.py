@@ -98,6 +98,10 @@ async def get_current_user(token = Depends(get_access_token), db: Session = Depe
         raise credentials_exception
     return user
 
+@app.get("http://localhost:3000/register")
+async def read_item(request: Request):
+    return {"request": request }
+
 @app.get("/user/me", response_model=schemas.User)
 async def read_users_me(current_user: schemas.User = Depends(get_current_user)):
     return current_user
