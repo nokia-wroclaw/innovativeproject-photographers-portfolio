@@ -107,10 +107,10 @@ class UserCreate(UserBase):
     password: str
 class User(UserBase):
     id: int 
+    user_token: str = None
     social_media: List[Social_media_link] = []
     msg: List[Message] = []
     pages: List[Main_page] = [] 
-
     class Config:
         orm_mode = True
 

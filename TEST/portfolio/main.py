@@ -9,16 +9,14 @@ from passlib.context import CryptContext
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 
+from starlette.requests import Request
+from starlette.responses import Response
 
 from .database import SessionLocal, engine
 from . import models, schemas, crud
 
 #from database import SessionLocal, engine
 #import models, schemas, crud
-
-SECRET_KEY = "09d25e094faa6ca2556c818166b7a9563b93f7099f6f0f4caa6cf63b88e8d3e7"
-ALGORITHM = "HS256"
-ACCESS_TOKEN_EXPIRE_MINUTES = 30
 
 models.Base.metadata.create_all(bind=engine)
 
@@ -54,7 +52,7 @@ app.mount("/static", StaticFiles(directory="static"), name="static")
 templates = Jinja2Templates(directory="templates")
 
 
-def create_access_token(*, data: dict, expires_delta: timedelta = None):
+def create_access_token(*, data: dict, expires_delta: timedelta = None)->str:
     to_encode = data.copy()
     if expires_delta:
         expire = datetime.utcnow() + expires_delta
@@ -62,16 +60,20 @@ def create_access_token(*, data: dict, expires_delta: timedelta = None):
         expire = datetime.utcnow() + timedelta(minutes=15)
     to_encode.update({"exp": expire})
 
-    encoded_jwt = jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
+    encoded_jwt = jwt.encode(to_encode, crud.SECRET_KEY, algorithm=crud.ALGORITHM)
     return encoded_jwt        
 
 @app.get("/")
 async def read_item(request: Request):
     return templates.TemplateResponse("Register.html", {"request": request })
 
+@app.get("/login")
+async def read_item(request: Request):
+    return templates.TemplateResponse("Login.html", {"request": request })
+
 
 @app.post("/login", response_model=schemas.Token)
-async def login_for_access_token(form_data: OAuth2PasswordRequestForm = Depends(), db: Session = Depends(get_db)):
+async def login_for_access_token(form_data: OAuth2PasswordRequestForm = Depends(), db: Session = Depends(get_db))-> Response:
     user = crud.authenticate_user(db, form_data.username, form_data.password)
     if not user:
         raise HTTPException(
@@ -79,13 +81,29 @@ async def login_for_access_token(form_data: OAuth2PasswordRequestForm = Depends(
             detail="Incorrect username or password",
             headers={"WWW-Authenticate": "Bearer"},
         )
-    access_token_expires = timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
+    access_token_expires = timedelta(minutes=crud.ACCESS_TOKEN_EXPIRE_MINUTES)
     access_token = create_access_token(
         data={"sub": user.email_address}, expires_delta=access_token_expires
     )
     token1.access_token = access_token
-    return {"access_token": access_token, "token_type": "bearer"}
+    user.user_token = access_token
+    crud.save_user_token(db, user)
+    response = Response(status_code=200)
+
+    response.set_cookie(
+        key="username",
+        value=form_data.username,
+        expires=crud.ACCESS_TOKEN_EXPIRE_MINUTES
+    )
+    return response
     
+@app.get("/logout")
+async def logout(request: Request, db: Session = Depends(get_db)) -> Response:
+    username_cookie = request.cookies["username"]
+    response = Response()
+    crud.logout_user(db, username_cookie)
+    response.delete_cookie(key="username")
+    return response
 
 #User
 #async def get_current_user(token: str = Depends(oauth2_scheme), db: Session = Depends(get_db)):
@@ -96,7 +114,7 @@ async def get_current_user(token = Depends(get_access_token), db: Session = Depe
         headers={"WWW-Authenticate": "Bearer"},
     )
     try:
-        payload = jwt.decode(token.access_token, SECRET_KEY, algorithms=[ALGORITHM])
+        payload = jwt.decode(token.access_token, crud.SECRET_KEY, algorithms=[crud.ALGORITHM])
         username: str = payload.get("sub")
         if username is None:
             raise credentials_exception
@@ -109,23 +127,24 @@ async def get_current_user(token = Depends(get_access_token), db: Session = Depe
         raise credentials_exception
     return user
 
-@app.get("/user/me", response_model=schemas.User)
-async def read_users_me(current_user: schemas.User = Depends(get_current_user)):
-    return current_user
-
-@app.get("/user/{user_id}", response_model=schemas.User)
-def read_user(user_id: int, db: Session = Depends(get_db)):
-    db_user = crud.get_user_by_id(db, user_id)
-    if db_user is None:
-        raise HTTPException(status_code=404, detail="User not found")
-    return db_user
-
 @app.post("/user/", response_model=schemas.User)
 def create_user(user: schemas.UserCreate, db: Session = Depends(get_db)):
     db_user = crud.get_user_by_email(db, email=user.email_address)
     if db_user:
         raise HTTPException(status_code=400, detail="Emali istnieje w bazie")
     return crud.create_user(db, user=user)       
+
+
+
+
+
+
+
+
+
+
+
+
 
 #Message
 @app.post("/message/", response_model=schemas.Message)
@@ -135,7 +154,7 @@ def create_message_for_users(user_id: int, message: schemas.MessageCreate, db: S
 
 #Page
 @app.post("/page/", response_model=schemas.Main_page)
-def create_message_for_users(user_id: int, page: schemas.Main_pageCreate, db: Session = Depends(get_db)):
+def create_page_for_users(user_id: int, page: schemas.Main_pageCreate, db: Session = Depends(get_db)):
     return crud.create_user_page(db, page, user_id)     
 
 
@@ -146,6 +165,6 @@ def create_photos(page_id: int, content_id: int, cont_list: bool, photos: schema
 
 
 
-if __name__ == "__main__":
-    import uvicorn
-    uvicorn.run(app, host="0.0.0.0", port=8000)     
+# if __name__ == "__main__":
+#     import uvicorn
+#     uvicorn.run(app, host="0.0.0.0", port=8000)     

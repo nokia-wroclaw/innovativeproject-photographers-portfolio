@@ -1,3 +1,4 @@
+from sqlalchemy import update
 from sqlalchemy.orm import Session
 from passlib.context import CryptContext
 
@@ -6,6 +7,10 @@ from . import models, schemas
 #import models, schemas
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
+SECRET_KEY = "09d25e094faa6ca2556c818166b7a9563b93f7099f6f0f4caa6cf63b88e8d3e7"
+ALGORITHM = "HS256"
+ACCESS_TOKEN_EXPIRE_MINUTES = 10
+
 
 #User
 def get_password_hash(password):
@@ -42,6 +47,35 @@ def create_user(portfolio_db: Session, user: schemas.UserCreate):
     portfolio_db.commit()
     portfolio_db.refresh(portfolio_db_user)
     return portfolio_db_user
+
+def save_user_token(portfolio_db: Session, user: models.User):
+    portfolio_db.commit()
+    portfolio_db.refresh(user)
+    return user
+
+def logout_user(portfolio_db: Session, email: str):
+    user_object = get_user_by_email(portfolio_db, email)
+    user_object.user_token = None
+    portfolio_db.commit()
+    portfolio_db.refresh(user_object)
+    return user_object
+
+# def verify_token(token)
+#    credentials_exception = HTTPException(
+#         status_code=status.HTTP_401_UNAUTHORIZED,
+#         detail="Could not validate credentials",
+#         headers={"WWW-Authenticate": "Bearer"},
+#     )   
+# try:
+#     payload = jwt.decode(token.access_token, SECRET_KEY, algorithms=[ALGORITHM])
+#     username: str = payload.get("sub")
+#     user = get_user_by_email(username)
+#     if user is None
+#         raise credentials_exception
+#     return user
+# except PyJWTError:
+#     raise credentials_exception
+
 
 #Social
 def get_user_sm_link(portfolio_db: Session, sm_link: str):
