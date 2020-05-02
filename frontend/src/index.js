@@ -4,7 +4,6 @@ import './index.css';
 import App from './App';
 import Login from './components/Login'
 import Register from './components/Register'
-import MainPageSwitch from './components/MainPageSwitch'
 import MainPage from './components/MainPage'
 import MainPageAlbum from './components/MainPageAlbum'
 import MainPagePage from './components/MainPagePage'
@@ -18,7 +17,6 @@ ReactDOM.render(
     <Route path="/" component={App} />
     <Route path="/login" component={Login} />
     <Route path="/register" component={Register} />
-    <Route path="/mainPageSwitch" component={MainPageSwitch} />
     <Route path="/mainPage" component={MainPage} />
     <Route path="/mainPageAlbum" component={MainPageAlbum} />
     <Route path="/mainPagePage" component={MainPagePage} />
