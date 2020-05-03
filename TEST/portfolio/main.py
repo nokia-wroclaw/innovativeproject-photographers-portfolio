@@ -135,33 +135,32 @@ def create_user(user: schemas.UserCreate, db: Session = Depends(get_db)):
     return crud.create_user(db, user=user)       
 
 
-
-
-
-
-
-
-
-
-
-
-
-#Message
-@app.post("/message/", response_model=schemas.Message)
-def create_message_for_users(user_id: int, message: schemas.MessageCreate, db: Session = Depends(get_db)):
-    return crud.create_message(db, message, user_id) 
-
-
-#Page
-@app.post("/page/", response_model=schemas.Main_page)
-def create_page_for_users(user_id: int, page: schemas.Main_pageCreate, db: Session = Depends(get_db)):
-    return crud.create_user_page(db, page, user_id)     
-
-
 #Photos
-@app.post("/photos/", response_model=schemas.Photos)
-def create_photos(page_id: int, content_id: int, cont_list: bool, photos: schemas.PhotosCreate, db: Session = Depends(get_db)):
-    return "aa"
+@app.post("/photos")
+async def create_files(file: bytes = File(...)):
+    return {"file_size": len(file)}
+
+@app.post("/uploadphotos", response_model=schemas.Photos)
+# def create_upload_photos(page_id: int, content_id: int, cont_list: bool, photos: schemas.PhotosCreate, db: Session = Depends(get_db),file: UploadFIle = File(...)):
+def create_upload_photos(file: UploadFIle = File(...)):
+ 
+    file_name = file.file_name
+    with open("./portfolio/files/"+file_name, 'wb') as fn:
+        fn.write(file.file.read())
+    fn.close()
+    return {"filename":file.filename}
+
+
+# #Message
+# @app.post("/message/", response_model=schemas.Message)
+# def create_message_for_users(user_id: int, message: schemas.MessageCreate, db: Session = Depends(get_db)):
+#     return crud.create_message(db, message, user_id) 
+
+
+# #Page
+# @app.post("/page/", response_model=schemas.Main_page)
+# def create_page_for_users(user_id: int, page: schemas.Main_pageCreate, db: Session = Depends(get_db)):
+#     return crud.create_user_page(db, page, user_id)     
 
 
 
