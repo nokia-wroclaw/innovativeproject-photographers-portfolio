@@ -1,1 +1,0 @@
-# innovativeproject-photographers-portfolio
