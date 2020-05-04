@@ -4,7 +4,6 @@ import './Login.css';
 import { Link } from 'react-router';
 import ky from "ky";
 
-
 class Login extends Component{
     constructor(props) {
         super(props)
@@ -21,8 +20,11 @@ class Login extends Component{
 
        async submitHandler (e) {
           //  try{
-               e.preventDefault();
-               return await ky.post("http://127.0.0.1:8000/login", {body: this.state});
+            e.preventDefault();
+            const formData = new FormData();
+            formData.append("username", this.state.username);
+            formData.append("password", this.state.password);
+               return await ky.post("http://127.0.0.1:8000/login", {body: formData});
 
           //  }
           // catch (e) {
