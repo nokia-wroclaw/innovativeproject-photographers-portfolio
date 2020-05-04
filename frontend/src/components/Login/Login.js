@@ -22,7 +22,7 @@ class Login extends Component{
        async submitHandler (e) {
           //  try{
                e.preventDefault();
-               return await ky.post("http://127.0.0.1:8000/login", {json: {body: this.state}}).json();
+               return await ky.post("http://127.0.0.1:8000/login", {body: this.state});
 
           //  }
           // catch (e) {
