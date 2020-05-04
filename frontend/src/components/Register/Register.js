@@ -24,14 +24,14 @@ class Register extends Component {
     }
 
    async submitHandler (e) {
-       try{
+      //  try{
            e.preventDefault();
-           console.log(this.state);
-           return await ky.post("/register", {json: {body: this.state}}).json()
-       }
-      catch (e) {
-         console.log("Register error");
-      }
+           return await ky.post("http://127.0.0.1:8000/register", {json: {body: this.state}}).json();
+
+      //  }
+      // catch (e) {
+      //    console.log("Register error");
+      // }
     }
 
   render() {

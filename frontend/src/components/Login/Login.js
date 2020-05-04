@@ -6,42 +6,59 @@ import ky from "ky";
 
 
 class Login extends Component{
-        constructor(props) {
-                super(props);
-                this.handleSubmit = this.handleSubmit.bind(this);
+    constructor(props) {
+        super(props)
+        this.state = {
+            email_address: "",
+            password: ""
+        };
+        this.submitHandler = this.submitHandler.bind(this)
+      }
+
+        changeHandler = (e) => {
+            this.setState({[e.target.name]: e.target.value})
         }
 
-         handleSubmit(event) {
-                event.preventDefault();
-                const data = new FormData(event.target);
-                (async () => {
-                            await ky.post("/login", {
-                                body: data
-                        });
-                    })();
-        }
+       async submitHandler (e) {
+          //  try{
+               e.preventDefault();
+               return await ky.post("http://127.0.0.1:8000/login", {json: {body: this.state}}).json();
 
+          //  }
+          // catch (e) {
+          //    console.log("Register error");
+          // }
+        }
     render(){
+        const {email_address, password} = this.state
         return(
             <Container className="bkgd" fluid>
             <h1  className="header" >Photographer's portfolio</h1>
-                <Form className="login-form" onSubmit={this.handleSubmit}>
+                <Form className="login-form" onSubmit={this.submitHandler}>
                 <div className="box">
                     <h1 className="signIn">Sign In</h1>
                 <FormGroup style={{paddingBottom:'5%', paddingTop:'5%'}}>
-                    <Input id="username" name="username" type="email" placeholder="Email"/>
+                <Input
+                id="email_address"
+                name="email_address"
+                type="email"
+                value={email_address}
+                onChange={this.changeHandler}
+                placeholder="Email"/>
                 </FormGroup>
                 <FormGroup style={{paddingBottom:'5%'}}>
-                    <Input id="password" name="password" type="password" placeholder="Password"/>
+                <Input
+                id="password"
+                name="password"
+                type="password"
+                value={password}
+                onChange={this.changeHandler}
+                placeholder="Password" />
                 </FormGroup>
-                <Button type="submit" className="btn-lg btn-dark btn-block text-center" style={{textDecoration: 'none'}}>
-                    <Link to="/mainPage" style={{textDecoration: 'none', color:'white'}}>
-                    Sign in
-                    </Link>
-                </Button>
+                <Button className="btn-lg btn-dark btn-block" type="submit">Sign In</Button>
                 <div className="text-center" style={{paddingTop:'8%'}}>
-                <Button to="/register" className="btn btn-dark" role="button">
-                    <Link to="/mainPage" style={{textDecoration: 'none', color:'white'}}>
+                <Button className="btn btn-dark" role="button">
+                    <Link to="/register" style={{textDecoration: 'none', color:'white'}}>
                     Sign Up
                     </Link>
                 </Button>
