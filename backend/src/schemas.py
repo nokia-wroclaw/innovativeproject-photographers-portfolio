@@ -103,14 +103,15 @@ class UserCreate(UserBase):
     first_name: str
     last_name: str
     nickname: str = None
-    additional_email: str = None
     password: str
+    repassword: str
 class User(UserBase):
     id: int 
+    user_token: str = None
+    additional_email: str = None
     social_media: List[Social_media_link] = []
     msg: List[Message] = []
     pages: List[Main_page] = [] 
-
     class Config:
         orm_mode = True
 
