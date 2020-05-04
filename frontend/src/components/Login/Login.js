@@ -22,7 +22,7 @@ class Login extends Component{
           //  try{
             e.preventDefault();
             const formData = new FormData();
-            formData.append("username", this.state.username);
+            formData.append("email_adress", this.state.email_address);
             formData.append("password", this.state.password);
                return await ky.post("http://127.0.0.1:8000/login", {body: formData});
 

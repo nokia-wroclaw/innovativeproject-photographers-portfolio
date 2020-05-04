@@ -27,7 +27,15 @@ class Register extends Component {
    async submitHandler (e) {
       //  try{
            e.preventDefault();
-           return await ky.post("http://127.0.0.1:8000/register", {json: {body: this.state}}).json();
+           const formData = new FormData();
+           formData.append("email_adress", this.state.email_address);
+           formData.append("first_name", this.state.first_name);
+           formData.append("last_name", this.state.last_name);
+           formData.append("nickname", this.state.nickname);
+           formData.append("additional_email", this.state.additional_email);
+           formData.append("password", this.state.password);
+           formData.append("repassword", this.state.repassword);
+           return await ky.post("http://127.0.0.1:8000/register", {json: {body: formData}}).json();
 
       //  }
       // catch (e) {
