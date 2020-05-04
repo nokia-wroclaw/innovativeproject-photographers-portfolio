@@ -22,22 +22,22 @@ ACCESS_TOKEN_EXPIRE_MINUTES = 10
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
-class RegisterForm:
-    def __init__(
-        self, #this
-        email_address: str = Form(...),
-        first_name: str = Form(...),
-        last_name: str = Form(...),
-        nickname: str = Form(...),
-        password: str = Form(...),
-        repassword: str = Form(...),
-    ):
-        self.email_address = email_address
-        self.first_name = first_name
-        self.last_name = last_name
-        self.nickname = nickname
-        self.password = password
-        self.repassword = repassword
+# class RegisterForm:
+#     def __init__(
+#         self, #this
+#         email_address: str = Form(...),
+#         first_name: str = Form(...),
+#         last_name: str = Form(...),
+#         nickname: str = Form(...),
+#         password: str = Form(...),
+#         repassword: str = Form(...),
+#     ):
+#         self.email_address = email_address
+#         self.first_name = first_name
+#         self.last_name = last_name
+#         self.nickname = nickname
+#         self.password = password
+#         self.repassword = repassword
 
 #User authentication
 def get_password_hash(password) -> str:
@@ -46,7 +46,7 @@ def get_password_hash(password) -> str:
 def verify_password(plain_password, hashed_password) -> bool:
     return pwd_context.verify(plain_password, hashed_password)
 
-def authenticate_user(portfolio_db: Session, username: str, password: str):
+def authenticate_user(portfolio_db: Session, username: str, password: str) -> models.User:
     user = get_user_by_email(portfolio_db, username)
     if not user:
         return False
@@ -65,7 +65,7 @@ def create_user(portfolio_db: Session, user: schemas.UserCreate) -> models.User:
     portfolio_db.refresh(portfolio_db_user)
     return portfolio_db_user
 
-def create_access_token(*, data: dict) -> jwt:
+def create_access_token(*, data: dict) -> str:
     to_encode = data.copy()
     expires_delta = timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
     if expires_delta:
@@ -94,9 +94,23 @@ def verify_token(portfolio_db: Session, email_address) -> str:
     except ExpiredSignatureError:
         raise TokenVerificationError
 
+def delete_access_token(portfolio_db: Session, email: str) -> models.User:
+    try:
+        user = get_user_by_email(portfolio_db, email)
+        if user is None:
+            raise TokenRemovalError
+        user.user_token = None
+        portfolio_db.commit()
+        portfolio_db.refresh(user)
+        return user
+    except ExpiredSignatureError:
+        raise TokenRemovalError
+
 class TokenVerificationError(Exception):
     """Raised when user does not provide valid access token."""
 class CookieVerificationError(Exception):
     """Raised when user does not provide valid access token."""
 class UserVerificationError(Exception):
     """Raised wher user does not provide valid password or username."""
+class TokenRemovalError(Exception):
+    """Raised when token was not erased from database."""
