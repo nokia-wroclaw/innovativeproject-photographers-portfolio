@@ -14,7 +14,8 @@ class Register extends Component {
       last_name: "",
       nickname: "",
       additional_email: "",
-      password: ""
+      password: "",
+      repassword: ""
     };
     this.submitHandler = this.submitHandler.bind(this)
   }
@@ -35,7 +36,7 @@ class Register extends Component {
     }
 
   render() {
-    const {email_address, first_name, last_name, nickname, additional_email, password} = this.state
+    const {email_address, first_name, last_name, nickname, additional_email, password, repassword} = this.state
     return (
     <Container className="bkgd" fluid>
       <h1 className="header">Photographer's portfolio</h1>
@@ -99,7 +100,13 @@ class Register extends Component {
                 placeholder="Password" />
               </FormGroup>
               <FormGroup style={{ paddingBottom: '5%' }}>
-                <Input type="password" placeholder="Confirm Password" />
+              <Input
+                id="repassword"
+                name="repassword"
+                type="password"
+                value={repassword}
+                onChange={this.changeHandler}
+                placeholder="Confirm Password" />
               </FormGroup>
               <Button className="btn-lg btn-dark btn-block" type="submit">Sign Up</Button>
               <div className="text-center" style={{ paddingTop: '5%', color: "white" }}>
