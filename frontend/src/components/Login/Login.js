@@ -21,9 +21,10 @@ class Login extends Component{
        async submitHandler (e) {
           //  try{
             e.preventDefault();
-            const formData = new FormData();
-            formData.append("email_adress", this.state.email_address);
-            formData.append("password", this.state.password);
+            var formData = {
+                email_adress: this.state.email_address,
+                password: this.state.password
+            }
                return await ky.post("http://127.0.0.1:8000/login", {body: formData});
 
           //  }
