@@ -4,6 +4,7 @@ import { Container } from 'reactstrap';
 import './MainPage.scss';
 import {TiPower} from 'react-icons/ti'
 import { IconContext } from 'react-icons';
+import { Link } from "react-router-dom";
 
 class MainPage extends Component{
     render(){
@@ -16,7 +17,9 @@ class MainPage extends Component{
                     <Nav className="mr-auto"></Nav>
                     <Nav>
                       <Nav.Link href="#deets" className="text" style={{color:'#FFCB9A'}}>Photos</Nav.Link>
-                      <Nav.Link href="#deets" className="text" style={{color:'#FFCB9A'}}>Edit Page</Nav.Link>
+                      <Nav.Link >
+                      <Link to="/editor" className="text" style={{color:'#FFCB9A'}}> Edit Page </Link>
+                      </Nav.Link>
                       <Nav.Link href="#deets" className="text" style={{color:'#FFCB9A'}}>Messages</Nav.Link>
                       <Nav.Link href="#deets" className="text" style={{color:'#FFCB9A'}}>Settings</Nav.Link>
                       <Nav.Link href="#deets" >
