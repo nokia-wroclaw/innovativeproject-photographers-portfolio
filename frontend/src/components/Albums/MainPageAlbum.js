@@ -2,10 +2,10 @@ import React, {Component, useState} from 'react';
 import { Navbar, Nav} from 'react-bootstrap';
 import { Link } from 'react-router';
 import { Container ,Row, Button, Col} from 'reactstrap';
-import Footer from './Footer'
+import Footer from '../Footer/Footer'
 import Modal from './Modal'
 import ListItems from './ListAlbum'
-import './MainPage.scss';
+import '../MainPage.scss';
 import {IoIosPower, IoIosAdd, IoIosImages, IoIosCube} from 'react-icons/io'
 import { IconContext } from 'react-icons';
 
@@ -22,8 +22,8 @@ class MainPageAlbum extends Component{
       show: !this.state.show
     });
   };
-  
-  
+
+
   constructor(props){
     super(props);
     this.state = {
@@ -71,7 +71,7 @@ class MainPageAlbum extends Component{
   setUpdate(text,key){
     console.log("items:"+this.state.items);
     const items = this.state.items;
-    items.map(item=>{      
+    items.map(item=>{
       if(item.key===key){
         console.log(item.key +"    "+key)
         item.text= text;
@@ -80,16 +80,16 @@ class MainPageAlbum extends Component{
     this.setState({
       items: items
     })
-    
-   
+
+
   }
 
     render(){
-        return(    
-            <Container className="mainPageBkgd" fluid style={{paddingLeft:'0', paddingRight:'0'}}>      
+        return(
+            <Container className="mainPageBkgd" fluid style={{paddingLeft:'0', paddingRight:'0'}}>
                 <Navbar collapseOnSelect expand="xl" className="color-nav" variant="dark" fixed="">
                   <Navbar.Brand>
-                    <Link to="/mainPage" className="text nav" style={{textDecoration:'none', color:'#077cc5'}}>
+                    <Link href="/mainPage" className="text nav" style={{textDecoration:'none', color:'#077cc5'}}>
                       Alusia Pimpusia
                     </Link>
                   </Navbar.Brand>
@@ -121,15 +121,15 @@ class MainPageAlbum extends Component{
                         <IoIosCube/>
                         <span className="p-2"></span>
                         My pages
-                      </Nav.Link>                      
+                      </Nav.Link>
                     </Nav>
                 </Col>
-                <Col>                
-                <Row className="text-center" >              
+                <Col>
+                <Row className="text-center" >
                   <Container fluid style={{paddingTop:'80px',alignItems:'center', display:'flex'}}>
-                    <Container className="text subHeader title" style={{paddingLeft:'40px'}}>My Albums</Container>                 
-                  </Container>                  
-                </Row> 
+                    <Container className="text subHeader title" style={{paddingLeft:'40px'}}>My Albums</Container>
+                  </Container>
+                </Row>
                 <Row className="text-center" style={{paddingTop:'5%'}} >
                   <Container className="add-element" fluid>
                   <h1 className="texth">Please enter Album Name:</h1>
@@ -147,19 +147,19 @@ class MainPageAlbum extends Component{
                   </Container>
                 </Row>
                 <Row style={{paddingTop:'40px', paddingLeft:'50px', paddingLeft:'10%', paddingTop:'5%'}}>
-                
-        
+
+
           <ListItems items={this.state.items} deleteItem={this.deleteItem} setUpdate={this.setUpdate}/>
-        
-         
-                </Row>                 
-                </Col>  
+
+
+                </Row>
+                </Col>
                 </Row>
                 <Container fluid style={{position:'fixed', bottom:'0', paddingLeft:'0', paddingRight:'0'}}>
                   <Footer />
                 </Container>
-            </Container> 
-            
+            </Container>
+
         );
     }
 }

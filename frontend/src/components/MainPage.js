@@ -1,20 +1,20 @@
 import React, {Component, useState} from 'react';
 import { Navbar, Nav} from 'react-bootstrap';
-import { Link } from 'react-router';
 import { Container ,Row,  Col} from 'reactstrap';
 import './MainPage.scss';
-import Footer from './Footer'
+import Footer from './Footer/Footer'
 import {IoIosPower, IoIosImages, IoIosCube} from 'react-icons/io'
 import { IconContext } from 'react-icons';
+import { Link } from "react-router-dom";
 
 class MainPage extends Component{
   render(){
-    return(    
-      <Container className="mainPageBkgd" fluid style={{paddingLeft:'0', paddingRight:'0'}}>      
+    return(
+      <Container className="mainPageBkgd" fluid style={{paddingLeft:'0', paddingRight:'0'}}>
           <Navbar collapseOnSelect expand="xl" className="color-nav" variant="dark" fixed="">
             <Navbar.Brand>
-              <Link to="/mainPage" className="text nav" style={{textDecoration:'none', color:'#077cc5'}}>
-                Alusia Pimpusia
+              <Link href="/mainPage" className="text nav" style={{textDecoration:'none', color:'#077cc5'}}>
+                Jan Kowalski
               </Link>
             </Navbar.Brand>
             <Navbar.Toggle aria-controls="responsive-navbar-nav" />
@@ -36,7 +36,7 @@ class MainPage extends Component{
           <Row className="text-center" style={{paddingTop:'6%'}}>
             <Col style={{paddingLeft:'12%'}}>
             <button className="buttonLightPink">
-              <Link to="/mainPageAlbum" className="iconPink" style={{textDecoration:'none'}}>
+              <Link href="/mainPageAlbum" className="iconPink" style={{textDecoration:'none'}}>
               <Row>
                 <IconContext.Provider value={{size:'30em'}}>
                   <IoIosImages/>
@@ -47,10 +47,10 @@ class MainPage extends Component{
               </Row>
               </Link>
             </button>
-            </Col> 
+            </Col>
             <Col style={{paddingRight:'12%'}}>
               <button className="buttonLightPink">
-                <Link to="/mainPagePage" className="iconPink" style={{textDecoration:'none'}}>
+                <Link href="/mainPagePage" className="iconPink" style={{textDecoration:'none'}}>
                   <Row>
                   <IconContext.Provider value={{size:'30em'}}>
                     <IoIosCube/>
@@ -67,7 +67,6 @@ class MainPage extends Component{
             <Footer />
           </Container>
       </Container>
-      
     );
 }
 }

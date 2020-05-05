@@ -28,7 +28,7 @@
     border-style: solid;
     border-color: rgba(255,255,255,.3);
     border-width: 1px 0 0 0;
- 
+
     @media screen and (min-width: 30em) {
      border-width: 0 1px 0 0;
     }
@@ -53,7 +53,7 @@
 }
 
 .editor-form{
-    
+
     max-width:95%;
     height:750px;
     padding-top: 7vh;
@@ -63,7 +63,7 @@
     box-shadow: 0 50px 50px 0 rgba(0, 0, 0, 0.2), 0 10px 30px 0 rgba(0, 0, 0, 0.19);
     margin:auto;
     padding:10px;
-    margin: auto;  
+    margin: auto;
     position: sticky;
     border-style:solid;
     border-color:#5FBFF9;
@@ -84,14 +84,14 @@ textarea{
     padding:20px;
 }
 
-.render{   
+.render{
     width:95%;
     height:610px;
     border-style:solid;
     border-width: 1px;
     border-radius: 10px;
     background-color: white;
-    border-color: #5FBFF9;   
+    border-color: #5FBFF9;
     border-left-color: #3e7ea5;
     border-top-color: #3e7ea5;
     padding:20px;

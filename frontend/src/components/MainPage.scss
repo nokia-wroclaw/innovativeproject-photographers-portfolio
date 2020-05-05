@@ -18,7 +18,7 @@
         border-style:none solid none none;
         border-width: 1px;
         border-color: #66B3BA;
-        
+
     }
 }
 
@@ -32,25 +32,23 @@
 .text{
     color: #66B3BA;
     font-family: 'Raleway Light';
-        src:url('../fonts/Raleway-Light.ttf');
+        src:url('https://fonts.googleapis.com/css?family=Raleway&display=swap');
     &.nav{
         font-size: 40px;
         font-family: 'Raleway Light';
-        src:url('../fonts/Raleway-Light.ttf');
+        src:url('https://fonts.googleapis.com/css?family=Raleway&display=swap');
         //font-weight: bold;
         &:hover{
             color:#055d94;
         }
-        
     }
     &.verticalNav{
         font-size: 30px;
         font-family: 'Raleway Light';
-        src:url('../fonts/Raleway-Light.ttf');
+        src:url('https://fonts.googleapis.com/css?family=Raleway&display=swap');
         &:hover{
             color:#077cc5;
         }
-        
     }
     &.subHeader{
         @extend .text;
@@ -59,10 +57,9 @@
         float: left;
         text-shadow: 2px 2px 4px #333333;
         font-family: 'Raleway Light';
-        src:url('../fonts/Raleway-Light.ttf');
+        src:url('https://fonts.googleapis.com/css?family=Raleway&display=swap');
         font-weight: bold;
     }
-    
 }
 
 h1.texth{
@@ -77,9 +74,9 @@ h1.texth{
 .pink{
    padding-top:5px;
    padding-bottom:5px;
-   border-color:  rgba(111, 68, 78,1); 
-   //border-style: none none solid none;  
-   //border-width: 2px; 
+   border-color:  rgba(111, 68, 78,1);
+   //border-style: none none solid none;
+   //border-width: 2px;
    background-color: rgba(111, 68, 78,0.5);
    //box-shadow: 0 10px 10px 0 rgba(0, 0, 0, 0.2), 0 10px 30px 0 rgba(0, 0, 0, 0.19);
    &.windowAdd{
@@ -111,14 +108,14 @@ h1.texth{
     }
 }
 
-.add-element {  
+.add-element {
     align-items: center;
     justify-content: center;
     display: flex;
     max-width:750px;
-    height:100px;     
-    border-radius: 10px;  
-    background-color: #333333;    
+    height:100px;
+    border-radius: 10px;
+    background-color: #333333;
     border-style: solid;
     border-width: 1px;
     border-color: #5FBFF9;

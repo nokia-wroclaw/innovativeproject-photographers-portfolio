@@ -17,6 +17,7 @@ class User(Base):
     nickname = Column(String(30), nullable=True)
     additional_email = Column(String(100), nullable=True)
     password = Column(String(300), nullable=False)
+    user_token = Column(String(300), nullable=True)
 
     social_media = relationship("Social_media_link", back_populates="owner_of")
     msg = relationship("Message", back_populates="receiver")

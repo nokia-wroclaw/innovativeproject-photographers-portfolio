@@ -17,11 +17,9 @@ function ListItems(props){
          {/*<input type="text" id={item.key} value={item.text} onChange={(e)=>{
              props.setUpdate(e.target.value,item.key)}}/>*/}
         <Row>
-            
                 <Container className="text" style={{alignItems:'center', fontSize:'40px'}}>
                     {item.text}
                 </Container>
-            
             </Row>
             <Row>
                 <div style={{float:'right', right:'0', bottom:'0'}}>
@@ -31,16 +29,13 @@ function ListItems(props){
                     </IconContext.Provider>
                 </button>
                 </div>
-            
         </Row>
      </button>
-     
     </div>})
     return <div>
         <FlipMove duration={300} easing="ease-in-out">
         {listItems}
         </FlipMove>
-    
     </div>;
   }
 
