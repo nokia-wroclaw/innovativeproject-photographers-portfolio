@@ -35,7 +35,7 @@ class Editor extends Component{
             // }
           }
 
-  redner(){
+redner(){
       const {textinput} = this.state
     return(
       <Container className="bkgd" fluid>

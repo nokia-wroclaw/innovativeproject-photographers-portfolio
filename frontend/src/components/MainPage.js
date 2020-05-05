@@ -11,14 +11,16 @@ class MainPage extends Component{
         return(
             <Container className="mainPageBkgd" fluid style={{paddingLeft:'0', paddingRight:'0'}}>
                 <Navbar collapseOnSelect expand="xl" className="color-nav" variant="dark" fixed="">
-                  <Navbar.Brand href="#home" className="text" style={{color:'#FFCB9A'}}>Alusia Pimpusia</Navbar.Brand>
+                  <Navbar.Brand href="#home" className="text" style={{color:'#FFCB9A'}}>Jan Kowalski</Navbar.Brand>
                   <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                   <Navbar.Collapse id="responsive-navbar-nav">
                     <Nav className="mr-auto"></Nav>
                     <Nav>
                       <Nav.Link href="#deets" className="text" style={{color:'#FFCB9A'}}>Photos</Nav.Link>
-                      <Nav.Link >
-                      <Link to="/editor" className="text" style={{color:'#FFCB9A'}}> Edit Page </Link>
+                      <Nav.Link>
+                        <Link href="/editor" className="text" style={{color:'#FFCB9A'}}>
+                          Edit Page
+                        </Link>
                       </Nav.Link>
                       <Nav.Link href="#deets" className="text" style={{color:'#FFCB9A'}}>Messages</Nav.Link>
                       <Nav.Link href="#deets" className="text" style={{color:'#FFCB9A'}}>Settings</Nav.Link>

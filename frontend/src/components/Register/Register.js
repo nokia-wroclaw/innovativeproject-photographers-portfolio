@@ -138,7 +138,7 @@ class Register extends Component {
                 <Input value={this.state.password_log} onChange={(ev) => this.setState({ password_log: ev.target.value })} type="password" placeholder="Password" />
               </FormGroup>
               <Button type="submit" className="btn-lg btn-dark btn-block" style={{ textDecoration: 'none' }}>
-                <Link to="/mainPage" style={{ textDecoration: 'none', color: 'white' }}> Sign in </Link>
+                <Link href="/mainPage" style={{ textDecoration: 'none', color: 'white' }}> Sign in </Link>
               </Button>
 
             </Col>
