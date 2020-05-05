@@ -10,14 +10,14 @@ function AppRouter () {
     <div>
         <Switch>
           <Route exact path="/">
-            <Redirect to="loginpage" />
+            <Redirect to="login" />
           </Route>
-        <Route path="/loginpage" component={Login} />
-        <Route path="/registerpage" component={Register} />
+        <Route path="/login" component={Login} />
+        <Route path="/register" component={Register} />
         <Route path="/mainPage" component={MainPage} />
         <Route path="/editor" component={Editor} />
         <Route path="*">
-            <Redirect to="/loginpage" />
+            <Redirect to="/login" />
           </Route>
         </Switch>
     </div>

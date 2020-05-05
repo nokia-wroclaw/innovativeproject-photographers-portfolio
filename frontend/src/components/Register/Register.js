@@ -36,7 +36,7 @@ class Register extends Component {
             password: this.state.password,
             repassword: this.state.repassword
            }
-           return await ky.post("http://127.0.0.1:8000/register", {json: {body: formData}}).json();
+           return await ky.post("/api/register", {json: {body: formData}}).json();
 
       //  }
       // catch (e) {
