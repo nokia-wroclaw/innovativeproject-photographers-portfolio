@@ -52,7 +52,7 @@ def authenticate_user(portfolio_db: Session, username: str, password: str) -> mo
         return False
     if not verify_password(password, user.password):
         return False
-    return user    
+    return user
 
 def get_user_by_email(portfolio_db: Session, email: str) -> models.User:
     return portfolio_db.query(models.User).filter(models.User.email_address == email).first()
