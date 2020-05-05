@@ -20,13 +20,7 @@ class Editor extends Component{
             //  try{
                  e.preventDefault();
                  var formData = {
-                  email_adress: this.state.email_address,
-                  first_name: this.state.first_name,
-                  last_name: this.state.last_name,
-                  nickname: this.state.nickname,
-                  additional_email: this.state.additional_email,
-                  password: this.state.password,
-                  repassword: this.state.repassword
+                  description: this.state.description,
                  }
                  return await ky.post("http://127.0.0.1:8000/input", {body: formData});
             //  }
@@ -39,9 +33,9 @@ redner(){
       const {textinput} = this.state
     return(
       <Container className="bkgd" fluid>
-      <h1 className="text-title">Photographer's portfolio</h1>
+      <h1 className="header">Photographer's portfolio</h1>
       <Form className="register-form" onSubmit={this.submitHandler}>
-        <Container className="box vertical-divider text-cont">
+        <Container className="box vertical-divider">
           <Row>
             <Col>
             <Form className="text-description" onSubmit={this.submitHandler}>
@@ -63,7 +57,7 @@ redner(){
             </div>
 
             <Col style={{ paddingTop: '100%' }}>
-              <h1 className="text-title">Your Page</h1>
+              <h1 className="header">Your Page</h1>
             <Button type="submit">Save</Button>
             </Col>
           </Row>
