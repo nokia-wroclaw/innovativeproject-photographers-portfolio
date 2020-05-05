@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import './Editor.css';
+import './Editor.scss';
 import { Button, Form, Input, Container, Row, Col} from 'reactstrap';
 import ky from 'ky';
 
@@ -29,7 +29,7 @@ class Editor extends Component{
             // }
           }
 
-redner(){
+render(){
       const {textinput} = this.state
     return(
       <Container className="bkgd" fluid>

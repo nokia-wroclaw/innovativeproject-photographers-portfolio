@@ -61,7 +61,7 @@ class Login extends Component{
                 <Button className="btn-lg btn-dark btn-block" type="submit">Sign In</Button>
                 <div className="text-center" style={{paddingTop:'8%'}}>
                 <Button className="btn btn-dark" role="button">
-                    <Link href="/register" style={{textDecoration: 'none', color:'white'}}>
+                    <Link href="/registerpage" style={{textDecoration: 'none', color:'white'}}>
                     Sign Up
                     </Link>
                 </Button>
