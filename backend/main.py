@@ -1,10 +1,12 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 
 from src.route.auth import auth_route
-
+import os
 from src.database import SessionLocal, engine
 from src import models
+from fastapi.staticfiles import StaticFiles
+from fastapi.templating import Jinja2Templates
 
 models.Base.metadata.create_all(bind=engine)
 
@@ -29,26 +31,10 @@ async def root():
     return {"message": " Moze dziala"}
 
 
-@app.get("/editor")
-async def home(request: Request):
-    pics = os.listdir("static/img/jan/")
-    page = templates.TemplateResponse(
-        "index.html", {"request": request, "name": "Jan Kowalski", "pics": pics}
-    )
-    return page
-
-@app.post("/contact")
-
-    async def heal(self, username: str) -> None:
-        logging.info("%s is healing.", username)
-        player = self.players_data[username]
-        player.heals += 1
-        player.endgame_time += (
-            10 + len(self.usernames) * randint(1, player.level) / 2  # nosec
-        )
-        await self.players[username].send_json(
-            {"code": "heal", "time_left": self.get_time_left(username)}
-        )
+@app.post("/editor")
+async def render(request: Request):
+    template = Jinja2Templates({"request": Request})
+    return template
 
 # if __name__ == "__main__":
 #     import uvicorn
