@@ -1,6 +1,7 @@
 .mainPageBkgd{
     background-color: #262626;
     height: 100vh;
+
 }
 
 .color-nav{
@@ -17,6 +18,7 @@
         border-style:none solid none none;
         border-width: 1px;
         border-color: #66B3BA;
+        
     }
 }
 
@@ -24,21 +26,30 @@
     border-style:none none solid none;
     border-width: 1px;
     border-color: #5FBFF9;
+    background-color:rgba(26,26,26, 0.5);
     box-shadow: 0 10px 10px 0 rgba(0, 0, 0, 0.2), 0 10px 30px 0 rgba(0, 0, 0, 0.19);
 }
 .text{
     color: #66B3BA;
+    font-family: 'Raleway Light';
+        src:url('../fonts/Raleway-Light.ttf');
     &.nav{
         font-size: 40px;
         font-family: 'Raleway Light';
         src:url('../fonts/Raleway-Light.ttf');
         //font-weight: bold;
+        &:hover{
+            color:#055d94;
+        }
         
     }
     &.verticalNav{
         font-size: 30px;
         font-family: 'Raleway Light';
         src:url('../fonts/Raleway-Light.ttf');
+        &:hover{
+            color:#077cc5;
+        }
         
     }
     &.subHeader{
@@ -51,11 +62,18 @@
         src:url('../fonts/Raleway-Light.ttf');
         font-weight: bold;
     }
-    &:hover{
-        color:#077cc5;
-    }
+    
 }
 
+h1.texth{
+    font-size: 30px;
+        color:#ceb1ba;
+        float: left;
+        text-shadow: 2px 2px 4px #333333;
+        font-family: 'Raleway Light';
+        src:url('../fonts/Raleway-Light.ttf');
+        font-weight: bold;
+}
 .pink{
    padding-top:5px;
    padding-bottom:5px;
@@ -83,7 +101,7 @@
     border-color: #5FBFF9;
     box-shadow: 0 10px 10px 0 rgba(0, 0, 0, 0.2), 0 10px 30px 0 rgba(0, 0, 0, 0.19);
     border-width: 2px;
-    border-radius: 10px;
+    border-radius: 5px;
 }
 
 .iconPink{
@@ -92,4 +110,17 @@
         color:#baa5ab;
     }
 }
+
+.add-element {  
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    max-width:750px;
+    height:100px;     
+    border-radius: 10px;  
+    background-color: #333333;    
+    border-style: solid;
+    border-width: 1px;
+    border-color: #5FBFF9;
+  }
 
