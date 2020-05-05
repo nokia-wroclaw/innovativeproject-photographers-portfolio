@@ -7,6 +7,7 @@ import Register from './components/Register'
 import MainPage from './components/MainPage'
 import MainPageAlbum from './components/MainPageAlbum'
 import MainPagePage from './components/MainPagePage'
+import Editor from './components/Editor'
 import * as serviceWorker from './serviceWorker';
 import { Router, Route, browserHistory } from 'react-router'
 import 'bootstrap/dist/css/bootstrap.css';
@@ -20,6 +21,7 @@ ReactDOM.render(
     <Route path="/mainPage" component={MainPage} />
     <Route path="/mainPageAlbum" component={MainPageAlbum} />
     <Route path="/mainPagePage" component={MainPagePage} />
+    <Route path="/editor" component={Editor} />
   </Router>,
   /*<React.StrictMode>
     <App />
