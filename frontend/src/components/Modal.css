@@ -13,12 +13,12 @@
     position: absolute;  
     width:500px;
     height:200px;     
-    border-radius: 20px;  
+    border-radius: 10px;  
     background-color: rgba(51, 51, 51,0.2);  
     text-align: center;
     border-style: solid;
-    border-width: 5px;
-    border-color: rgba(111, 68, 78,1);
+    border-width: 1px;
+    border-color: #5FBFF9;
   }
 
   h1.text{
@@ -26,15 +26,10 @@
     src:url('../fonts/Raleway-Light.ttf');
     font-weight: bold;
     font-size: 30px;
-    color:#98878f;
+    color:#055d94;
 }
 
 button.close{
     right:0;
-    background-color: rgba(111, 68, 78,1); 
-    border-color: rgba(111, 68, 78,1);
 }
 
-.btn-brown{
-  background-color:  #98878f;
-}

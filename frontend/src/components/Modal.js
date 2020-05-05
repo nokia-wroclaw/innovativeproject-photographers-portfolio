@@ -1,18 +1,24 @@
 import React from 'react';  
 import './Modal.css';  
 import { FormGroup, Container,Button} from 'reactstrap';
-import {IoIosCloseCircle} from 'react-icons/io'
+import {IoIosClose} from 'react-icons/io'
 import { IconContext } from 'react-icons';
 
 class Modal extends React.Component {  
-  render() {  
+  onClose = e => {
+    this.props.onClose && this.props.onClose(e);
+  };
+  render() {
+    if(!this.props.show){
+      return null;
+  }  
 return (  
 <div className='popup'>  
   <div className='popup-inner'>
     <div style={{float:'right'}}>
-      <button onClick={this.props.closePopup} className="close">
-        <IconContext.Provider value={{size:'30px', color:'rgba(111, 68, 78,1)'}}>
-          <IoIosCloseCircle/>
+      <button onClick={this.onClose} className="close">
+        <IconContext.Provider value={{size:'40px', color:'#5FBFF9'}}>
+          <IoIosClose/>
         </IconContext.Provider>
       </button>   
     </div>
@@ -29,3 +35,4 @@ return (
 }  
 
 export default Modal;
+
