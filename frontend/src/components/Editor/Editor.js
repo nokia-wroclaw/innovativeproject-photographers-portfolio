@@ -19,10 +19,10 @@ class Editor extends Component{
         async submitHandler (e) {
             //  try{
                  e.preventDefault();
-                 var formData = {
+                 var Data = {
                   description: this.state.description,
-                 }
-                 return await ky.post("http://127.0.0.1:8000/input", {body: formData});
+                 },
+                 return await ky.post("api/input", {body: Data});
             //  }
             // catch (e) {
             //    console.log("Register error");
