@@ -64,7 +64,7 @@ render(){
           <Navbar collapseOnSelect expand="xl" className="color-nav" variant="dark" fixed="">
             <Navbar.Brand>
               <Link to="/mainPage" className="text nav" style={{textDecoration:'none', color:'#077cc5'}}>
-                Alusia Pimpusia
+                Jan Kowalski
               </Link>
             </Navbar.Brand>
             <Navbar.Toggle aria-controls="responsive-navbar-nav" />
@@ -75,7 +75,7 @@ render(){
                 <Nav.Link href="/editor" className="text" style={{color:'#077cc5'}}>Edit Page</Nav.Link>
                 <Nav.Link href="#deets" className="text" style={{color:'#077cc5'}}>Messages</Nav.Link>
                 <Nav.Link href="#deets" className="text" style={{color:'#077cc5'}}>Settings</Nav.Link>
-                <Nav.Link href="#deets" >
+                <Nav.Link href="/login" >
                   <IconContext.Provider value={{size:'2em', color:'#077cc5'}}>
                     <IoIosPower/>
                   </IconContext.Provider>

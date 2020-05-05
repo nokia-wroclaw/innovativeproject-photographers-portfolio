@@ -25,7 +25,7 @@ class MainPage extends Component{
                 <Nav.Link href="/editor" className="text" style={{color:'#077cc5'}}>Edit Page</Nav.Link>
                 <Nav.Link href="#deets" className="text" style={{color:'#077cc5'}}>Messages</Nav.Link>
                 <Nav.Link href="#deets" className="text" style={{color:'#077cc5'}}>Settings</Nav.Link>
-                <Nav.Link href="#deets" >
+                <Nav.Link href="/login" >
                   <IconContext.Provider value={{size:'2em', color:'#077cc5'}}>
                     <IoIosPower/>
                   </IconContext.Provider>
@@ -36,7 +36,7 @@ class MainPage extends Component{
           <Row className="text-center" style={{paddingTop:'6%'}}>
             <Col style={{paddingLeft:'12%'}}>
             <button className="buttonLightPink">
-              <Link href="/mainPageAlbum" className="iconPink" style={{textDecoration:'none'}}>
+              <Link to="/mainPageAlbum" className="iconPink" style={{textDecoration:'none'}}>
               <Row>
                 <IconContext.Provider value={{size:'30em'}}>
                   <IoIosImages/>
@@ -50,7 +50,7 @@ class MainPage extends Component{
             </Col>
             <Col style={{paddingRight:'12%'}}>
               <button className="buttonLightPink">
-                <Link href="/mainPagePage" className="iconPink" style={{textDecoration:'none'}}>
+                <Link to="/mainPagePage" className="iconPink" style={{textDecoration:'none'}}>
                   <Row>
                   <IconContext.Provider value={{size:'30em'}}>
                     <IoIosCube/>
