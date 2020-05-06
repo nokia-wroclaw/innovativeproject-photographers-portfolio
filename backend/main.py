@@ -40,7 +40,7 @@ async def render(text:str):
 templates = Jinja2Templates(directory='./user/files/')
 
 @app.get("/editor")
-async def redner(equest: Request):
+async def redner(request: Request):
     return templates.TemplateResponse(
         "index.html", {"request": request, "name": "Jan Kowalski"}
     )
