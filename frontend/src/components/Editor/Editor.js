@@ -11,7 +11,8 @@ class Editor extends Component{
     constructor(props){
         super(props)
        this.state={
-
+        userInput: "",
+        updateInput: ""
         }
         this.submitHandler = this.submitHandler.bind(this)
       }
@@ -21,45 +22,24 @@ class Editor extends Component{
         }
 
         async submitHandler (e) {
-            //  try{
                  e.preventDefault();
                  var formData = {
                   description: this.state.description,
                  }
-                 return await ky.post("http://127.0.0.1:8000/input", {body: formData});
-            //  }
-            // catch (e) {
-            //    console.log("Register error");
-            // }
+                 return await ky.post("http://localhost:8000/editor", {body: formData});
+
+      
+ 
           }
-          async componentDidMount(){
-            return await ky.get("http://127.0.0.1:8000/editor");
+         
+      
+           async componentDidMount(){
+            return await ky.get("http://localhost:8000/editor");
             // użyłabym tu jakieś get element by Id żeby zamienić zawartość showHTML, ale nie wiem jak
+           
+         
           }
 
-          state = {
-            userInput: "",
-            showHTML: false,
-            updateInput: ""
-          };
-
-          userType = e => {
-            this.setState({ [e.target.name]: e.target.value, showHTML: false });
-          };
-
-          createWindow = () => {
-            return {
-              __html: `<html>${
-                this.state.showHTML ? this.state.userInput : this.state.updateInput
-              }</html>`
-            };
-          };
-          showHTML = () => {
-            this.setState({
-              showHTML: !this.state.showHTML,
-              updateInput: this.state.userInput
-            });
-          };
 render(){
     return(
           <Container className="mainPageBkgd" fluid style={{paddingLeft:'0', paddingRight:'0'}}>
@@ -102,7 +82,7 @@ render(){
            <textarea
               name="userInput"
               value={this.state.userInput}
-              onChange={e => this.userType(e)}
+              onChange={e => this.changeHandler(e)}
             /></Row>
            </Form>
             </Col>
@@ -119,7 +99,8 @@ render(){
             </Row>
             <Row style={{paddingLeft:'5%', paddingTop:'1%',paddingRight:'5%'}}>
               <Container className="render">
-            <div dangerouslySetInnerHTML={this.createWindow()}/></Container></Row>
+    <div> {this.state.updateInput ? <div>update...</div> : <div> not update</div>}</div>
+            </Container></Row>
            </Form>
             </Col>
           </Row>
