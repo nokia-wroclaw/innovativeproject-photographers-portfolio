@@ -36,7 +36,7 @@ class Editor extends Component{
           }
 
         async componentDidUpdate(){
-            const data = await ky.get("/editor");
+            await ky.get("/editor", data);
             if (this.state.flag !== "start value") {
                 this.setState({output: data});
               }
