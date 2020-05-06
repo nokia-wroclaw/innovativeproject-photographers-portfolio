@@ -1,4 +1,4 @@
-from fastapi import FastAPI, Request
+from fastapi import FastAPI, Request, File, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
 
 from src.route.auth import auth_route
@@ -30,11 +30,25 @@ app.include_router(auth_route)
 async def root():
     return {"message": " Moze dziala"}
 
+@app.post("/files")
+async def create_files(file: bytes = File(...)):
+    return{ "file_size": len(file)}
 
-@app.post("/editor")
-async def render(request: Request):
-    template = Jinja2Templates({"request": Request})
-    return template
+@app.post("/uploadfiles")
+async def create_upload_files(file: UploadFile = File(...)):
+    filen = file.filename
+    with open("./user/files/"+ filen, 'wb.html') as f:
+        f.write(file.file.read())
+        f.close
+    return{ "filename": file.filename}
+
+templates = Jinja2Templates(directory='./user/files/')
+
+@app.get("/editor")
+async def home(request: Request):
+    return templates.TemplateResponse(
+        "wb.html", {"request": request,"name": "Jan Kowalski"}
+    )
 
 # if __name__ == "__main__":
 #     import uvicorn
