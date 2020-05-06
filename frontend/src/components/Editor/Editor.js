@@ -11,7 +11,7 @@ class Editor extends Component{
     constructor(props){
         super(props)
        this.state={
-       description: ""
+
         }
         this.submitHandler = this.submitHandler.bind(this)
       }
@@ -32,9 +32,13 @@ class Editor extends Component{
             //    console.log("Register error");
             // }
           }
+          async componentDidMount(){
+            return await ky.get("http://127.0.0.1:8000/editor");
+            // użyłabym tu jakieś get element by Id żeby zamienić zawartość showHTML, ale nie wiem jak
+          }
+
           state = {
-            userInput:
-              "<h1>Live Text Editor!</h1><br/><p>Click 'Run' to display the results</p>",
+            userInput: "",
             showHTML: false,
             updateInput: ""
           };
@@ -57,9 +61,7 @@ class Editor extends Component{
             });
           };
 render(){
-
     return(
-
           <Container className="mainPageBkgd" fluid style={{paddingLeft:'0', paddingRight:'0'}}>
           <Navbar collapseOnSelect expand="xl" className="color-nav" variant="dark" fixed="">
             <Navbar.Brand>
