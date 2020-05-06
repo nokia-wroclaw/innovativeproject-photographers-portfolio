@@ -45,9 +45,9 @@ async def create_upload_files(file: UploadFile = File(...)):
 templates = Jinja2Templates(directory='./user/files/')
 
 @app.get("/editor")
-async def redner(filename):
+async def redner(filename, request: Request):
     return templates.TemplateResponse(
-        filename, {"name": "Jan Kowalski"}
+        filename, {"request": request, "name": "Jan Kowalski"}
     )
 
 # if __name__ == "__main__":
