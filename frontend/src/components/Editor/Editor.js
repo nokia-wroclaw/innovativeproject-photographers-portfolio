@@ -26,10 +26,18 @@ class Editor extends Component{
                  var formData = {
                   description: this.state.description,
                  }
+<<<<<<< HEAD
                  return await ky.post("http://localhost:8000/editor", {body: formData});
 
       
  
+=======
+                 return await ky.post("http://127.0.0.1:8000/editor", {body: formData});
+            //  }
+            // catch (e) {
+            //    console.log("Register error");
+            // }
+>>>>>>> 92a1d65e7d7ea2f21f7d7f735a4f03efd0964a36
           }
          
       
