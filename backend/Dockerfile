@@ -14,7 +14,7 @@ ENV FASTAPI_ENV=${FASTAPI_ENV} \
     POETRY_VIRTUALENVS_CREATE=false \
     POETRY_CACHE_DIR='/var/cache/pypoetry'\
     FLAKE8_VERSION=3.7.9
-    
+
 RUN apt-get update  &&\
     apt-get install -y \
     bash \
@@ -28,14 +28,14 @@ RUN apt-get update  &&\
 
     && wget "https://github.com/jwilder/dockerize/releases/download/${DOCKERIZE_VERSION}/dockerize-linux-amd64-${DOCKERIZE_VERSION}.tar.gz" \
     && tar -C /usr/local/bin -xzvf "dockerize-linux-amd64-${DOCKERIZE_VERSION}.tar.gz" \
-    && rm "dockerize-linux-amd64-${DOCKERIZE_VERSION}.tar.gz" && dockerize --version 
+    && rm "dockerize-linux-amd64-${DOCKERIZE_VERSION}.tar.gz" && dockerize --version
 RUN pip install "poetry==$POETRY_VERSION" && poetry --version
 
 WORKDIR /NOKIA
 COPY ./  /NOKIA/
 RUN poetry install
 
-RUN pip install "flake8==$FLAKE8_VERSION" && flake8 --version 
+RUN pip install "flake8==$FLAKE8_VERSION" && flake8 --version
 
 EXPOSE 8000
 

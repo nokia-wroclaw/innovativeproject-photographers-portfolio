@@ -37,7 +37,7 @@ async def create_files(file: bytes = File(...)):
 @app.post("/uploadfiles")
 async def create_upload_files(file: UploadFile = File(...)):
     filen = file.filename
-    with open("./user/files/"+ filen, 'wb.html') as f:
+    with open("./user/files/"+ filen, 'wb') as f:
         f.write(file.file.read())
         f.close
     return{ "filename": file.filename}
@@ -45,9 +45,9 @@ async def create_upload_files(file: UploadFile = File(...)):
 templates = Jinja2Templates(directory='./user/files/')
 
 @app.get("/editor")
-async def home(request: Request):
+async def redner(filename):
     return templates.TemplateResponse(
-        "wb.html", {"request": request,"name": "Jan Kowalski"}
+        filename, {"name": "Jan Kowalski"}
     )
 
 # if __name__ == "__main__":
