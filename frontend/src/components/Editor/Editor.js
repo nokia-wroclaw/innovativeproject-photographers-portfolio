@@ -24,11 +24,10 @@ class Editor extends Component{
 
         async submitHandler (e) {
                  e.preventDefault();
-                 var formData = {
-                    userInput: this.state.userInput,
-                 }
+                 const formData = new FormData();
+                 formData.append('userInput', this.state.userInput);
                  this.state.flag = "changed";
-                 return await ky.post("/editor", {body: formData});
+                 return await ky.post("/api/v1/editor", {body: formData});
             //  }
             // catch (e) {
             //    console.log("Register error");
@@ -37,7 +36,7 @@ class Editor extends Component{
 
         async componentDidUpdate(){
             let data;
-            await ky.get("/editor", data);
+            await ky.get("/api/v1/editor", data);
             if (this.state.flag !== "start value") {
                 this.setState({output: data});
               }
