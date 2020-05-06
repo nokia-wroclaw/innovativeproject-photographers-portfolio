@@ -12,7 +12,8 @@ class Editor extends Component{
         super(props)
        this.state={
         userInput: "",
-        updateInput: ""
+        output: "",
+        flag: "start value"
         }
         this.submitHandler = this.submitHandler.bind(this)
       }
@@ -24,31 +25,25 @@ class Editor extends Component{
         async submitHandler (e) {
                  e.preventDefault();
                  var formData = {
-                  description: this.state.description,
+                    userInput: this.state.userInput,
                  }
-<<<<<<< HEAD
-                 return await ky.post("http://localhost:8000/editor", {body: formData});
-
-      
- 
-=======
-                 return await ky.post("http://127.0.0.1:8000/editor", {body: formData});
+                 this.state.flag = "changed";
+                 return await ky.post("/editor", {body: formData});
             //  }
             // catch (e) {
             //    console.log("Register error");
             // }
->>>>>>> 92a1d65e7d7ea2f21f7d7f735a4f03efd0964a36
           }
-         
-      
-           async componentDidMount(){
-            return await ky.get("http://localhost:8000/editor");
-            // użyłabym tu jakieś get element by Id żeby zamienić zawartość showHTML, ale nie wiem jak
-           
-         
+
+        async componentDidUpdate(){
+            const data = await ky.get("/editor");
+            if (this.state.flag !== "start value") {
+                this.setState({output: data});
+              }
           }
 
 render(){
+    const {userInput, output} = this.state
     return(
           <Container className="mainPageBkgd" fluid style={{paddingLeft:'0', paddingRight:'0'}}>
           <Navbar collapseOnSelect expand="xl" className="color-nav" variant="dark" fixed="">
@@ -78,7 +73,7 @@ render(){
             <Col style={{paddingLeft:'2%'}}>
             <Form className="editor-form" onSubmit={this.submitHandler}>
              <Row style={{paddingLeft:'2%'}}>
-            <button onClick={this.showHTML} style={{backgroundColor:'black', borderWidth:'0'}}>
+            <button type="submit" style={{backgroundColor:'black', borderWidth:'0'}}>
               <IconContext.Provider value={{size:'4em',color:'#ceb1ba'}}>
                 <IoIosSettings/>
               </IconContext.Provider>
@@ -89,8 +84,8 @@ render(){
             <Row style={{paddingLeft:'5%', paddingTop:'1%'}}>
            <textarea
               name="userInput"
-              value={this.state.userInput}
-              onChange={e => this.changeHandler(e)}
+              value={userInput}
+              onChange={this.changeHandler}
             /></Row>
            </Form>
             </Col>
@@ -107,7 +102,7 @@ render(){
             </Row>
             <Row style={{paddingLeft:'5%', paddingTop:'1%',paddingRight:'5%'}}>
               <Container className="render">
-    <div> {this.state.updateInput ? <div>update...</div> : <div> not update</div>}</div>
+                <div> {output ? <div>update...</div> : <div> not update</div>}</div>
             </Container></Row>
            </Form>
             </Col>
