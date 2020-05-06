@@ -30,24 +30,19 @@ app.include_router(auth_route)
 async def root():
     return {"message": " Moze dziala"}
 
-@app.post("/files")
-async def create_files(file: bytes = File(...)):
-    return{ "file_size": len(file)}
-
-@app.post("/uploadfiles")
-async def create_upload_files(file: UploadFile = File(...)):
-    filen = file.filename
-    with open("./user/files/"+ filen, 'wb') as f:
-        f.write(file.file.read())
-        f.close
-    return{ "filename": file.filename}
+@app.post("/editor")
+async def render(text:str):
+    file = open(os.path.join('./user/files','index.html'), 'w')
+    file.write(text)
+    file.close()
+    return{ "index.html"}
 
 templates = Jinja2Templates(directory='./user/files/')
 
 @app.get("/editor")
-async def redner(filename, request: Request):
+async def redner(equest: Request):
     return templates.TemplateResponse(
-        filename, {"request": request, "name": "Jan Kowalski"}
+        "index.html", {"request": request, "name": "Jan Kowalski"}
     )
 
 # if __name__ == "__main__":
