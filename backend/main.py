@@ -30,7 +30,7 @@ app.include_router(auth_route)
 async def root():
     return {"message": " Moze dziala"}
 
-@app.post("/editor")
+@app.post("/api/v1/editor")
 async def render(text:str):
     file = open(os.path.join('./user/files','index.html'), 'w')
     file.write(text)
@@ -39,7 +39,7 @@ async def render(text:str):
 
 templates = Jinja2Templates(directory='./user/files/')
 
-@app.get("/editor")
+@app.get("/api/v1/editor")
 async def render(request: Request):
     return templates.TemplateResponse(
         "index.html", {"request": request, "name": "Jan Kowalski"}
