@@ -35,7 +35,7 @@ class MainPage extends Component{
           </Navbar>
           <Row className="text-center" style={{paddingTop:'6%'}}>
             <Col style={{paddingLeft:'12%'}}>
-            <button className="buttonLightPink">
+            <button className="buttonLightPink darkTheme">
               <Link to="/mainPageAlbum" className="iconPink" style={{textDecoration:'none'}}>
               <Row>
                 <IconContext.Provider value={{size:'30em'}}>
@@ -49,7 +49,7 @@ class MainPage extends Component{
             </button>
             </Col>
             <Col style={{paddingRight:'12%'}}>
-              <button className="buttonLightPink">
+              <button className="buttonLightPink darkTheme">
                 <Link to="/mainPagePage" className="iconPink" style={{textDecoration:'none'}}>
                   <Row>
                   <IconContext.Provider value={{size:'30em'}}>
