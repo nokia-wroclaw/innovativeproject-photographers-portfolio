@@ -11,7 +11,13 @@ class Editor extends Component{
     constructor(props){
         super(props)
        this.state={
+<<<<<<< HEAD
        description: ""
+=======
+        userInput: "",
+        output: "",
+        flag: "start value"
+>>>>>>> 48260aac066f0bce2495fc7794b4e6dc6e983ee0
         }
         this.submitHandler = this.submitHandler.bind(this)
       }
@@ -23,14 +29,32 @@ class Editor extends Component{
         async submitHandler (e) {
             //  try{
                  e.preventDefault();
+<<<<<<< HEAD
                  var formData = {
                   description: this.state.description,
                  }
                  return await ky.post("http://127.0.0.1:8000/input", {body: formData});
+=======
+                 const formData = new FormData();
+                 formData.append('userInput', this.state.userInput);
+                 this.state.flag = "changed";
+                 return await ky.post("/api/v1/editor", {body: formData});
+>>>>>>> 48260aac066f0bce2495fc7794b4e6dc6e983ee0
             //  }
             // catch (e) {
             //    console.log("Register error");
             // }
+<<<<<<< HEAD
+=======
+          }
+
+        async componentDidUpdate(){
+            let data;
+            await ky.get("/api/v1/editor", data);
+            if (this.state.flag !== "start value") {
+                this.setState({output: data});
+              }
+>>>>>>> 48260aac066f0bce2495fc7794b4e6dc6e983ee0
           }
           state = {
             userInput:
@@ -57,7 +81,11 @@ class Editor extends Component{
             });
           };
 render(){
+<<<<<<< HEAD
 
+=======
+    const {userInput, output} = this.state
+>>>>>>> 48260aac066f0bce2495fc7794b4e6dc6e983ee0
     return(
 
           <Container className="mainPageBkgd" fluid style={{paddingLeft:'0', paddingRight:'0'}}>
@@ -88,7 +116,7 @@ render(){
             <Col style={{paddingLeft:'2%'}}>
             <Form className="editor-form" onSubmit={this.submitHandler}>
              <Row style={{paddingLeft:'2%'}}>
-            <button onClick={this.showHTML} style={{backgroundColor:'black', borderWidth:'0'}}>
+            <button type="submit" style={{backgroundColor:'black', borderWidth:'0'}}>
               <IconContext.Provider value={{size:'4em',color:'#ceb1ba'}}>
                 <IoIosSettings/>
               </IconContext.Provider>
@@ -99,8 +127,13 @@ render(){
             <Row style={{paddingLeft:'5%', paddingTop:'1%'}}>
            <textarea
               name="userInput"
+<<<<<<< HEAD
               value={this.state.userInput}
               onChange={e => this.userType(e)}
+=======
+              value={userInput}
+              onChange={this.changeHandler}
+>>>>>>> 48260aac066f0bce2495fc7794b4e6dc6e983ee0
             /></Row>
            </Form>
             </Col>
@@ -117,7 +150,12 @@ render(){
             </Row>
             <Row style={{paddingLeft:'5%', paddingTop:'1%',paddingRight:'5%'}}>
               <Container className="render">
+<<<<<<< HEAD
             <div dangerouslySetInnerHTML={this.createWindow()}/></Container></Row>
+=======
+                <div> {output ? <div>update...</div> : <div> not update</div>}</div>
+            </Container></Row>
+>>>>>>> 48260aac066f0bce2495fc7794b4e6dc6e983ee0
            </Form>
             </Col>
           </Row>

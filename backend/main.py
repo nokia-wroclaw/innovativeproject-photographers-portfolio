@@ -1,4 +1,4 @@
-from fastapi import FastAPI, Request, File, UploadFile
+from fastapi import FastAPI, Request, File, UploadFile, Form
 from fastapi.middleware.cors import CORSMiddleware
 
 from src.route.auth import auth_route
@@ -8,7 +8,7 @@ from src import models
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 
-models.Base.metadata.create_all(bind=engine)
+# models.Base.metadata.create_all(bind=engine)
 
 app = FastAPI()
 
@@ -30,16 +30,16 @@ app.include_router(auth_route)
 async def root():
     return {"message": " Moze dziala"}
 
-@app.post("/editor")
-async def render(text:str):
+@app.post("/api/v1/editor")
+async def render(userInput:str = Form(...)):
     file = open(os.path.join('./user/files','index.html'), 'w')
-    file.write(text)
+    file.write(userInput)
     file.close()
     return{ "index.html"}
 
 templates = Jinja2Templates(directory='./user/files/')
 
-@app.get("/editor")
+@app.get("/api/v1/editor")
 async def render(request: Request):
     return templates.TemplateResponse(
         "index.html", {"request": request, "name": "Jan Kowalski"}
