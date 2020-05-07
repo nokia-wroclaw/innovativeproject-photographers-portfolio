@@ -7,6 +7,7 @@ from src.database import SessionLocal, engine
 from src import models
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
+from fastapi.responses import HTMLResponse
 
 # models.Base.metadata.create_all(bind=engine)
 
@@ -38,12 +39,20 @@ async def renderPOST(userInput:str = Form(...)):
     file.close()
     return{ "index.html"}
 
+def generate_html_response():
+    with open("./user/files/index.html", "r") as myfile:
+        data = myfile.read().replace('\n', ' ')
+    return HTMLResponse(content = data, status_code=200)
 
-@app.get("/api/v1/editor")
-async def renderGET(request: Request):
-    return templates.TemplateResponse(
-        "index.html", {"request": request, "name": "Jan Kowalski"}
-    )
+
+@app.get("/api/v1/editor", response_class=HTMLResponse)
+async def read_items():
+    return generate_html_response()
+
+# async def renderGET(request: Request):
+#     return templates.TemplateResponse(
+#         "index.html", {"request": request, "name": "Jan Kowalski"}
+#     )
 
 # if __name__ == "__main__":
 #     import uvicorn
