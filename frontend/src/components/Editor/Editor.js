@@ -11,8 +11,7 @@ class Editor extends Component{
     constructor(props){
         super(props)
        this.state={
-        userInput: "",
-        updateInput: ""
+       description: ""
         }
         this.submitHandler = this.submitHandler.bind(this)
       }
@@ -22,34 +21,45 @@ class Editor extends Component{
         }
 
         async submitHandler (e) {
+            //  try{
                  e.preventDefault();
                  var formData = {
                   description: this.state.description,
                  }
-<<<<<<< HEAD
-                 return await ky.post("http://localhost:8000/editor", {body: formData});
-
-      
- 
-=======
-                 return await ky.post("http://127.0.0.1:8000/editor", {body: formData});
+                 return await ky.post("http://127.0.0.1:8000/input", {body: formData});
             //  }
             // catch (e) {
             //    console.log("Register error");
             // }
->>>>>>> 92a1d65e7d7ea2f21f7d7f735a4f03efd0964a36
           }
-         
-      
-           async componentDidMount(){
-            return await ky.get("http://localhost:8000/editor");
-            // użyłabym tu jakieś get element by Id żeby zamienić zawartość showHTML, ale nie wiem jak
-           
-         
-          }
+          state = {
+            userInput:
+              "<h1>Live Text Editor!</h1><br/><p>Click 'Run' to display the results</p>",
+            showHTML: false,
+            updateInput: ""
+          };
 
+          userType = e => {
+            this.setState({ [e.target.name]: e.target.value, showHTML: false });
+          };
+
+          createWindow = () => {
+            return {
+              __html: `<html>${
+                this.state.showHTML ? this.state.userInput : this.state.updateInput
+              }</html>`
+            };
+          };
+          showHTML = () => {
+            this.setState({
+              showHTML: !this.state.showHTML,
+              updateInput: this.state.userInput
+            });
+          };
 render(){
+
     return(
+
           <Container className="mainPageBkgd" fluid style={{paddingLeft:'0', paddingRight:'0'}}>
           <Navbar collapseOnSelect expand="xl" className="color-nav" variant="dark" fixed="">
             <Navbar.Brand>
@@ -65,7 +75,7 @@ render(){
                 <Nav.Link href="/editor" className="text" style={{color:'#077cc5'}}>Edit Page</Nav.Link>
                 <Nav.Link href="#deets" className="text" style={{color:'#077cc5'}}>Messages</Nav.Link>
                 <Nav.Link href="#deets" className="text" style={{color:'#077cc5'}}>Settings</Nav.Link>
-                <Nav.Link href="/login" >
+                <Nav.Link href="#deets" >
                   <IconContext.Provider value={{size:'2em', color:'#077cc5'}}>
                     <IoIosPower/>
                   </IconContext.Provider>
@@ -90,7 +100,7 @@ render(){
            <textarea
               name="userInput"
               value={this.state.userInput}
-              onChange={e => this.changeHandler(e)}
+              onChange={e => this.userType(e)}
             /></Row>
            </Form>
             </Col>
@@ -107,8 +117,7 @@ render(){
             </Row>
             <Row style={{paddingLeft:'5%', paddingTop:'1%',paddingRight:'5%'}}>
               <Container className="render">
-    <div> {this.state.updateInput ? <div>update...</div> : <div> not update</div>}</div>
-            </Container></Row>
+            <div dangerouslySetInnerHTML={this.createWindow()}/></Container></Row>
            </Form>
             </Col>
           </Row>
