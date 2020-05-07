@@ -33,7 +33,7 @@ class Social_media_link(Base):
     sm_icon = Column(String)
 
     owner_of = relationship("User", back_populates="social_media")
-    
+
 class Message(Base):
     __tablename__ = "MESSAGE"
 
@@ -72,7 +72,7 @@ class List_of_Contents(Base):
 
     label_content = Column(String(100))
     is_subgroup_there = Column(Boolean, default=False)
- 
+
     m_page = relationship("Main_page", back_populates="list_ofc")
     content = relationship("Contents", back_populates="list_ofc")
 
