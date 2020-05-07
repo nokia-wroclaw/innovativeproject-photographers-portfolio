@@ -1,7 +1,7 @@
 .mainPageBkgd{
     background-color: #262626;
     height: 100vh;
-
+    overflow-y:scroll;
 }
 
 .color-nav{
@@ -10,15 +10,16 @@
     border-style:none none solid none;
     border-width: 1px;
     border-color: #5FBFF9;
+    position:fixed;
     &.verticalThin{
-        width: 100%;
+        width: 15%;
         height: 100vh;
         //justify-content: center;
         //padding-bottom: 50%;
         border-style:none solid none none;
         border-width: 1px;
         border-color: #66B3BA;
-
+        padding-top:100px;
     }
 }
 
@@ -28,6 +29,11 @@
     border-color: #5FBFF9;
     background-color:rgba(26,26,26, 0.5);
     box-shadow: 0 10px 10px 0 rgba(0, 0, 0, 0.2), 0 10px 30px 0 rgba(0, 0, 0, 0.19);
+}
+.subTitle{
+    border-style:none none solid none;
+    border-width: 1px;
+    border-color: #5FBFF9;
 }
 .text{
     color: #66B3BA;
@@ -93,12 +99,18 @@ h1.texth{
     border-radius: 5px;
 }
 
-.buttonLightPink{
-    background-color: #1a1a1a;
+.buttonLightPink{    
     border-color: #5FBFF9;
     box-shadow: 0 10px 10px 0 rgba(0, 0, 0, 0.2), 0 10px 30px 0 rgba(0, 0, 0, 0.19);
     border-width: 2px;
     border-radius: 5px;
+    &.darkTheme{
+        background-color: #1a1a1a;
+    }
+    &.lightTheme{
+        background-color: #333333;
+    }
+    
 }
 
 .iconPink{
@@ -115,9 +127,20 @@ h1.texth{
     max-width:750px;
     height:100px;
     border-radius: 10px;
-    background-color: #333333;
+    background-color: #1a1a1a;
     border-style: solid;
     border-width: 1px;
     border-color: #5FBFF9;
   }
 
+.borderBox{
+    background-color: #333333;
+    border-color: #5FBFF9;
+    box-shadow: 0 10px 10px 0 rgba(0, 0, 0, 0.2), 0 10px 30px 0 rgba(0, 0, 0, 0.19);
+    border-width: 2px;
+    border-radius: 5px;
+    border-style: solid;
+    border-right-color: #3e7ea5;
+    border-bottom-color: #3e7ea5;
+    height:300px;
+}
