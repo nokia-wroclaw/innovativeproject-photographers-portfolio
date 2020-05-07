@@ -87,7 +87,7 @@ class MainPageAlbum extends Component{
     render(){
         return(
             <Container className="mainPageBkgd" fluid style={{paddingLeft:'0', paddingRight:'0'}}>
-                <Navbar collapseOnSelect expand="xl" className="color-nav" variant="dark" fixed="">
+                <Navbar collapseOnSelect expand="xl" className="color-nav" variant="dark" fixed="top">
                   <Navbar.Brand>
                     <Link href="/mainPage" className="text nav" style={{textDecoration:'none', color:'#077cc5'}}>
                       Jan Kowalski
@@ -109,9 +109,9 @@ class MainPageAlbum extends Component{
                     </Nav>
                   </Navbar.Collapse>
                 </Navbar>
-                <Row>
+                <Row >
                 <Col style={{maxWidth:'15%'}}>
-                <Nav className="flex-column color-nav verticalThin">
+                <Nav className="flex-column color-nav verticalThin" fixed="left">
                       <Nav.Link href="/mainPageAlbum" className="text verticalNav" >
                         <IoIosImages/>
                         <span className="p-2"></span>
@@ -126,7 +126,7 @@ class MainPageAlbum extends Component{
                 </Col>
                 <Col>
                 <Row className="text-center" >
-                  <Container fluid style={{paddingTop:'80px',alignItems:'center', display:'flex'}}>
+                  <Container fluid style={{paddingTop:'150px',alignItems:'center', display:'flex'}}>
                     <Container className="text subHeader title" style={{paddingLeft:'40px'}}>My Albums</Container>
                   </Container>
                 </Row>
@@ -137,7 +137,7 @@ class MainPageAlbum extends Component{
                   <form id="to-do-form" onSubmit={this.addItem}>
                     <input type="text" placeholder="Enter name" value= {this.state.currentItem.text} onChange={this.handleInput}></input>
                     <span className="p-2"></span>
-                    <button type="submit" className="buttonLightPink">
+                    <button type="submit" className="buttonLightPink lightTheme">
                       <IconContext.Provider value={{size:'2em',color:'#ceb1ba'}}>
                         <IoIosAdd/>
                       </IconContext.Provider>
@@ -146,12 +146,10 @@ class MainPageAlbum extends Component{
                   <p>{this.state.items.text}</p>
                   </Container>
                 </Row>
-                <Row style={{paddingTop:'40px', paddingLeft:'50px', paddingLeft:'10%', paddingTop:'5%'}}>
-
-
-          <ListItems items={this.state.items} deleteItem={this.deleteItem} setUpdate={this.setUpdate}/>
-
-
+                <Row style={{ paddingLeft:'15%', paddingTop:'5%'}}>
+                  <Col>
+                    <ListItems items={this.state.items} deleteItem={this.deleteItem} setUpdate={this.setUpdate} />
+                  </Col>
                 </Row>
                 </Col>
                 </Row>
