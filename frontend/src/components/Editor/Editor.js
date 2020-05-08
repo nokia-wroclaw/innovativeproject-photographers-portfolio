@@ -27,10 +27,11 @@ class Editor extends Component{
                  const formData = new FormData();
                  formData.append('userInput', this.state.userInput);
                  this.state.flag = "changed";
-                 return await ky.post("/api/v1/editor", {body: formData});
-                this.setState({
+                 this.setState({
                      EditorRenderMounted: !this.state.EditorRenderMounted
                  })
+                 return await ky.post("/api/v1/editor", {body: formData});
+                
             //  }
             // catch (e) {
             //    console.log("Register error");
@@ -46,7 +47,7 @@ render(){
     }
     return(
           <Container className="mainPageBkgd" fluid style={{paddingLeft:'0', paddingRight:'0'}}>
-          <Navbar collapseOnSelect expand="xl" className="color-nav" variant="dark" fixed="">
+          <Navbar collapseOnSelect expand="xl" className="color-nav" variant="dark" fixed="top">
             <Navbar.Brand>
               <Link to="/mainPage" className="text nav" style={{textDecoration:'none', color:'#077cc5'}}>
                 Jan Kowalski
@@ -69,7 +70,7 @@ render(){
             </Navbar.Collapse>
           </Navbar>
 
-          <Row style={{paddingTop:'3%'}}>
+          <Row style={{paddingTop:'8%'}}>
             <Col style={{paddingLeft:'2%'}}>
             <Form className="editor-form" onSubmit={this.submitHandler}>
              <Row style={{paddingLeft:'2%'}}>
