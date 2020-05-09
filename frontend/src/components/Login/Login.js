@@ -21,11 +21,14 @@ class Login extends Component{
        async submitHandler (e) {
           //  try{
             e.preventDefault();
-            var formData = {
-                email_adress: this.state.email_address,
-                password: this.state.password
-            }
-               return await ky.post("/api/login", {body: formData});
+            const formData = new FormData()
+            formData.append("username", this.state.email_address)
+            formData.append("password", this.state.password)
+            // var formData = {
+            //     email_adress: this.state.email_address,
+            //     password: this.state.password
+            // }
+               return await ky.post("/api/v1/login", {body: formData});
 
           //  }
           // catch (e) {

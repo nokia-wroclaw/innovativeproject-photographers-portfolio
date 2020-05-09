@@ -59,7 +59,7 @@ def get_user_by_email(portfolio_db: Session, email: str) -> models.User:
 
 def create_user(portfolio_db: Session, user: schemas.UserCreate) -> models.User:
     fake_hashed_password = get_password_hash(user.password)
-    portfolio_db_user = models.User(email_address=user.email_address, first_name=user.first_name, last_name=user.last_name, nickname=user.nickname, password=fake_hashed_password)
+    portfolio_db_user = models.User(email_address=user.email_address, first_name=user.first_name, last_name=user.last_name, nickname=user.nickname, additional_email=user.additional_email, password=fake_hashed_password)
     portfolio_db.add(portfolio_db_user)
     portfolio_db.commit()
     portfolio_db.refresh(portfolio_db_user)

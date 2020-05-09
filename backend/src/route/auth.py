@@ -31,16 +31,25 @@ def get_db():
 
 auth_route = APIRouter()
 
-@auth_route.post("/register", response_model=schemas.User)
-async def register_user(user: schemas.UserCreate, db: Session = Depends(get_db)):
+@auth_route.post("/api/v1/register")
+async def register_user(user: schemas.UserCreate, db: Session = Depends(get_db)) -> models.User:
     if user.password != user.repassword:
         raise HTTPException(status_code=400, detail="Passwords don't match.")
     db_user = get_user_by_email(db, email=user.email_address)
     if db_user:
         raise HTTPException(status_code=400, detail="Email already exists.")
-    return create_user(db, user)
+    us = create_user(db, user)
+    us.user_token = jsonable_encoder(create_access_token(data={"sub": us.email_address}))
+    save_access_token(db, us)
 
-@auth_route.post("/login")
+    response = Response(status_code=200)
+    response.set_cookie(
+        key="username",
+        value=us.email_address
+    )
+    return us
+
+@auth_route.post("/api/v1/login")
 async def login_user(form_data: OAuth2PasswordRequestForm = Depends(), db: Session = Depends(get_db)) -> Response:
     user = authenticate_user(db, form_data.username, form_data.password)
     if not user:
@@ -59,7 +68,7 @@ async def login_user(form_data: OAuth2PasswordRequestForm = Depends(), db: Sessi
     )
     return response
 
-@auth_route.get("/get-access-token")
+@auth_route.get("/api/v1/get-access-token")
 async def get_access_token(requests: Request, db: Session = Depends(get_db)) -> Response:
     try:
         username = requests.cookies["username"]
@@ -73,7 +82,7 @@ async def get_access_token(requests: Request, db: Session = Depends(get_db)) -> 
     except CookieVerificationError:
         raise HTTPException(status_code=HTTP_400_BAD_REQUEST)
 
-@auth_route.get("/logout")
+@auth_route.get("/api/v1/logout")
 async def logout_user(request: Request, db: Session = Depends(get_db)) -> Response:
     user_cookie = request.cookies["username"]
     delete_access_token(db, user_cookie)
