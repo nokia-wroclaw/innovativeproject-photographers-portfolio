@@ -19,18 +19,11 @@ class Login extends Component{
         }
 
        async submitHandler (e) {
-          //  try{
             e.preventDefault();
-            var formData = {
-                email_adress: this.state.email_address,
-                password: this.state.password
-            }
-               return await ky.post("/api/login", {body: formData});
-
-          //  }
-          // catch (e) {
-          //    console.log("Register error");
-          // }
+            const formData = new FormData()
+            formData.append("username", this.state.email_address)
+            formData.append("password", this.state.password)
+               return await ky.post("/api/v1/login", {body: formData});
         }
     render(){
         const {email_address, password} = this.state

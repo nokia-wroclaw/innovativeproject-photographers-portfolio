@@ -27,21 +27,15 @@ class Register extends Component {
    async submitHandler (e) {
       //  try{
            e.preventDefault();
-           var formData = {
-            email_adress: this.state.email_address,
+           return await ky.post("/api/v1/register", {json: {
+            email_address: this.state.email_address,
             first_name: this.state.first_name,
             last_name: this.state.last_name,
             nickname: this.state.nickname,
-            additional_email: this.state.additional_email,
-            password: this.state.password,
+            additional_email:this.state.additional_email,
+            password:this.state.password,
             repassword: this.state.repassword
-           }
-           return await ky.post("/api/register", {json: {body: formData}}).json();
-
-      //  }
-      // catch (e) {
-      //    console.log("Register error");
-      // }
+          }}).json()
     }
 
   render() {

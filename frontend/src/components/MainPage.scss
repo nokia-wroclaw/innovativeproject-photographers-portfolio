@@ -1,7 +1,10 @@
 .mainPageBkgd{
     background-color: #262626;
     height: 100vh;
-    overflow-y:scroll;
+    &.scroll{
+        overflow-y:scroll;
+    }
+    
 }
 
 .color-nav{
