@@ -31,7 +31,7 @@ class Editor extends Component{
                      EditorRenderMounted: !this.state.EditorRenderMounted
                  })
                  return await ky.post("/api/v1/editor", {body: formData});
-                
+
             //  }
             // catch (e) {
             //    console.log("Register error");

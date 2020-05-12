@@ -39,20 +39,19 @@ async def renderPOST(userInput:str = Form(...)):
     file.close()
     return{ "index.html"}
 
-def generate_html_response():
-    with open("./user/files/index.html", "r") as myfile:
-        data = myfile.read().replace('\n', ' ')
-    return HTMLResponse(content = data, status_code=200)
+# def generate_html_response():
+#     with open("./user/files/index.html", "r") as myfile:
+#         data = myfile.read().replace('\n', ' ')
+#     return HTMLResponse(content = data, status_code=200)
 
 
-@app.get("/api/v1/editor", response_class=HTMLResponse)
-async def read_items():
-    return generate_html_response()
-
-# async def renderGET(request: Request):
-#     return templates.TemplateResponse(
-#         "index.html", {"request": request, "name": "Jan Kowalski"}
-#     )
+@app.get("/api/v1/editor")
+async def renderGET(request: Request):
+    return templates.TemplateResponse(
+        "index.html", {"request": request, "name": "Jan Kowalski"}
+    )
+# async def read_items():
+#     return generate_html_response()
 
 # if __name__ == "__main__":
 #     import uvicorn

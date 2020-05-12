@@ -14,9 +14,7 @@ class EditorRender extends Component {
 	async componentDidMount() {
 		await ky
                 .get("/api/v1/editor")
-                .then( data => {
-					console.log(data);
-				})
+                .then(response => response.text())
 				.then(data =>{
                     this.setState({output: data});
                 })
