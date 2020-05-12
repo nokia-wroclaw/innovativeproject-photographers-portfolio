@@ -24,11 +24,16 @@ class EditorRender extends Component {
                         })
 	}
 
+	createOutput = () => {
+		return {
+		   __html: `${this.state.output}`    };
+	 };
+
 	render() {
-		const { output, errorMsg } = this.state
+		const { errorMsg } = this.state
 		return (
-			<div>
-			    {output}
+			<div
+			    dangerouslySetInnerHTML={this.createOutput()}>
         		{errorMsg ? <div>{errorMsg}</div> : null}
 			</div>
 		)

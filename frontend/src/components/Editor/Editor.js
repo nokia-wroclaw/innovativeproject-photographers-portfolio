@@ -13,7 +13,7 @@ class Editor extends Component{
         super();
         this.state={
             userInput: "",
-            EditorRenderMounted: true
+            EditorRenderMounted: false
         }
         this.submitHandler = this.submitHandler.bind(this)
       }
