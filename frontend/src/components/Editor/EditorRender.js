@@ -6,7 +6,7 @@ class EditorRender extends Component {
 		super(props)
 
 		this.state = {
-      output:"",
+      output:'',
       errorMsg: ''
 		}
 	}
@@ -15,8 +15,10 @@ class EditorRender extends Component {
 		await ky
                 .get("/api/v1/editor")
                 .then( data => {
-                    console.log(data)
-                    this.setState({output: data})
+					console.log(data);
+				})
+				.then(data =>{
+                    this.setState({output: data});
                 })
                 .catch(error => {
                     console.log(error)
@@ -28,11 +30,11 @@ class EditorRender extends Component {
 		const { output, errorMsg } = this.state
 		return (
 			<div>
-			    {this.output}
-        {errorMsg ? <div>{errorMsg}</div> : null}
+			    {output}
+        		{errorMsg ? <div>{errorMsg}</div> : null}
 			</div>
 		)
 	}
 }
 
-export default EditorRender
+export default EditorRender;
