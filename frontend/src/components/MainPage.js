@@ -11,7 +11,7 @@ class MainPage extends Component{
   render(){
     return(
       <Container className="mainPageBkgd" fluid style={{paddingLeft:'0', paddingRight:'0'}}>
-          <Navbar collapseOnSelect expand="xl" className="color-nav" variant="dark" fixed="">
+          <Navbar collapseOnSelect expand="xl" className="color-nav" variant="dark" fixed="top">
             <Navbar.Brand>
               <Link href="/mainPage" className="text nav" style={{textDecoration:'none', color:'#077cc5'}}>
                 Jan Kowalski
@@ -33,7 +33,7 @@ class MainPage extends Component{
               </Nav>
             </Navbar.Collapse>
           </Navbar>
-          <Row className="text-center" style={{paddingTop:'6%'}}>
+          <Row className="text-center" style={{paddingTop:'11%'}}>
             <Col style={{paddingLeft:'12%'}}>
             <button className="buttonLightPink darkTheme">
               <Link to="/mainPageAlbum" className="iconPink" style={{textDecoration:'none'}}>

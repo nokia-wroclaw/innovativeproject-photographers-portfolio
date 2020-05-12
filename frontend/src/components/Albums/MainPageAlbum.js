@@ -86,7 +86,7 @@ class MainPageAlbum extends Component{
 
     render(){
         return(
-            <Container className="mainPageBkgd" fluid style={{paddingLeft:'0', paddingRight:'0'}}>
+            <Container className="mainPageBkgd scroll" fluid style={{paddingLeft:'0', paddingRight:'0'}}>
                 <Navbar collapseOnSelect expand="xl" className="color-nav" variant="dark" fixed="top">
                   <Navbar.Brand>
                     <Link href="/mainPage" className="text nav" style={{textDecoration:'none', color:'#077cc5'}}>
