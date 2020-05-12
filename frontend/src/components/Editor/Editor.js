@@ -1,19 +1,19 @@
 import React, {Component} from 'react';
 import './Editor.scss';
-import { Button, Form, Input, Container, Row, Col} from 'reactstrap';
+import { Form, Container, Row, Col} from 'reactstrap';
 import ky from 'ky';
 import { Navbar, Nav} from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import EditorRender from "./EditorRender"
 import {IoIosPower, IoIosSettings, IoIosColorPalette} from 'react-icons/io'
 import { IconContext } from 'react-icons';
 
 class Editor extends Component{
-    constructor(props){
-        super(props)
-       this.state={
-        userInput: "",
-        output: "",
-        flag: "start value"
+    constructor(){
+        super();
+        this.state={
+            userInput: "",
+            EditorRenderMounted: false
         }
         this.submitHandler = this.submitHandler.bind(this)
       }
@@ -27,26 +27,27 @@ class Editor extends Component{
                  const formData = new FormData();
                  formData.append('userInput', this.state.userInput);
                  this.state.flag = "changed";
+                 this.setState({
+                     EditorRenderMounted: !this.state.EditorRenderMounted
+                 })
                  return await ky.post("/api/v1/editor", {body: formData});
+
             //  }
             // catch (e) {
             //    console.log("Register error");
             // }
           }
 
-        async componentDidMount(){
-            let data = await ky.get("/api/v1/editor");
-            console.log(data);
-            if (this.state.flag !== "start value") {
-                this.setState({output: data});
-              }
-          }
 
 render(){
-    const {userInput, output} = this.state
+    const {userInput} = this.state
+    let Output = "";
+    if (this.state.EditorRenderMounted) {
+        Output = (<EditorRender output="update" errorMsg="" />)
+    }
     return(
           <Container className="mainPageBkgd" fluid style={{paddingLeft:'0', paddingRight:'0'}}>
-          <Navbar collapseOnSelect expand="xl" className="color-nav" variant="dark" fixed="">
+          <Navbar collapseOnSelect expand="xl" className="color-nav" variant="dark" fixed="top">
             <Navbar.Brand>
               <Link to="/mainPage" className="text nav" style={{textDecoration:'none', color:'#077cc5'}}>
                 Jan Kowalski
@@ -69,7 +70,7 @@ render(){
             </Navbar.Collapse>
           </Navbar>
 
-          <Row style={{paddingTop:'3%'}}>
+          <Row style={{paddingTop:'8%'}}>
             <Col style={{paddingLeft:'2%'}}>
             <Form className="editor-form" onSubmit={this.submitHandler}>
              <Row style={{paddingLeft:'2%'}}>
@@ -102,8 +103,9 @@ render(){
             </Row>
             <Row style={{paddingLeft:'5%', paddingTop:'1%',paddingRight:'5%'}}>
               <Container className="render">
-                <div> {output ? <div>update...</div> : <div> not update</div>}</div>
-            </Container></Row>
+                {Output}
+            </Container>
+            </Row>
            </Form>
             </Col>
           </Row>

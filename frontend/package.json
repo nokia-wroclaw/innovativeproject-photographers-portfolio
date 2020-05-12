@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "-": "0.0.1",
     "@chakra-ui/core": "^0.7.0",
     "@emotion/core": "^10.0.28",
     "@emotion/styled": "^10.0.27",
@@ -13,8 +14,10 @@
     "bootstrap": "^4.4.1",
     "cors": "^2.8.5",
     "emotion-theming": "^10.0.27",
+    "g": "^2.0.1",
     "http-proxy-middleware": "^1.0.3",
     "ky": "^0.19.1",
+    "node-gyp": "^6.1.0",
     "node-sass": "^4.14.1",
     "react": "^16.13.1",
     "react-bootstrap": "^1.0.1",

@@ -38,6 +38,7 @@ class Register extends Component {
           //  }
           //  return await ky.post("/api/register", {json: {body: formData}}).json();
           return await ky.post("/api/v1/register", {json: {
+
             email_address: this.state.email_address,
             first_name: this.state.first_name,
             last_name: this.state.last_name,
@@ -47,10 +48,6 @@ class Register extends Component {
             repassword: this.state.repassword
           }}).json()
 
-      //  }
-      // catch (e) {
-      //    console.log("Register error");
-      // }
     }
 
   render() {
