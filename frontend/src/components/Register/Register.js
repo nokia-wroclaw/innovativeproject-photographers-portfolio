@@ -8,20 +8,70 @@ import ky from 'ky';
 class Register extends Component {
   constructor(props) {
     super(props)
-    this.state = {
-      email_address: "",
-      first_name: "",
-      last_name: "",
-      nickname: "",
-      additional_email: "",
-      password: "",
-      repassword: ""
+    state = {
+        mail: {
+            email_address: "",
+            validation:{
+                required: true
+            },
+            valid: false
+            },
+        name: {
+            first_name: "",
+            validation:{
+                required: true
+            },
+            valid: false
+        },
+        surname: {
+            last_name: "",
+            validation:{
+                required: true
+            },
+            valid: false
+        },
+        nick: {
+            nickname: "",
+            validation:{
+                required: true
+            },
+            valid: false
+        },
+        addmail: {
+            additional_email: "",
+            validation:{
+                required: true
+            },
+            valid: false
+        },
+        pass: {
+            password: "",
+            validation:{
+                required: true
+            },
+            valid: false
+        },
+        repass: {
+            repassword: "",
+            validation:{
+                required: true
+            },
+            valid: false
+        }
+      }
     };
-    this.submitHandler = this.submitHandler.bind(this)
-  }
+    submitHandler = this.submitHandler.bind(this)
 
     changeHandler = (e) => {
         this.setState({[e.target.name]: e.target.value})
+    }
+
+    checkValidity(value, rules) {
+        let isValid = flase;
+        if(rules.required) {
+            isValid = value.trim() !== '';
+        }
+        return isValid;
     }
 
    async submitHandler (e) {
