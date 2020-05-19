@@ -2,6 +2,7 @@ from fastapi import FastAPI, Request, File, UploadFile, Form
 from fastapi.middleware.cors import CORSMiddleware
 
 from src.route.auth import auth_route
+from src.route.mainpage import mainpage_route
 import os
 from src.database import SessionLocal, engine
 from src import models
@@ -27,6 +28,7 @@ app.add_middleware(
 )
 
 app.include_router(auth_route)
+app.include_router(mainpage_route)
 
 @app.get("/")
 async def root():
