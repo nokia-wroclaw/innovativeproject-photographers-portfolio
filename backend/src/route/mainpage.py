@@ -1,4 +1,4 @@
-from fastapi import Depends, FastAPI, HTTPException, APIRouter, Request, Response, Form, status
+from fastapi import Depends, FastAPI, HTTPException, APIRouter, Request, Response, Form, status, File, UploadFile
 from fastapi.security import OAuth2PasswordRequestForm
 from fastapi.encoders import jsonable_encoder
 
@@ -10,7 +10,8 @@ from ..database import SessionLocal, engine
 from .. import schemas, models
 
 from ..mainpage import(
-    create_user_page
+    create_user_page,
+    upload_file
 )
 
 # Dependency
@@ -33,3 +34,14 @@ async def create_page_withurl(mainpage: schemas.Main_pageCreate, requests: Reque
     )
     page = create_user_page(db, username, mainpage)
     return page
+
+@mainpage_route.post("/api/v1/uploadfiles")
+async def add_file(requests: Request, file: UploadFile = File(...), db: Session = Depends(get_db)): #dla jednej strony użytkownika
+    username = requests.cookies["username"]
+    response = Response()
+    response.set_cookie(
+        key="username",
+        value=username 
+    )
+    photo = upload_file(db, username, file)
+    return None
