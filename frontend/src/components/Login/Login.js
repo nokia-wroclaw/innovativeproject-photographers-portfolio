@@ -1,18 +1,23 @@
-import React, {Component} from 'react';
+import React, {Component, useContext} from 'react';
 import { Button, Form, FormGroup, Input, Container} from 'reactstrap';
 import './Login.css';
-import { Link } from 'react-router';
+import { Link, useHistory } from 'react-router';
 import ky from "ky";
-import * as yup from "yup";
+import LoggedContext from "../../contexts/LoggedContext";
 
 class Login extends Component{
     constructor(props) {
         super(props)
         this.state = {
             email_address: "",
-            password: ""
+            password: "",
+            history: useHistory(),
+            isLogged: useContext(LoggedContext)
         };
         this.submitHandler = this.submitHandler.bind(this)
+        if (isLogged) {
+            history.replace("/mainPage");
+          }
       }
 
 
@@ -25,8 +30,15 @@ class Login extends Component{
             const formData = new FormData()
             formData.append("username", this.state.email_address)
             formData.append("password", this.state.password)
-               return await ky.post("/api/v1/login", {body: formData});
+            await ky.post("/api/v1/login", {body: formData});
         }
+
+        async getToken (){
+            const login = await ky.get("/api/v1/get-access-token")
+            Cookies.set("username", login.username);
+            history.push("/mainPage");
+        }
+
     render(){
         const {email_address, password} = this.state
         return(
@@ -55,7 +67,7 @@ class Login extends Component{
                 </FormGroup>
                 <Button className="btn-lg btn-dark btn-block" type="submit">Sign In</Button>
                 <div className="text-center" style={{paddingTop:'8%'}}>
-                <Button className="btn btn-dark" role="button">
+                <Button className="btn btn-dark" role="button" onClick={this.getToken}>
                     <Link href="/register" style={{textDecoration: 'none', color:'white'}}>
                     Sign Up
                     </Link>
