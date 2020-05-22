@@ -5,10 +5,13 @@ from starlette.templating import Jinja2Templates
 from jinja2 import Environment, FileSystemLoader, PackageLoader, select_autoescape
 
 env = Environment(
-    autoescape=select_autoescape(enabled_extensions='html', default_for_string=True)
+    autoescape=select_autoescape(enabled_extensions='html', default_for_string=True),
+    loader = PackageLoader('package', 'templates')
 )
 
 templates = Jinja2Templates(directory="templates")
+
+return templates.TemplateResponse("index.html", {"request": request})
 
 env.from_string()
 
