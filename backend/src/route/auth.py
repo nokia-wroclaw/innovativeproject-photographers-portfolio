@@ -10,7 +10,6 @@ from ..database import SessionLocal, engine
 from .. import schemas, models
 
 from ..auth import(
-    # RegisterForm,
     create_user,
     authenticate_user,
     get_user_by_email,
