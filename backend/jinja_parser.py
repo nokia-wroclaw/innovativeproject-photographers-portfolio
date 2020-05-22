@@ -11,17 +11,17 @@ env = Environment(
 
 templates = Jinja2Templates(directory="templates")
 
-return templates.TemplateResponse("index.html", {"request": request})
-
-env.from_string()
+templates = env.from_string()
 
 async def get_string(request:Request)-> str:
     return templates.TemplateResponse("index.html")
 
-
-
-
-
+@app.get("/")
+async def get_string(request: Request)->str:
+    
+    return templates.TemplateResponse(
+        "index.html", {"request": request, "name": "Jan Kowalski", "pics": pics}
+    )
 
 # app.mount("/static", StaticFiles(directory="static"), name="static")
 
