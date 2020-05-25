@@ -53,23 +53,6 @@ class Photos(PhotosBase):
     class Config:
         orm_mode = True
 
-#List_of_contents
-class List_of_contentsBase(BaseModel):
-    first_name: str
-    last_name: str
-    sender_email_address: str
-    subject: str
-    message_content: str
-    date: datetime = None
-class List_of_contentsCreate(List_of_contentsBase):
-    pass
-class List_of_contents(List_of_contentsBase):
-    id: int
-    page_id: int
-    photos: List[Photos] = []
-    class Config:
-        orm_mode = True
-
 #Contents
 class ContentsBase(BaseModel):
     label_content: str
@@ -78,6 +61,20 @@ class ContentsCreate(ContentsBase):
 class Contents(ContentsBase):
     id: int
     list_id: int
+    photos: List[Photos] = []
+    class Config:
+        orm_mode = True
+
+#List_of_contents
+class List_of_contentsBase(BaseModel):
+    label_content: str
+    is_subgroup_there: bool
+class List_of_contentsCreate(List_of_contentsBase):
+    pass
+class List_of_contents(List_of_contentsBase):
+    id: int
+    page_id: int
+    content: List[Contents] = []
     photos: List[Photos] = []
     class Config:
         orm_mode = True
