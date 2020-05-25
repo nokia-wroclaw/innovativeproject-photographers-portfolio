@@ -35,7 +35,18 @@ const Register = () => {
     formData.append("repassword", repassword);
     (async () => {
         try{
-            await ky.post("/api/v1/register", {body: formData});
+            await ky.post("/api/v1/register", {
+              json: {
+                email_address: email_address,
+                first_name: first_name,
+                last_name: last_name,
+                nickname: nickname,
+                additional_email: additional_email,
+                password: password,
+                repassword: repassword,
+              },
+            })
+            .json();
         Cookies.set("username", email_address);
         history.push("/mainPage")
         }catch (e){
@@ -54,7 +65,7 @@ const onSubmit = (setStatus) => {
           <Row>
             <Col>
               <h1 className="signIn">Sign Up</h1>
-              <FormGroup style={{ paddingBottom: '5%', paddingTop: '3%' }}>
+              <FormGroup style={{ paddingBottom: '5%', paddingTop: '5%' }}>
                 <Input
                 id="first_name"
                 name="first_name"
