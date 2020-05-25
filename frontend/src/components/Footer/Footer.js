@@ -3,8 +3,7 @@ import { Container, Row, Col} from 'reactstrap';
 import { Link } from 'react-router-dom';
 import './Footer.scss'
 
-class Footer extends Component{
-    render(){
+function Footer(){
         const date = new Date()
         return(
             <Container className="text-center footer" fluid>
@@ -19,7 +18,6 @@ class Footer extends Component{
                 </Row>
             </Container>
         );
-    }
 }
 
 export default Footer;

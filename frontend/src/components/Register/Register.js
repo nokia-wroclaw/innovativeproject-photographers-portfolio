@@ -6,51 +6,14 @@ import ky from 'ky';
 
 
 class Register extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      email_address: "",
-      first_name: "",
-      last_name: "",
-      nickname: "",
-      additional_email: "",
-      password: "",
-      repassword: ""
-    };
-    submitHandler = this.submitHandler.bind(this)
-  }
-    changeHandler = (e) => {
-        this.setState({[e.target.name]: e.target.value})
-    }
 
-    checkValidity(value, rules) {
-        let isValid = flase;
-        if(rules.required) {
-            isValid = value.trim() !== '';
-        }
-        return isValid;
-    }
-
-   async submitHandler (e) {
-      //  try{
-           e.preventDefault();
-           return await ky.post("/api/v1/register", {json: {
-            email_address: this.state.email_address,
-            first_name: this.state.first_name,
-            last_name: this.state.last_name,
-            nickname: this.state.nickname,
-            additional_email:this.state.additional_email,
-            password:this.state.password,
-            repassword: this.state.repassword
-          }}).json()
-    }
 
   render() {
-    const {email_address, first_name, last_name, nickname, additional_email, password, repassword} = this.state
+   
     return (
     <Container className="bkgd" fluid>
       <h1 className="header">Photographer's portfolio</h1>
-      <Form className="register-form" onSubmit={this.submitHandler}>
+      <Form className="register-form">
         <Container className="box vertical-divider">
           <Row>
             <Col>
@@ -60,8 +23,6 @@ class Register extends Component {
                 id="first_name"
                 name="first_name"
                 type="text"
-                value={first_name}
-                onChange={this.changeHandler}
                 placeholder="Name" />
               </FormGroup>
               <FormGroup style={{ paddingBottom: '5%' }}>
@@ -69,8 +30,6 @@ class Register extends Component {
                 id="last_name"
                 name="last_name"
                 type="text"
-                value={last_name}
-                onChange={this.changeHandler}
                 placeholder="Last Name" />
               </FormGroup>
               <FormGroup style={{ paddingBottom: '5%' }}>
@@ -78,8 +37,6 @@ class Register extends Component {
                 id="email_address"
                 name="email_address"
                 type="email"
-                value={email_address}
-                onChange={this.changeHandler}
                 placeholder="Email"/>
               </FormGroup>
               <FormGroup style={{ paddingBottom: '5%' }}>
@@ -87,8 +44,6 @@ class Register extends Component {
                 id="nickname"
                 name="nickname"
                 type="text"
-                value={nickname}
-                onChange={this.changeHandler}
                 placeholder="Nickname" />
               </FormGroup>
               <FormGroup style={{ paddingBottom: '5%' }}>
@@ -96,8 +51,6 @@ class Register extends Component {
                 id="additional_email"
                 name="additional_email"
                 type="text"
-                value={additional_email}
-                onChange={this.changeHandler}
                 placeholder="Additional Email" />
               </FormGroup>
               <FormGroup style={{ paddingBottom: '5%' }}>
@@ -105,8 +58,6 @@ class Register extends Component {
                 id="password"
                 name="password"
                 type="password"
-                value={password}
-                onChange={this.changeHandler}
                 placeholder="Password" />
               </FormGroup>
               <FormGroup style={{ paddingBottom: '5%' }}>
@@ -114,8 +65,6 @@ class Register extends Component {
                 id="repassword"
                 name="repassword"
                 type="password"
-                value={repassword}
-                onChange={this.changeHandler}
                 placeholder="Confirm Password" />
               </FormGroup>
               <Button className="btn-lg btn-dark btn-block" type="submit">Sign Up</Button>
@@ -133,10 +82,10 @@ class Register extends Component {
             <Col style={{ paddingTop: '20%' }}>
               <h1 className="signIn">Sign In</h1>
               <FormGroup style={{ paddingBottom: '5%', paddingTop: '5%' }}>
-                <Input value={this.state.email} onChange={(ev) => this.setState({ email: ev.target.value })} type="email" placeholder="Email" />
+                <Input  type="email" placeholder="Email" />
               </FormGroup>
               <FormGroup style={{ paddingBottom: '5%' }}>
-                <Input value={this.state.password_log} onChange={(ev) => this.setState({ password_log: ev.target.value })} type="password" placeholder="Password" />
+                <Input type="password" placeholder="Password" />
               </FormGroup>
               <Button type="submit" className="btn-lg btn-dark btn-block" style={{ textDecoration: 'none' }}>
                 <Link href="/mainPage" style={{ textDecoration: 'none', color: 'white' }}> Sign in </Link>

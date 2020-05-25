@@ -7,72 +7,16 @@ import { Link } from 'react-router-dom';
 import EditorRender from "./EditorRender"
 import {IoIosPower, IoIosSettings, IoIosColorPalette} from 'react-icons/io'
 import { IconContext } from 'react-icons';
+import Navi from '../Nav'
 
-class Editor extends Component{
-    constructor(){
-        super();
-        this.state={
-            userInput: "",
-            EditorRenderMounted: false
-        }
-        this.submitHandler = this.submitHandler.bind(this)
-      }
-
-        changeHandler = (e) => {
-            this.setState({[e.target.name]: e.target.value})
-        }
-
-        async submitHandler (e) {
-                 e.preventDefault();
-                 const formData = new FormData();
-                 formData.append('userInput', this.state.userInput);
-                 this.state.flag = "changed";
-                 this.setState({
-                     EditorRenderMounted: !this.state.EditorRenderMounted
-                 })
-                 return await ky.post("/api/v1/editor", {body: formData});
-
-            //  }
-            // catch (e) {
-            //    console.log("Register error");
-            // }
-          }
-
-
-render(){
-    const {userInput} = this.state
-    let Output = "";
-    if (this.state.EditorRenderMounted) {
-        Output = (<EditorRender output="update" errorMsg="" />)
-    }
+function Editor(){
     return(
           <Container className="mainPageBkgd" fluid style={{paddingLeft:'0', paddingRight:'0'}}>
-          <Navbar collapseOnSelect expand="xl" className="color-nav" variant="dark" fixed="top">
-            <Navbar.Brand>
-              <Link to="/mainPage" className="text nav" style={{textDecoration:'none', color:'#077cc5'}}>
-                Jan Kowalski
-              </Link>
-            </Navbar.Brand>
-            <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-            <Navbar.Collapse id="responsive-navbar-nav">
-              <Nav className="mr-auto"></Nav>
-              <Nav>
-                <Nav.Link href="#deets" className="text" style={{color:'#077cc5'}}>Photos</Nav.Link>
-                <Nav.Link href="/editor" className="text" style={{color:'#077cc5'}}>Edit Page</Nav.Link>
-                <Nav.Link href="#deets" className="text" style={{color:'#077cc5'}}>Messages</Nav.Link>
-                <Nav.Link href="#deets" className="text" style={{color:'#077cc5'}}>Settings</Nav.Link>
-                <Nav.Link href="/login" >
-                  <IconContext.Provider value={{size:'2em', color:'#077cc5'}}>
-                    <IoIosPower/>
-                  </IconContext.Provider>
-                </Nav.Link>
-              </Nav>
-            </Navbar.Collapse>
-          </Navbar>
+          <Navi />
 
           <Row style={{paddingTop:'8%'}}>
             <Col style={{paddingLeft:'2%'}}>
-            <Form className="editor-form" onSubmit={this.submitHandler}>
+            <Form className="editor-form" >
              <Row style={{paddingLeft:'2%'}}>
             <button type="submit" style={{backgroundColor:'black', borderWidth:'0'}}>
               <IconContext.Provider value={{size:'4em',color:'#ceb1ba'}}>
@@ -85,8 +29,7 @@ render(){
             <Row style={{paddingLeft:'5%', paddingTop:'1%'}}>
            <textarea
               name="userInput"
-              value={userInput}
-              onChange={this.changeHandler}
+             
             /></Row>
            </Form>
             </Col>
@@ -103,7 +46,7 @@ render(){
             </Row>
             <Row style={{paddingLeft:'5%', paddingTop:'1%',paddingRight:'5%'}}>
               <Container className="render">
-                {Output}
+            
             </Container>
             </Row>
            </Form>
@@ -112,6 +55,5 @@ render(){
 
         </Container>
       );
-  }
 }
 export default Editor;

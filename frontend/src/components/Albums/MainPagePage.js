@@ -8,18 +8,7 @@ import '../MainPage.scss';
 import {IoIosPower, IoIosAdd, IoIosImages, IoIosCube} from 'react-icons/io'
 import { IconContext } from 'react-icons';
 
-class MainPageAlbum extends Component{
-  constructor(props){
-    super(props);
-    this.state = { showPopup: false };
-    }
-
-      togglePopup() {
-    this.setState({
-         showPopup: !this.state.showPopup
-    });
-     }
-    render(){
+function MainPageAlbum(){
         return(
             <Container className="mainPageBkgd" fluid style={{paddingLeft:'0', paddingRight:'0'}}>
                 <Navbar collapseOnSelect expand="xl" className="color-nav" variant="dark" fixed="">
@@ -65,13 +54,11 @@ class MainPageAlbum extends Component{
                   </Container>
                 </Row>
                 <Row style={{paddingTop:'40px', paddingLeft:'50px', paddingLeft:'10%', paddingTop:'5%'}}>
-                <button onClick={this.togglePopup.bind(this)} className="buttonLightPink">
+                <button  className="buttonLightPink">
                   <IconContext.Provider value={{size:'15em', color:'#98878f'}}>
                     <IoIosAdd/>
                   </IconContext.Provider>
                   </button>
-                  {this.state.showPopup ?
-                  <Modal closePopup={this.togglePopup.bind(this)}/> : null}
                 </Row>
                 </Col>
                 </Row>
@@ -81,7 +68,6 @@ class MainPageAlbum extends Component{
             </Container>
 
         );
-    }
 }
 
 export default MainPageAlbum;

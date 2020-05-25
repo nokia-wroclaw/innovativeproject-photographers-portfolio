@@ -1,50 +1,48 @@
-import React, {Component, useContext} from 'react';
+import React, {Component, useContext, useState, useEffect} from 'react';
 import { Button, Form, FormGroup, Input, Container} from 'reactstrap';
 import './Login.css';
-import { Link, useHistory } from 'react-router';
+import { Link } from 'react-router';
+import {useHistory} from 'react-router-dom';
 import ky from "ky";
-import LoggedContext from "../../contexts/LoggedContext";
+import LoggedContext from "../../contexts/Loggedcontext";
+import Cookies from "js-cookie";
 
-class Login extends Component{
-    constructor(props) {
-        super(props)
-        this.state = {
-            email_address: "",
-            password: "",
-            history: useHistory(),
-            isLogged: useContext(LoggedContext)
-        };
-        this.submitHandler = this.submitHandler.bind(this)
+const Login = () => {
+    const[email_address, setEmailAddress] = useState("");
+    const[password, setPassword] = useState("");
+    const history = useHistory();
+    const isLogged = useContext(LoggedContext);
+
+    useEffect(() => {
         if (isLogged) {
-            history.replace("/mainPage");
-          }
-      }
-
-
-        changeHandler = (e) => {
-            this.setState({[e.target.name]: e.target.value})
+          history.replace("/mainPage");
         }
+      }, [isLogged, history]);  
+   
+       
 
-       async submitHandler (e) {
-            e.preventDefault();
+       async function submitHandler (setStatus) {
             const formData = new FormData()
-            formData.append("username", this.state.email_address)
-            formData.append("password", this.state.password)
-            await ky.post("/api/v1/login", {body: formData});
+            formData.append("username", email_address);
+            formData.append("password", password);
+            (async () => {
+                try{
+                    await ky.post("/api/v1/login", {body: formData});
+                Cookies.set("username", email_address);
+                history.push("/mainPage")
+                }catch (e){
+                    setStatus({error: "loginError"});
+                }
+            })();
         }
 
-        async getToken (){
-            const login = await ky.get("/api/v1/get-access-token")
-            Cookies.set("username", login.username);
-            history.push("/mainPage");
+        const onSubmit = (setStatus) => {
+            submitHandler(setStatus);
         }
-
-    render(){
-        const {email_address, password} = this.state
         return(
             <Container className="bkgd" fluid>
             <h1  className="header" >Photographer's portfolio</h1>
-                <Form className="login-form" onSubmit={this.submitHandler}>
+                <Form className="login-form" onSubmit={({setStatus}) => {onSubmit(setStatus);}}>
                 <div className="box">
                     <h1 className="signIn">Sign In</h1>
                 <FormGroup style={{paddingBottom:'5%', paddingTop:'5%'}}>
@@ -52,8 +50,7 @@ class Login extends Component{
                 id="email_address"
                 name="email_address"
                 type="email"
-                value={email_address}
-                onChange={this.changeHandler}
+                onChange={(e) => setEmailAddress(e.target.value)}
                 placeholder="Email"/>
                 </FormGroup>
                 <FormGroup style={{paddingBottom:'5%'}}>
@@ -61,13 +58,12 @@ class Login extends Component{
                 id="password"
                 name="password"
                 type="password"
-                value={password}
-                onChange={this.changeHandler}
+                onChange={(e)=>setPassword(e.target.value)}
                 placeholder="Password" />
                 </FormGroup>
                 <Button className="btn-lg btn-dark btn-block" type="submit">Sign In</Button>
                 <div className="text-center" style={{paddingTop:'8%'}}>
-                <Button className="btn btn-dark" role="button" onClick={this.getToken}>
+                <Button className="btn btn-dark" role="button" >
                     <Link href="/register" style={{textDecoration: 'none', color:'white'}}>
                     Sign Up
                     </Link>
@@ -82,7 +78,7 @@ class Login extends Component{
             </Form>
             </Container>
         );
-    }
+    
 }
 
 export default Login;
