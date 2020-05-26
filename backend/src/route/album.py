@@ -11,11 +11,11 @@ from .. import schemas, models
 
 from ..album import(
     create_album,
-    # create_subalbum,
+    create_subalbum,
     get_user_by_email,
     get_page,
-    # get_album,
-    # get_album_status
+    get_album,
+    get_album_byname
 )
 
 # Dependency
@@ -43,9 +43,9 @@ async def add_album(album: schemas.List_of_contentsCreate, requests: Request, db
     album = create_album(db, username, page, album)
     return album
 
-# @album_route.post("/api/v1/subalbum")
-# async def add_subalbum(subalbum: schemas.ContentsCreate, request: Request, db: Session = Depends(get_db)):
-#         username = requests.cookies["username"]
+# @album_route.get("/api/v1/getalbum")
+# async def test(album_name: str, requests: Request, db: Session = Depends(get_db)):
+#     username = requests.cookies["username"]
 #     response = Response()
 #     response.set_cookie(
 #         key="username",
@@ -53,6 +53,21 @@ async def add_album(album: schemas.List_of_contentsCreate, requests: Request, db
 #     )
 #     user = get_user_by_email(db, username)
 #     page = get_page(db, user.id)
-#     album = get_album(db, page)
-#     status = get_album_status(db, album.)
-#     return subalbum 
+#     return get_album_byname(db, page, album_name)
+    
+
+@album_route.post("/api/v1/subalbum")
+async def add_subalbum(album_name: str, subalbum: schemas.Contents, requests: Request, db: Session = Depends(get_db)):
+    username = requests.cookies["username"]
+    response = Response()
+    response.set_cookie(
+        key="username",
+        value=username 
+    )
+    user = get_user_by_email(db, username)
+    page = get_page(db, user.id)
+    if not page:
+        return false
+    album_status = get_album_byname(db, page, album_name)
+    subalbum = create_subalbum(db, username, page, album_name, album_status.id, subalbum)
+    return subalbum

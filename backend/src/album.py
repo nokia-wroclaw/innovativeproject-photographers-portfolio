@@ -28,20 +28,30 @@ def create_album(portfolio_db: Session, username: str, page_id: int, album: sche
     portfolio_db.refresh(portfolio_db_album)
     return portfolio_db_album
 
-# def get_album(portfolio_db: Session, page_id: int):
-#     return portfolio_db.query(models.List_of_Contents).filter(models.List_of_Contents.page_id == page_id).first()
+def get_album(portfolio_db: Session, page_id: int):
+    album = portfolio_db.query(models.List_of_Contents).filter(models.List_of_Contents.page_id == page_id).first()
+    return album
 
-# def get_album_status(portfolio_db: Session, album_id: int):
-#     return portfolio_db.query(models.List_of_Contents).filter(models.List_of_Contents.is_subgroup_there == is_subgroup_there).first()
+def get_album_byname(portfolio_db: Session, page_id: int, album_name: str):
+    return portfolio_db.query(models.List_of_Contents).filter(models.List_of_Contents.page_id == page_id).filter(models.List_of_Contents.label_content == album_name).first()
 
-# def create_subalbum(portfolio_db: Session, username: str, page_id: int, album_id: int, subalbum: schemas.ContentsCreate):
-#     user = get_user_by_email(portfolio_db, username)
-#     page = get_page(portfolio_db, user.id)
-#     album = get_album(portfolio_db, page)
-#     if album.is_subgroup_there is false:
-#         return false
-#     portfolio_db_subalbum = models.Contents(label_content = subalbum.label_content)
-#     portfolio_db.add(portfolio_db_subalbum)
-#     portfolio_db.commit()
-#     portfolio_db.refresh(portfolio_db_subalbum)
-#     return portfolio_db_subalbum
+def create_subalbum(portfolio_db: Session, username: str, page_id: int, album_name: str, list_id: int, subalbum: schemas.Contents):
+    user = get_user_by_email(portfolio_db, username)
+    page = get_page(portfolio_db, user.id)
+    album_status = get_album_byname(portfolio_db, page, album_name)
+    if album_status.is_subgroup_there is True:
+        portfolio_db_subalbum = models.Contents(label_content = subalbum.label_content, list_id = list_id)
+        portfolio_db.add(portfolio_db_subalbum)
+        portfolio_db.commit()
+        portfolio_db.refresh(portfolio_db_subalbum)
+        return portfolio_db_subalbum
+    else:
+        return "Album type does not allow adding subalbums."
+
+def get_subalbum(portfolio_db: Session, album_id: int):
+    return portfolio_db.query(models.Contents).filter(models.Contents.list_id == album_id).first()
+
+def get_subalbum_byname(portfolio_db: Session, album_id: int, subalbum_name: str):
+    return portfolio_db.query(models.Contents).filter(models.Contents.list_id == album_id).filter(models.Contents.label_content == subalbum_name).first()
+
+def add_photo(portfolio_db: Session, page_id: int, photo_id: int, album_name: str)

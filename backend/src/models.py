@@ -92,8 +92,7 @@ class Photos(Base):
     page_id  = Column(Integer, ForeignKey("MAIN_PAGE.id"))
 
     path_and_name = Column(String(100), unique=True, nullable=False)
-    list_content = Column(Boolean, default=True, nullable=False) #CZY NA PEWNO BOOLEAN?
-    id_list_content = Column(Integer, nullable=True)
-    id_content = Column(Integer, nullable=True)
+    list_content = Column(Boolean, default=False, nullable=False) #CZY NA PEWNO BOOLEAN?
+    id_list = Column(Integer, nullable=True)
 
     m_page = relationship("Main_page", back_populates="photos")
