@@ -1,12 +1,12 @@
-import React, {Component, useState} from 'react';
-import { Navbar, Nav} from 'react-bootstrap';
-import { Link } from 'react-router-dom';
-import Modal from'./Modal';
-import Footer from '../Footer/Footer'
-import { Container ,Row, Button, Col} from 'reactstrap';
-import '../MainPage.scss';
-import {IoIosPower, IoIosAdd, IoIosImages, IoIosCube} from 'react-icons/io'
-import { IconContext } from 'react-icons';
+import React, { Component, useState } from "react";
+import { Navbar, Nav } from "react-bootstrap";
+import { Link } from "react-router-dom";
+import Modal from "./Modal";
+import Footer from "../Footer/Footer";
+import { Container, Row, Button, Col } from "reactstrap";
+import "../MainPage.scss";
+import { IoIosPower, IoIosAdd, IoIosImages, IoIosCube } from "react-icons/io";
+import { IconContext } from "react-icons";
 
 function MainPageAlbum(){
         return(

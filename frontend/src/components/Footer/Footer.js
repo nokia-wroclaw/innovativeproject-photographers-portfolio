@@ -1,7 +1,7 @@
-import React, {Component} from 'react';
-import { Container, Row, Col} from 'reactstrap';
-import { Link } from 'react-router-dom';
-import './Footer.scss'
+import React, { Component } from "react";
+import { Container, Row, Col } from "reactstrap";
+import { Link } from "react-router-dom";
+import "./Footer.scss";
 
 function Footer(){
         const date = new Date()

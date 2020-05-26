@@ -22,23 +22,6 @@ ACCESS_TOKEN_EXPIRE_MINUTES = 10
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
-# class RegisterForm:
-#     def __init__(
-#         self, #this
-#         email_address: str = Form(...),
-#         first_name: str = Form(...),
-#         last_name: str = Form(...),
-#         nickname: str = Form(...),
-#         password: str = Form(...),
-#         repassword: str = Form(...),
-#     ):
-#         self.email_address = email_address
-#         self.first_name = first_name
-#         self.last_name = last_name
-#         self.nickname = nickname
-#         self.password = password
-#         self.repassword = repassword
-
 #User authentication
 def get_password_hash(password) -> str:
     return pwd_context.hash(password)

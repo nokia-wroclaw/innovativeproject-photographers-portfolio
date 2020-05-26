@@ -35,7 +35,7 @@ function Editor(){
             </Col>
 
 
-            <Col style={{paddingRight:'2%'}}>
+          <Col style={{ paddingRight: "2%" }}>
             <Form className="editor-form ">
             <Row style={{paddingLeft:'2%'}}>
             <IconContext.Provider value={{size:'4em',color:'#ceb1ba'}}>
