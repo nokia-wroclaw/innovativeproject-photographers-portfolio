@@ -15,7 +15,12 @@ from ..album import(
     get_user_by_email,
     get_page,
     get_album,
-    get_album_byname
+    get_album_byname,
+    add_photo
+)
+
+from ..mainpage import(
+    get_photo
 )
 
 # Dependency
@@ -71,3 +76,18 @@ async def add_subalbum(album_name: str, subalbum: schemas.Contents, requests: Re
     album_status = get_album_byname(db, page, album_name)
     subalbum = create_subalbum(db, username, page, album_name, album_status.id, subalbum)
     return subalbum
+
+@album_route.post("api/v1/addphoto")
+async def add_photo_toalbum(page_id: int, id_list: int, album_name: str, subalbum_name: str, photo_id: int, Request: Request, db: Session = Depends(get_db)):
+    username = requests.cookies["username"]
+    response = Response()
+    response.set_cookie(
+        key="username",
+        value=username 
+    )
+    user = get_user_by_email(db, username)
+    page = get_page(db, user.id)
+    photo = get_photo(db, page, file_id)
+    album = get_album_byname(db, page, album_name)
+    upload = add_photo(db, page, photo.id, album_name, subalbum_name)
+    pass

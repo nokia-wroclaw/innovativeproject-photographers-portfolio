@@ -16,7 +16,8 @@ from . import models, schemas
 
 from .mainpage import(
     get_page,
-    get_user_by_email
+    get_user_by_email,
+    get_photo
 )
 
 def create_album(portfolio_db: Session, username: str, page_id: int, album: schemas.List_of_contentsCreate):
@@ -54,4 +55,25 @@ def get_subalbum(portfolio_db: Session, album_id: int):
 def get_subalbum_byname(portfolio_db: Session, album_id: int, subalbum_name: str):
     return portfolio_db.query(models.Contents).filter(models.Contents.list_id == album_id).filter(models.Contents.label_content == subalbum_name).first()
 
-def add_photo(portfolio_db: Session, page_id: int, photo_id: int, album_name: str)
+def get_subalbum_byid(portfolio_db: Session, album_id: int, subalbum_id: int):
+    return portfolio_db.query(models.Contents).filter(models.Contents.list_id == album_id).filter(models.Contents.id == subalbum_id).first()
+
+
+def add_photo(portfolio_db: Session, page_id: int, photo_id: int, album_name: str, subalbum_id: int):
+    user = get_user_by_email(portfolio_db, username)
+    page = get_page(portfolio_db, user.id)
+    album_status = get_album_byname(portfolio_db, page, album_name)
+    subalbum = get_subalbum_byid(portfolio_db, album_status.id, subalbum_id)
+    ph = get_photo(portfolio_db, page, photo_id)
+    if album_status.is_subgroup_there is False: #means there are only albums (no subalbums)
+        portfolio_db_photo = models.Photos(album_status.id == ph.list_id)
+        portfolio_db.add(portfolio_db_photo)
+        portfolio_db.commit()
+        portfolio_db.refresh(portfolio_db_photo)
+        return portfolio_db_photo
+    else:
+        portfolio_db_photo = models.Photos(subalbum.id == ph.list_id)
+        portfolio_db.add(portfolio_db_photo)
+        portfolio_db.commit()
+        portfolio_db.refresh(portfolio_db_photo)
+        return portfolio_db_photo

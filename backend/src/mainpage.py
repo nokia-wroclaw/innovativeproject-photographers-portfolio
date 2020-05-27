@@ -51,3 +51,6 @@ def upload_file(portfolio_db: Session, username: str, file: File):
     f.close()
     save_file_indb(portfolio_db, path + "/" + filen, page_id)
     return None
+
+def get_photo(portfolio_db: Session, page_id: int, file_id: int):
+    return portfolio_db.query(models.Photos).filter(models.Photos.page_id == page_id).filter(models.Photos.id == file_id).first()
