@@ -11,20 +11,20 @@ const Navi = () => {
   const history = useHistory();
   const isLogged = useContext(LoggedContext);
 
-  useEffect(() => {
+  /*useEffect(() => {
     if (!isLogged) {
       history.replace("/login");
     }
-  }, [isLogged, history]);
+  }, [isLogged, history]);*/
 
-  const logout = async () => {
+  /*const logout = async () => {
     try {
       await ky.get("/api/v1/logout");
       history.push("/login");
     } catch (e) {
       console.log("logout error");
     }
-  };
+  };*/
   return (
     <Navbar
       collapseOnSelect
@@ -62,7 +62,7 @@ const Navi = () => {
           <Nav.Link href="#deets" className="text" style={{ color: "#077cc5" }}>
             Settings
           </Nav.Link>
-          <Nav.Link onClick={() => {logout();}}>
+          <Nav.Link /*onClick={() => {logout();}}*/>
             <IconContext.Provider value={{ size: "2em", color: "#077cc5" }}>
               <IoIosPower />
             </IconContext.Provider>
