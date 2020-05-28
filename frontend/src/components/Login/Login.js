@@ -4,47 +4,41 @@ import "./Login.css";
 import { Link } from "react-router";
 import { useHistory } from "react-router-dom";
 import ky from "ky";
-import LoggedContext from "../../contexts/Loggedcontext";
+import { SessionContext, getSessionCookie, setSessionCookie } from "../../contexts/Loggedcontext";
 import * as Cookies from "js-cookie";
 
 const Login = () => {
   const [email_address, setEmailAddress] = useState("");
   const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
   const history = useHistory();
-  const isLogged = useContext(LoggedContext);
 
-  useEffect(() => {
-    if (isLogged) {
-      history.replace("/mainPage");
-    }
-  }, [isLogged, history]);
+  
 
-  async function submitHandler(setStatus) {
+  const submitHandler = async (setStatus) => {
     const formData = new FormData();
     formData.append("username", email_address);
     formData.append("password", password);
+    setLoading(true);
     (async () => {
       try {
         await ky.post("/api/v1/login", { body: formData });
-        Cookies.set("username", email_address);
+        setSessionCookie({ email_address });
         history.push("/mainPage");
+        setLoading(false);
       } catch (e) {
         setStatus({ error: "loginError" });
       }
     })();
   }
 
-  const onSubmit = (setStatus) => {
-    submitHandler(setStatus);
-  };
+  
   return (
     <Container className="bkgd" fluid>
       <h1 className="header">Photographer's portfolio</h1>
       <Form
         className="login-form"
-        onSubmit={({ setStatus }) => {
-          onSubmit(setStatus);
-        }}
+        onSubmit={submitHandler}
       >
         <div className="box">
           <h1 className="signIn">Sign In</h1>

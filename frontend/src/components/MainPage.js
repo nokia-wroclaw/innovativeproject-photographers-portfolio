@@ -7,7 +7,6 @@ import { IoIosPower, IoIosImages, IoIosCube } from "react-icons/io";
 import { IconContext } from "react-icons";
 import { Link } from "react-router-dom";
 import Navi from "./Nav";
-import LoggedContext from "../contexts/Loggedcontext";
 import ky from "ky";
 
 const MainPage = () => {

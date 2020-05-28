@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Component, useState, useEffect, useContext } from "react";
 import { Route, Redirect, Switch } from "react-router-dom";
 import Login from "./components/Login/Login";
 import Register from "./components/Register/Register";
@@ -6,9 +6,18 @@ import MainPage from "./components/MainPage";
 import Editor from "./components/Editor/Editor";
 import MainPageAlbum from "./components/Albums/MainPageAlbum";
 import MainPagePage from "./components/Albums/MainPagePage";
+import { SessionContext, getSessionCookie, setSessionCookie } from "./contexts/Loggedcontext";
 
-function AppRouter() {
+const AppRouter = () => {
+  const [session, setSession] = useState(getSessionCookie());
+  useEffect(
+    () => {
+      setSession(getSessionCookie());
+    },
+    [session]
+  );
   return (
+    <SessionContext.Provider value={session}>
     <div>
       <Switch>
         <Route exact path="/">
@@ -25,7 +34,8 @@ function AppRouter() {
         </Route>
       </Switch>
     </div>
+    </SessionContext.Provider>
   );
-}
+};
 
 export default AppRouter;

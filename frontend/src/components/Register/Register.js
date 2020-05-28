@@ -12,8 +12,8 @@ import { Link } from "react-router-dom";
 import "./Register.scss";
 import ky from "ky";
 import Cookies from "js-cookie";
-import LoggedContext from "../../contexts/Loggedcontext";
 import { useHistory } from "react-router-dom";
+import { SessionContext, getSessionCookie, setSessionCookie } from "../../contexts/Loggedcontext";
 
 const Register = () => {
   const [email_address, setEmailAddress] = useState("");
@@ -24,13 +24,8 @@ const Register = () => {
   const [password, setPassword] = useState("");
   const [repassword, setRepassword] = useState("");
   const history = useHistory();
-  const isLogged = useContext(LoggedContext);
 
-  useEffect(() => {
-    if (isLogged) {
-      history.replace("/menu");
-    }
-  }, [isLogged, history]);
+  
 
   async function submitHandler(setStatus) {
     const formData = new FormData();
