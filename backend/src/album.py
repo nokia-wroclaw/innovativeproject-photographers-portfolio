@@ -58,7 +58,6 @@ def get_subalbum_byname(portfolio_db: Session, album_id: int, subalbum_name: str
 def get_subalbum_byid(portfolio_db: Session, album_id: int, subalbum_id: int):
     return portfolio_db.query(models.Contents).filter(models.Contents.list_id == album_id).filter(models.Contents.id == subalbum_id).first()
 
-
 def upl_photo(portfolio_db: Session, username: str, page_id: int, photo_id: int, album_name: str, subalbum_name: str, status: bool):
     user = get_user_by_email(portfolio_db, username)
     page_id = get_page(portfolio_db, user.id)
@@ -67,7 +66,7 @@ def upl_photo(portfolio_db: Session, username: str, page_id: int, photo_id: int,
     if status == False:
         ph.id_list = album.id
         ph.list_content = False
-    else:
+    elif status == True:
         subalbum = get_subalbum_byname(portfolio_db, album.id, subalbum_name)
         ph.id_list = subalbum.id
         ph.list_content = True

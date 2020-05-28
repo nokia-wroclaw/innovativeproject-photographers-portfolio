@@ -86,7 +86,7 @@ async def add_photo_toalbum(requests: Request, page_id: int, album_name: str, ph
         value=username 
     )
     if subalbum_name is None:
-        status = false
+        status = False
     else:
         status = True
     save_tolist = upl_photo(db, username, page_id, photo_id, album_name, subalbum_name, status)

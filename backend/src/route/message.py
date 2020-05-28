@@ -11,7 +11,8 @@ from .. import schemas, models
 
 from ..message import(
     get_user_by_email,
-    save_message
+    save_message,
+    read_message
 )
 
 # Dependency
@@ -35,9 +36,24 @@ async def send_message(message: schemas.MessageCreate, requests: Request, db: Se
     msg = save_message(db, username, message)
     return msg
 
-# @message_route.get("/api/v1/status")
-# async def update_status(status: str, requests: Request, db: Session = Depends(get_db)):
-#     user = requests.cookies["username"]
-#     if user not None:
+@message_route.get("/api/v1/read")
+async def read(requests: Request, message_id: int, db: Session = Depends(get_db)):
+    username = requests.cookies["username"]
+    response = Response()
+    response.set_cookie(
+        key="username",
+        value=username 
+    )
+    message_status = read_message(db, username, message_id)
+    return message_status
 
-#     return status
+# @message_route.post("/api/v1/delete")
+# async def delete(requests: Request, message_id: int, db: Session = Depends(get_db)):
+#     username = requests.cookies["username"]
+#     response = Response()
+#     response.set_cookie(
+#         key="username",
+#         value=username 
+#     )
+#     get_todelete(db, username, message_id)
+#     return response

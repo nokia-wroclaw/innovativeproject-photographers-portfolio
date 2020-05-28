@@ -25,15 +25,19 @@ def save_message(portfolio_db: Session, username: str, message: schemas.MessageC
     portfolio_db.refresh(portfolio_db_message)
     return portfolio_db_message
 
-# def get_massage(portfolio_db: Session, message_id: int) -> models.User:
-#     return portfolio_db.query(models.User).filter(models.User.email_address == email).first()
+def get_massage(portfolio_db: Session, user_id: int,  message_id: int):
+     return portfolio_db.query(models.Message).filter(models.Message.receiver_id == user_id).filter(models.Message.id == message_id).first()
 
+def read_message(portfolio_db: Session, username: str, message_id: int):
+    user = get_user_by_email(portfolio_db, username)
+    msg = get_massage(portfolio_db, user.id, message_id)
+    if msg.status == "Nie przeczytane":
+        msg.status = "Odczytane"
+    else:
+        pass
+    portfolio_db.commit()
+    portfolio_db.refresh(msg)
+    return msg
 
-# def change_status(portfolio_db: Session, album: schemas):   
-#     portfolio_db_status = models.List_of_Contents(status = album.status)
-#     if portfolio_db_status == "Nie przeczytane":
-#         portfolio_db_status = "Odczytane"
-#     portfolio_db.add(portfolio_db_status)
-#     portfolio_db.commit()
-#     portfolio_db.refresh(portfolio_db_status)
-#     return portfolio_db_status
+# def get_todelete(portfolio_db: Session, user_id: int, message_id: int):
+#     return portfolio_db.query(models.Message).filter(models.Message.receiver_id == user_id).filter(models.Message.id == message_id).first().delete()

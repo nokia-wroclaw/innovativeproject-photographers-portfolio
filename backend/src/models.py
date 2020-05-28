@@ -42,7 +42,7 @@ class Message(Base):
 
     first_name = Column(String(50), nullable=False)
     last_name = Column(String(100), nullable=False)
-    sender_email_address = Column(String(100), nullable=False, unique=True)
+    sender_email_address = Column(String(100), nullable=False)
     subject = Column(String(50))
     message_content = Column(String(300))
     date = Column(DateTime, nullable=False)

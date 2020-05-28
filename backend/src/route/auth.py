@@ -87,3 +87,7 @@ async def logout_user(request: Request, db: Session = Depends(get_db)) -> Respon
     response = Response()
     response.delete_cookie(key="username")
     return response
+
+@auth_route.get("/api/v1/remind")
+async def funcname(parameter_list):
+    pass
