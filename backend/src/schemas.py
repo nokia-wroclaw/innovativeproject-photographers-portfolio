@@ -48,8 +48,7 @@ class Photos(PhotosBase):
     id: int
     page_id: int
     list_content: bool
-    id_list_content: int = None
-    id_content: int = None
+    id_list: int = None
     class Config:
         orm_mode = True
 

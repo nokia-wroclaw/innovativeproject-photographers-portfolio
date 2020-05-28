@@ -30,8 +30,8 @@ def create_album(portfolio_db: Session, username: str, page_id: int, album: sche
     return portfolio_db_album
 
 def get_album(portfolio_db: Session, page_id: int):
-    album = portfolio_db.query(models.List_of_Contents).filter(models.List_of_Contents.page_id == page_id).first()
-    return album
+    return portfolio_db.query(models.List_of_Contents).filter(models.List_of_Contents.page_id == page_id).first()
+    
 
 def get_album_byname(portfolio_db: Session, page_id: int, album_name: str):
     return portfolio_db.query(models.List_of_Contents).filter(models.List_of_Contents.page_id == page_id).filter(models.List_of_Contents.label_content == album_name).first()
@@ -59,21 +59,18 @@ def get_subalbum_byid(portfolio_db: Session, album_id: int, subalbum_id: int):
     return portfolio_db.query(models.Contents).filter(models.Contents.list_id == album_id).filter(models.Contents.id == subalbum_id).first()
 
 
-def add_photo(portfolio_db: Session, page_id: int, photo_id: int, album_name: str, subalbum_id: int):
+def upl_photo(portfolio_db: Session, username: str, page_id: int, photo_id: int, album_name: str, subalbum_name: str, status: bool):
     user = get_user_by_email(portfolio_db, username)
-    page = get_page(portfolio_db, user.id)
-    album_status = get_album_byname(portfolio_db, page, album_name)
-    subalbum = get_subalbum_byid(portfolio_db, album_status.id, subalbum_id)
-    ph = get_photo(portfolio_db, page, photo_id)
-    if album_status.is_subgroup_there is False: #means there are only albums (no subalbums)
-        portfolio_db_photo = models.Photos(album_status.id == ph.list_id)
-        portfolio_db.add(portfolio_db_photo)
-        portfolio_db.commit()
-        portfolio_db.refresh(portfolio_db_photo)
-        return portfolio_db_photo
+    page_id = get_page(portfolio_db, user.id)
+    album = get_album_byname(portfolio_db, page_id, album_name)
+    ph = get_photo(portfolio_db, page_id, photo_id)
+    if status == False:
+        ph.id_list = album.id
+        ph.list_content = False
     else:
-        portfolio_db_photo = models.Photos(subalbum.id == ph.list_id)
-        portfolio_db.add(portfolio_db_photo)
-        portfolio_db.commit()
-        portfolio_db.refresh(portfolio_db_photo)
-        return portfolio_db_photo
+        subalbum = get_subalbum_byname(portfolio_db, album.id, subalbum_name)
+        ph.id_list = subalbum.id
+        ph.list_content = True
+    portfolio_db.commit()
+    portfolio_db.refresh(ph)
+    return ph
