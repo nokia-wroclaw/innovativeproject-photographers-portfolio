@@ -1,4 +1,4 @@
-import React, {useEffect, useContext} from "react";
+import React, {useEffect,useState, useContext} from "react";
 import { Navbar, Nav } from "react-bootstrap";
 import { Link } from "react-router";
 import { IoIosPower } from "react-icons/io";
@@ -9,6 +9,7 @@ import ky from "ky";
 import * as Cookies from "js-cookie";
 
 const Navi = () => {
+  const [email_address, setEmailAddress] = useState("");
   const history = useHistory();
   const session = useContext(SessionContext);
 
