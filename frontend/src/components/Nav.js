@@ -1,34 +1,30 @@
-import React, {useEffect,useState, useContext} from "react";
+import React, {useEffect, useContext} from "react";
 import { Navbar, Nav } from "react-bootstrap";
 import { Link } from "react-router";
 import { IoIosPower } from "react-icons/io";
 import { IconContext } from "react-icons";
-import { SessionContext, getSessionCookie, setSessionCookie } from "../contexts/Loggedcontext";
+import LoggedContext from "../contexts/Loggedcontext";
 import { useHistory } from "react-router-dom";
 import ky from "ky";
-import * as Cookies from "js-cookie";
 
 const Navi = () => {
-  const [email_address, setEmailAddress] = useState("");
   const history = useHistory();
-  const session = useContext(SessionContext);
+  const isLogged = useContext(LoggedContext);
 
   useEffect(() => {
-      Cookies.remove("session");
-      history.push("/login");
-  }, [ history]);
+    if (!isLogged) {
+      history.replace("/login");
+    }
+  }, [isLogged, history]);
 
-  if (session.email_address === undefined) {
-    history.push("/login");
-  }
-  /*const logout = async () => {
+  const logout = async () => {
     try {
       await ky.get("/api/v1/logout");
       history.push("/login");
     } catch (e) {
       console.log("logout error");
     }
-  };*/
+  };
   return (
     <Navbar
       collapseOnSelect
@@ -66,7 +62,7 @@ const Navi = () => {
           <Nav.Link href="#deets" className="text" style={{ color: "#077cc5" }}>
             Settings
           </Nav.Link>
-          <Nav.Link to="/login">
+          <Nav.Link onClick={() => {logout();}}>
             <IconContext.Provider value={{ size: "2em", color: "#077cc5" }}>
               <IoIosPower />
             </IconContext.Provider>

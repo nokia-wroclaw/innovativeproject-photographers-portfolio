@@ -4,41 +4,56 @@ import "./Login.css";
 import { Link } from "react-router";
 import { useHistory } from "react-router-dom";
 import ky from "ky";
-import { SessionContext, getSessionCookie, setSessionCookie } from "../../contexts/Loggedcontext";
+import LoggedContext from "../../contexts/Loggedcontext";
 import * as Cookies from "js-cookie";
+import * as yup from "yup";
+
+const validationSchema = yup.object({
+  email_address: yup.string().required(),
+  password: yup.string().required()
+});
 
 const Login = () => {
   const [email_address, setEmailAddress] = useState("");
+  const [isSubmitting, setSubmitting] = useState(false);
   const [password, setPassword] = useState("");
-  const [loading, setLoading] = useState(false);
   const history = useHistory();
+  const isLogged = useContext(LoggedContext);
 
-  
+  useEffect(() => {
+    if (isLogged) {
+      history.replace("/mainPage");
+    }
+  }, [isLogged, history]);
 
-  const submitHandler = async (setStatus) => {
+  async function submitHandler(setStatus) {
     const formData = new FormData();
     formData.append("username", email_address);
     formData.append("password", password);
-    setLoading(true);
     (async () => {
       try {
         await ky.post("/api/v1/login", { body: formData });
-        setSessionCookie({ email_address });
+        Cookies.set("username", email_address, {expires:7});
         history.push("/mainPage");
-        setLoading(false);
       } catch (e) {
         setStatus({ error: "loginError" });
       }
     })();
   }
 
-  
+  const onSubmit = (setSubmitting,setStatus) => {
+    setSubmitting(true);
+    submitHandler(setStatus);
+    setSubmitting(false);
+  };
   return (
     <Container className="bkgd" fluid>
       <h1 className="header">Photographer's portfolio</h1>
       <Form
         className="login-form"
-        onSubmit={submitHandler}
+        onSubmit={({ setSubmitting, setStatus }) => {
+          onSubmit(setSubmitting, setStatus);
+        }}
       >
         <div className="box">
           <h1 className="signIn">Sign In</h1>
@@ -60,7 +75,7 @@ const Login = () => {
               placeholder="Password"
             />
           </FormGroup>
-          <Button className="btn-lg btn-dark btn-block" type="submit">
+          <Button className="btn-lg btn-dark btn-block" type="submit" disabled={isSubmitting}>
             Sign In
           </Button>
           <div className="text-center" style={{ paddingTop: "8%" }}>
