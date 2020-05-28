@@ -6,16 +6,9 @@ import { useHistory } from "react-router-dom";
 import ky from "ky";
 import LoggedContext from "../../contexts/Loggedcontext";
 import * as Cookies from "js-cookie";
-import * as yup from "yup";
-
-const validationSchema = yup.object({
-  email_address: yup.string().required(),
-  password: yup.string().required()
-});
 
 const Login = () => {
   const [email_address, setEmailAddress] = useState("");
-  const [isSubmitting, setSubmitting] = useState(false);
   const [password, setPassword] = useState("");
   const history = useHistory();
   const isLogged = useContext(LoggedContext);
@@ -41,18 +34,18 @@ const Login = () => {
     })();
   }
 
-  const onSubmit = (setSubmitting,setStatus) => {
-    setSubmitting(true);
+  const onSubmit = (setStatus) => {
+
     submitHandler(setStatus);
-    setSubmitting(false);
+
   };
   return (
     <Container className="bkgd" fluid>
       <h1 className="header">Photographer's portfolio</h1>
       <Form
         className="login-form"
-        onSubmit={({ setSubmitting, setStatus }) => {
-          onSubmit(setSubmitting, setStatus);
+        onSubmit={({ setStatus }) => {
+          onSubmit(setStatus);
         }}
       >
         <div className="box">
@@ -75,7 +68,7 @@ const Login = () => {
               placeholder="Password"
             />
           </FormGroup>
-          <Button className="btn-lg btn-dark btn-block" type="submit" disabled={isSubmitting}>
+          <Button className="btn-lg btn-dark btn-block" type="submit">
             Sign In
           </Button>
           <div className="text-center" style={{ paddingTop: "8%" }}>

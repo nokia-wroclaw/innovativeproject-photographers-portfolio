@@ -13,16 +13,22 @@ const Editor = () => {
   const [userInput, setUserInput] = useState("");
   const [output, setOutput] = useState("");
   const [errorMsg, setErrorMsg] = useState("");
+  const [isPost, setPost] = useState(false);
 
-  const submitHandler= async (e) => {
+  async function submitHandler(e) {
     e.preventDefault();
     const formData = new FormData();
     formData.append("userInput", userInput);
-    return await ky.post("/api/v1/editor", { body: formData });
+    (async () => {
+        await ky.post("/api/v1/editor", { body: formData }); 
+        setPost(true);
+    })();
   }
 
-  useEffect(() => {
+  useEffect(
+    
     (async () => {
+      //if(isPost){
     await ky
       .get("/api/v1/editor")
       .then((response) => response.text())
@@ -33,8 +39,11 @@ const Editor = () => {
         console.log(error);
         setErrorMsg( "Error retrieving data" );
       });
-    })();
-  },[]);
+    //}
+      
+    
+    }),
+  [/*isPost*/]);
    
     return (
       <Container
