@@ -42,7 +42,7 @@ class Message(Base):
 
     first_name = Column(String(50), nullable=False)
     last_name = Column(String(100), nullable=False)
-    sender_email_address = Column(String(100), nullable=False)
+    sender_email_address = Column(String(100), nullable=False, unique=True)
     subject = Column(String(50))
     message_content = Column(String(300))
     date = Column(DateTime, nullable=False)
@@ -92,7 +92,8 @@ class Photos(Base):
     page_id  = Column(Integer, ForeignKey("MAIN_PAGE.id"))
 
     path_and_name = Column(String(100), unique=True, nullable=False)
-    list_content = Column(Boolean, default=False, nullable=False) #ZMIENIĆ NAZWĘ NA CONTENTS
-    id_list = Column(Integer, nullable=True)
+    list_content = Column(Boolean, default=True, nullable=False) #CZY NA PEWNO BOOLEAN?
+    id_list_content = Column(Integer, nullable=True)
+    id_content = Column(Integer, nullable=True)
 
     m_page = relationship("Main_page", back_populates="photos")

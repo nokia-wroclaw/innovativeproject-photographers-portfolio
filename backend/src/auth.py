@@ -89,15 +89,6 @@ def delete_access_token(portfolio_db: Session, email: str) -> models.User:
     except ExpiredSignatureError:
         raise TokenRemovalError
 
-def new_password(portfolio_db: Session, email: str):
-        user = get_user_by_email(portfolio_db, email)
-        if user is None:
-            raise "The user does not exist."
-        user.password = None
-        portfolio_db.commit()
-        portfolio_dd.refresh(user)
-        return user
-
 class TokenVerificationError(Exception):
     """Raised when user does not provide valid access token."""
 class CookieVerificationError(Exception):
