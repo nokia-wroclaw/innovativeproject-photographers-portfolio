@@ -3,6 +3,8 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from src.route.auth import auth_route
 from src.route.mainpage import mainpage_route
+from src.route.message import message_route
+from src.route.album import album_route
 import os
 from src.database import SessionLocal, engine
 from src import models
@@ -10,7 +12,7 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from fastapi.responses import HTMLResponse
 
-# models.Base.metadata.create_all(bind=engine)
+#models.Base.metadata.create_all(bind=engine)
 
 app = FastAPI()
 templates = Jinja2Templates(directory='./user/files/')
@@ -29,6 +31,8 @@ app.add_middleware(
 
 app.include_router(auth_route)
 app.include_router(mainpage_route)
+app.include_router(message_route)
+app.include_router(album_route)
 
 @app.get("/")
 async def root():

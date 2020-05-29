@@ -9,12 +9,10 @@ from starlette.responses import Response
 from ..database import SessionLocal, engine
 from .. import schemas, models
 
-from ..mainpage import(
-    create_user_page,
+from ..message import(
     get_user_by_email,
-    get_page,
-    upload_file,
-    get_photo
+    save_message,
+    read_message
 )
 
 # Dependency
@@ -25,38 +23,37 @@ def get_db():
     finally:
         db.close()
 
-mainpage_route = APIRouter()
+message_route = APIRouter()
 
-@mainpage_route.post("/api/v1/mainpage")
-async def create_page_withurl(mainpage: schemas.Main_pageCreate, requests: Request, db: Session = Depends(get_db)):
+@message_route.post("/api/v1/message")
+async def send_message(message: schemas.MessageCreate, requests: Request, db: Session = Depends(get_db)):
     username = requests.cookies["username"]
     response = Response()
     response.set_cookie(
         key="username",
         value=username 
     )
-    page = create_user_page(db, username, mainpage)
-    return page
+    msg = save_message(db, username, message)
+    return msg
 
-@mainpage_route.post("/api/v1/uploadfiles")
-async def add_file(requests: Request, file: UploadFile = File(...), db: Session = Depends(get_db)): #dla jednej strony użytkownika
+@message_route.get("/api/v1/read")
+async def read(requests: Request, message_id: int, db: Session = Depends(get_db)):
     username = requests.cookies["username"]
     response = Response()
     response.set_cookie(
         key="username",
         value=username 
     )
-    photo = upload_file(db, username, file)
-    return None
+    message_status = read_message(db, username, message_id)
+    return message_status
 
-# @mainpage_route.get("/api/v1/getphoto")
-# async def test(file_id: int, page_id: int, requests: Request, db: Session = Depends(get_db)):
+# @message_route.post("/api/v1/delete")
+# async def delete(requests: Request, message_id: int, db: Session = Depends(get_db)):
 #     username = requests.cookies["username"]
 #     response = Response()
 #     response.set_cookie(
 #         key="username",
 #         value=username 
 #     )
-#     user = get_user_by_email(db, username)
-#     page = get_page(db, user.id)
-#     return get_photo(db, page, file_id)
+#     get_todelete(db, username, message_id)
+#     return response
