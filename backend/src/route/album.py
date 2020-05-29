@@ -16,7 +16,9 @@ from ..album import(
     get_page,
     get_album,
     get_album_byname,
-    upl_photo
+    # upl_photo,
+    upl_photo_toalbum,
+    upl_photo_tosubalbum
 )
 
 from ..mainpage import(
@@ -77,17 +79,34 @@ async def add_subalbum(album_name: str, subalbum: schemas.Contents, requests: Re
     subalbum = create_subalbum(db, username, page, album_name, album_status.id, subalbum)
     return subalbum
 
-@album_route.post("/api/v1/addphoto")
-async def add_photo_toalbum(requests: Request, page_id: int, album_name: str, photo_id: int, subalbum_name:str = "", db: Session = Depends(get_db)):
+# @album_route.post("/api/v1/addphoto")
+# async def add_photo_toalbum(requests: Request, page_id: int, album_name: str, photo_id: int, subalbum_name:str = "", db: Session = Depends(get_db)):
+#     username = requests.cookies["username"]
+#     response = Response()
+#     response.set_cookie(
+#         key="username",
+#         value=username 
+#     )
+#     if subalbum_name is None:
+#         status = False
+#     else:
+#         status = True
+#     save_tolist = upl_photo(db, username, page_id, photo_id, album_name, subalbum_name, status)
+#     return response
+
+@album_route.post("/api/v1/addphototwoway")
+async def add_photo_toalbum(requests: Request, page_id: int, album_name: str, photo_id: int, sybalbum_name: str = "", db: Session = Depends(get_db)):
     username = requests.cookies["username"]
     response = Response()
     response.set_cookie(
         key="username",
         value=username 
     )
-    if subalbum_name is None:
+    album = get_album_byname(db, page_id, album_name)
+    if album.is_subgroup_there is False:
         status = False
+        save_tolist = upl_photo_toalbum(db, username, page_id, photo_id, album_name)
     else:
         status = True
-    save_tolist = upl_photo(db, username, page_id, photo_id, album_name, subalbum_name, status)
+        save_tolist = upl_photo_toalbum(db, username, page_id, photo_id, album_name, subalbum_name)
     return response

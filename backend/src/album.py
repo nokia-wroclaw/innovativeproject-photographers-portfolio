@@ -73,3 +73,26 @@ def upl_photo(portfolio_db: Session, username: str, page_id: int, photo_id: int,
     portfolio_db.commit()
     portfolio_db.refresh(ph)
     return ph
+
+def upl_photo_toalbum(portfolio_db: Session, username: str, page_id: int, photo_id: int, album_name: str):
+    user = get_user_by_email(portfolio_db, username)
+    page_id = get_page(portfolio_db, user.id)
+    album = get_album_byname(portfolio_db, page_id, album_name)
+    ph = get_photo(portfolio_db, page_id, photo_id)
+    ph.id_list = album.id
+    ph.list_content = False
+    portfolio_db.commit()
+    portfolio_db.refresh(ph)
+    return ph
+
+def upl_photo_tosubalbum(portfolio_db: Session, username: str, page_id: int, photo_id: int, album_name: str, subalbum_name: str):
+    user = get_user_by_email(portfolio_db, username)
+    page_id = get_page(portfolio_db, user.id)
+    album = get_album_byname(portfolio_db, page_id, album_name)
+    ph = get_photo(portfolio_db, page_id, photo_id)
+    subalbum = get_subalbum_byname(portfolio_db, album.id, subalbum_name)
+    ph.id_list = subalbum.id
+    ph.list_content = True
+    portfolio_db.commit()
+    portfolio_db.refresh(ph)
+    return ph
