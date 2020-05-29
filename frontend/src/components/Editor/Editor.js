@@ -25,10 +25,9 @@ const Editor = () => {
     })();
   }
 
-  useEffect(
-    
-    (async () => {
-      //if(isPost){
+  useEffect(()=>{
+    const kyData =async () => {
+      if(isPost){
     await ky
       .get("/api/v1/editor")
       .then((response) => response.text())
@@ -39,11 +38,13 @@ const Editor = () => {
         console.log(error);
         setErrorMsg( "Error retrieving data" );
       });
-    //}
+      setPost(false);
+    }
       
     
-    }),
-  [/*isPost*/]);
+    };
+    kyData();},
+  [isPost]);
    
     return (
       <Container
