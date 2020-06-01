@@ -14,7 +14,8 @@ from ..mainpage import(
     get_user_by_email,
     get_page,
     upload_file,
-    get_photo
+    get_photo,
+    get_photo_name
 )
 
 # Dependency
@@ -49,14 +50,14 @@ async def add_file(requests: Request, file: UploadFile = File(...), db: Session 
     photo = upload_file(db, username, file)
     return None
 
-# @mainpage_route.get("/api/v1/getphoto")
-# async def test(file_id: int, page_id: int, requests: Request, db: Session = Depends(get_db)):
-#     username = requests.cookies["username"]
-#     response = Response()
-#     response.set_cookie(
-#         key="username",
-#         value=username 
-#     )
-#     user = get_user_by_email(db, username)
-#     page = get_page(db, user.id)
-#     return get_photo(db, page, file_id)
+@mainpage_route.get("/api/v1/getphoto")
+async def test(file_id: int, page_id: int, requests: Request, db: Session = Depends(get_db)):
+    username = requests.cookies["username"]
+    response = Response()
+    response.set_cookie(
+        key="username",
+        value=username 
+    )
+    user = get_user_by_email(db, username)
+    page = get_page(db, user.id)
+    return get_photo_name(db, page, file_id)

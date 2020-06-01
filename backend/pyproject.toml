@@ -20,6 +20,7 @@ passlib = "^1.7"
 pendulum = "^2.1.0"
 bcrypt = "^3.1.7"
 starlette = "^0.13"
+fastapi-mail = "^0.2.5"
 
 [tool.poetry.dev-dependencies]
 taskipy = "^1.2.1"
