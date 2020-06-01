@@ -42,7 +42,7 @@ def save_file_indb(portfolio_db: Session, path: str, pg_id: int):
 def upload_file(portfolio_db: Session, username: str, file: File):
     user = get_user_by_email(portfolio_db, username)
     page_id = get_page(portfolio_db, user.id)
-    path = "../../testfiles/" + str(page_id)
+    path = "../frontend/src/images/testfiles/" + str(page_id)
     if not os.path.isdir(path):
         os.mkdir(path)
     filen = file.filename
@@ -54,3 +54,7 @@ def upload_file(portfolio_db: Session, username: str, file: File):
 
 def get_photo(portfolio_db: Session, page_id: int, file_id: int):
     return portfolio_db.query(models.Photos).filter(models.Photos.page_id == page_id).filter(models.Photos.id == file_id).first()
+
+def get_photo_name(portfolio_db: Session, page_id: int, file_id: int):
+    photo = portfolio_db.query(models.Photos).filter(models.Photos.page_id == page_id).filter(models.Photos.id == file_id).first()
+    return photo.path_and_name

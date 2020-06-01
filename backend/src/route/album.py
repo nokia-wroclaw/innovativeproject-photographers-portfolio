@@ -16,6 +16,7 @@ from ..album import(
     get_page,
     get_album,
     get_album_byname,
+    get_subalbum_byname,
     # upl_photo,
     upl_photo_toalbum,
     upl_photo_tosubalbum
@@ -95,7 +96,7 @@ async def add_subalbum(album_name: str, subalbum: schemas.Contents, requests: Re
 #     return response
 
 @album_route.post("/api/v1/addphototwoway")
-async def add_photo_toalbum(requests: Request, page_id: int, album_name: str, photo_id: int, sybalbum_name: str = "", db: Session = Depends(get_db)):
+async def add_photo_toalbum(requests: Request, page_id: int, album_name: str, photo_id: int, subalbum_name: str = "", db: Session = Depends(get_db)):
     username = requests.cookies["username"]
     response = Response()
     response.set_cookie(
@@ -106,7 +107,7 @@ async def add_photo_toalbum(requests: Request, page_id: int, album_name: str, ph
     if album.is_subgroup_there is False:
         status = False
         save_tolist = upl_photo_toalbum(db, username, page_id, photo_id, album_name)
-    else:
+    elif album.is_subgroup_there is True:
         status = True
-        save_tolist = upl_photo_toalbum(db, username, page_id, photo_id, album_name, subalbum_name)
+        save_tolist = upl_photo_tosubalbum(db, username, page_id, photo_id, album_name, subalbum_name)
     return response
