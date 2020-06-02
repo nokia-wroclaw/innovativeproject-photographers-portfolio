@@ -46,7 +46,7 @@ const Navi = () => {
       <Navbar.Collapse id="responsive-navbar-nav">
         <Nav className="mr-auto"></Nav>
         <Nav>
-          <Nav.Link href="#deets" className="text" style={{ color: "#077cc5" }}>
+          <Nav.Link href="/photos" className="text" style={{ color: "#077cc5" }}>
             Photos
           </Nav.Link>
           <Nav.Link
@@ -56,9 +56,9 @@ const Navi = () => {
           >
             Edit Page
           </Nav.Link>
-          <Nav.Link href="#deets" className="text" style={{ color: "#077cc5" }}>
+         {/* <Nav.Link href="/messages" className="text" style={{ color: "#077cc5" }}>
             Messages
-          </Nav.Link>
+  </Nav.Link>*/}
           <Nav.Link href="#deets" className="text" style={{ color: "#077cc5" }}>
             Settings
           </Nav.Link>

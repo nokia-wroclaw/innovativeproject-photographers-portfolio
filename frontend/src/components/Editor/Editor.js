@@ -41,8 +41,7 @@ const Editor = () => {
       });
       setPost(false);
     }
-      
-    
+   
     };
     kyData();},
   [isPost]);

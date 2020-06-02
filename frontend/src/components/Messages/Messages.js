@@ -1,17 +1,16 @@
 import React, { Component } from "react";
-import { Navbar, Nav } from "react-bootstrap";
-import { Container, Row, Col } from "reactstrap";
 import Navi from "../Nav";
+import { Container, Row } from 'reactstrap';
 
-const Photos = () => {
+const Messages = () => {
   return (
     <Container
       className="mainPageBkgd"
       fluid
       style={{ paddingLeft: "0", paddingRight: "0" }}
     >
-      <Navi />
-      <Row className="text-center">
+        <Navi />
+        <Row className="text-center">
         <Container
           fluid
           style={{ paddingTop: "150px", alignItems: "center", display: "flex" }}
@@ -20,7 +19,7 @@ const Photos = () => {
             className="text subHeader title"
             style={{ paddingLeft: "40px" }}
           >
-            Photo Gallery
+            Messages
           </Container>
         </Container>
       </Row>
@@ -28,4 +27,4 @@ const Photos = () => {
   );
 };
 
-export default Photos;
+export default Messages;
