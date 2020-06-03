@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, setStatus } from "react";
 import { Nav } from "react-bootstrap";
 import { Container, Row, Button, Col } from "reactstrap";
 import Footer from "../Footer/Footer";
@@ -8,13 +8,29 @@ import { IoIosImages, IoIosCube } from "react-icons/io";
 import { IconContext } from "react-icons";
 import Navi from "../Nav";
 import ListAlbumForm from "./ListAlbumForm";
+import ky from "ky";
 
 const MainPageAlbum = () => {
   const [userAlbums, setUserAlbums] = useState([]);
 
-  const addAlbumHandler = album =>{
-    setUserAlbums(prevAlbums => [...prevAlbums, 
-      {id: Math.random().toString(), ...album}]);
+const addAlbumHandler = album =>{
+    (async () => {
+      try {
+        await ky
+          .post("/api/v1/register", {
+            body: {
+              album,
+            },
+          })
+          .then((response) => response.json())
+          .then((data) => {     
+            setUserAlbums(prevAlbums => [...prevAlbums, 
+            {id: Math.random().toString(), ...album}]);
+          });
+    }
+    catch (e) {
+      setStatus({ error: "addAlbumError" });
+    }})();
   };
 
   return (

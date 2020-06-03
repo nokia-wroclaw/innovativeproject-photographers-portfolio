@@ -5,7 +5,7 @@ import { Container, Col, Row } from "reactstrap";
 
 const ListAlbum = (props) => {
   return (
-    <section >
+    <Col >
       {props.albums.map((alb) => (
         <div className="list" key={alb.id}>
           <Row style={{paddingBottom:"2%"}}>
@@ -30,6 +30,7 @@ const ListAlbum = (props) => {
                 </div>
                 </Row>
                 <Row>
+                  
                 <div className="text-center" style={{paddingLeft:"30px", paddingTop:"10px"}}>
                 <IconContext.Provider
                   value={{ size: "15em", color: " #7e4e59"}}
@@ -57,7 +58,7 @@ const ListAlbum = (props) => {
           
         </div>
       ))}
-    </section>
+    </Col>
   );
 };
 
