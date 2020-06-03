@@ -1,6 +1,6 @@
 from typing import List
 from datetime import date, datetime, time, timedelta
-from pydantic import BaseModel
+from pydantic import BaseModel, EmailStr
 
 
 #Token
@@ -11,6 +11,9 @@ class Token(BaseModel):
 class TokenData(BaseModel):
     username: str = None
 
+#Email
+class EmailSchema(BaseModel):
+    email: EmailStr
 
 #Social
 class Social_media_linkBase(BaseModel):
@@ -48,25 +51,7 @@ class Photos(PhotosBase):
     id: int
     page_id: int
     list_content: bool
-    id_list_content: int = None
-    id_content: int = None
-    class Config:
-        orm_mode = True
-
-#List_of_contents
-class List_of_contentsBase(BaseModel):
-    first_name: str
-    last_name: str
-    sender_email_address: str
-    subject: str
-    message_content: str
-    date: datetime = None
-class List_of_contentsCreate(List_of_contentsBase):
-    pass
-class List_of_contents(List_of_contentsBase):
-    id: int
-    page_id: int
-    photos: List[Photos] = []
+    id_list: int = None
     class Config:
         orm_mode = True
 
@@ -78,6 +63,20 @@ class ContentsCreate(ContentsBase):
 class Contents(ContentsBase):
     id: int
     list_id: int
+    photos: List[Photos] = []
+    class Config:
+        orm_mode = True
+
+#List_of_contents
+class List_of_contentsBase(BaseModel):
+    label_content: str
+    is_subgroup_there: bool
+class List_of_contentsCreate(List_of_contentsBase):
+    pass
+class List_of_contents(List_of_contentsBase):
+    id: int
+    page_id: int
+    content: List[Contents] = []
     photos: List[Photos] = []
     class Config:
         orm_mode = True

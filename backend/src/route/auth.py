@@ -1,10 +1,12 @@
-from fastapi import Depends, FastAPI, HTTPException, APIRouter, Request, Response, Form, status
+from fastapi import Depends, Header,File, Body,Query, UploadFile, FastAPI, HTTPException, APIRouter, Request, Response, Form, status, BackgroundTasks
 from fastapi.security import OAuth2PasswordRequestForm
 from fastapi.encoders import jsonable_encoder
+from fastapi_mail import FastMail
 
 from sqlalchemy.orm import Session
 from starlette.requests import Request
-from starlette.responses import Response
+from starlette.responses import Response, JSONResponse
+import smtplib
 
 from ..database import SessionLocal, engine
 from .. import schemas, models
@@ -30,22 +32,47 @@ def get_db():
 
 auth_route = APIRouter()
 
+html = """
+<html> 
+<body>
+<p>Hi This test mail
+<br>Thanks for using Fastapi-mail</p> 
+</body> 
+</html>
+"""
+
+template = """
+<html> 
+<body>
+<p>Hi Please confirm your registration.
+<br> To log in please click the link below.
+<br> <a href="http://localhost:3000/login">Login!</a>
+<br>Thank you.</p> 
+</body> 
+</html>
+"""
+
 @auth_route.post("/api/v1/register")
-async def register_user(user: schemas.UserCreate, db: Session = Depends(get_db)) -> models.User:
+async def register_user(user: schemas.UserCreate, background_tasks: BackgroundTasks, db: Session = Depends(get_db)) -> models.User:
     if user.password != user.repassword:
         raise HTTPException(status_code=400, detail="Passwords don't match.")
     db_user = get_user_by_email(db, email=user.email_address)
+    g_mail = "photographers.portfolio2020@gmail.com"
+    g_pass = "Zdjecia1234"
     if db_user:
         raise HTTPException(status_code=400, detail="Email already exists.")
     us = create_user(db, user)
-    us.user_token = jsonable_encoder(create_access_token(data={"sub": us.email_address}))
+    #us.user_token = jsonable_encoder(create_access_token(data={"sub": us.email_address}))
     save_access_token(db, us)
     response = Response(status_code=200)
     response.set_cookie(
         key="username",
         value=us.email_address
     )
+    mail = FastMail(email=g_mail,password=g_pass,tls=True,port="587",service="gmail")
+    background_tasks.add_task(mail.send_message, recipient=us.email_address,subject="Confirm your registration.",body=template,text_format="html")
     return us
+
 
 @auth_route.post("/api/v1/login")
 async def login_user(form_data: OAuth2PasswordRequestForm = Depends(), db: Session = Depends(get_db)) -> Response:
