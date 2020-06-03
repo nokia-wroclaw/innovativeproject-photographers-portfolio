@@ -12,25 +12,28 @@ import ky from "ky";
 
 const MainPageAlbum = () => {
   const [userAlbums, setUserAlbums] = useState([]);
+  const [album, setAlbum] = useState("");
 
-const addAlbumHandler = album =>{
-    (async () => {
-      try {
+  const addAlbumHandler = albums =>{
+    setAlbum(albums);
+    /*(async () => {
+      
         await ky
-          .post("/api/v1/register", {
-            body: {
-              album,
-            },
-          })
-          .then((response) => response.json())
+        .post("/api/v1/album", {
+          json: {
+            album_name: album
+          },
+        })
+        .json()
+          
+          .then((response) => response.text())
           .then((data) => {     
             setUserAlbums(prevAlbums => [...prevAlbums, 
-            {id: Math.random().toString(), ...album}]);
+            {id: data.name, ...albums}]);
           });
-    }
-    catch (e) {
-      setStatus({ error: "addAlbumError" });
-    }})();
+    
+    
+    })();*/
   };
 
   return (
