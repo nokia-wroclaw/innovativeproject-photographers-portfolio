@@ -30,8 +30,10 @@ def create_album(portfolio_db: Session, username: str, page_id: int, album: sche
     return portfolio_db_album
 
 def get_album(portfolio_db: Session, page_id: int):
-    return portfolio_db.query(models.List_of_Contents).filter(models.List_of_Contents.page_id == page_id).first()
-    
+    return portfolio_db.query(models.List_of_Contents).filter(models.List_of_Contents.page_id == page_id).firsh()
+
+def get_album_all(portfolio_db: Session, page_id: int):
+    return portfolio_db.query(models.List_of_Contents).filter(models.List_of_Contents.page_id == page_id).all()
 
 def get_album_byname(portfolio_db: Session, page_id: int, album_name: str):
     return portfolio_db.query(models.List_of_Contents).filter(models.List_of_Contents.page_id == page_id).filter(models.List_of_Contents.label_content == album_name).first()

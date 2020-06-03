@@ -16,8 +16,8 @@ from ..album import(
     get_page,
     get_album,
     get_album_byname,
+    get_album_all,
     get_subalbum_byname,
-    # upl_photo,
     upl_photo_toalbum,
     upl_photo_tosubalbum
 )
@@ -51,17 +51,17 @@ async def add_album(album: schemas.List_of_contentsCreate, requests: Request, db
     album = create_album(db, username, page, album)
     return album
 
-# @album_route.get("/api/v1/getalbum")
-# async def test(album_name: str, requests: Request, db: Session = Depends(get_db)):
-#     username = requests.cookies["username"]
-#     response = Response()
-#     response.set_cookie(
-#         key="username",
-#         value=username 
-#     )
-#     user = get_user_by_email(db, username)
-#     page = get_page(db, user.id)
-#     return get_album_byname(db, page, album_name)
+@album_route.get("/api/v1/getallalbum")
+async def test(requests: Request, db: Session = Depends(get_db)):
+    username = requests.cookies["username"]
+    response = Response()
+    response.set_cookie(
+    key="username",
+    value=username 
+    )
+    user = get_user_by_email(db, username)
+    page = get_page(db, user.id)
+    return get_album_all(db, page)
     
 
 @album_route.post("/api/v1/subalbum")
