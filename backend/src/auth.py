@@ -1,6 +1,8 @@
 from typing import List
 from datetime import datetime, timedelta
-from fastapi import Depends, FastAPI, HTTPException, Request, Response, Form, status
+from fastapi import Depends, Header, File, Body,Query, UploadFile, FastAPI, HTTPException, Request, Response, Form, status, BackgroundTasks
+from fastapi_mail import FastMail
+
 from sqlalchemy.orm import Session
 import jwt
 from jwt import PyJWTError
@@ -9,6 +11,9 @@ from passlib.context import CryptContext
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 
+from starlette.responses import JSONResponse
+
+import smtplib
 
 from .database import SessionLocal, engine
 from . import models, schemas
@@ -97,6 +102,7 @@ def new_password(portfolio_db: Session, email: str):
         portfolio_db.commit()
         portfolio_dd.refresh(user)
         return user
+
 
 class TokenVerificationError(Exception):
     """Raised when user does not provide valid access token."""

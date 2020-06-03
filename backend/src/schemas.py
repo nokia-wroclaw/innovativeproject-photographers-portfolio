@@ -1,6 +1,6 @@
 from typing import List
 from datetime import date, datetime, time, timedelta
-from pydantic import BaseModel
+from pydantic import BaseModel, EmailStr
 
 
 #Token
@@ -11,6 +11,9 @@ class Token(BaseModel):
 class TokenData(BaseModel):
     username: str = None
 
+#Email
+class EmailSchema(BaseModel):
+    email: EmailStr
 
 #Social
 class Social_media_linkBase(BaseModel):
