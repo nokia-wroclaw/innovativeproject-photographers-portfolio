@@ -58,3 +58,13 @@ def get_photo(portfolio_db: Session, page_id: int, file_id: int):
 def get_photo_name(portfolio_db: Session, page_id: int, file_id: int):
     photo = portfolio_db.query(models.Photos).filter(models.Photos.page_id == page_id).filter(models.Photos.id == file_id).first()
     return photo.path_and_name
+
+def get_html(portfolio_db: Session, userInput: str = Form(...)):
+    path = "../frontend/src/images/testfiles/editor/"
+    if not os.path.isdir(path):
+        os.mkdir(path)
+    filename = "editor.html"
+    file = open(path + filename, 'w')
+    file.write(userInput)
+    file.close()
+    return None
