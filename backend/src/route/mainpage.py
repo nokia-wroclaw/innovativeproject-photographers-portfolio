@@ -54,41 +54,41 @@ async def add_file(requests: Request, file: UploadFile = File(...), db: Session 
     photo = upload_file(db, username, file)
     return None
 
-@mainpage_route.get("/api/v1/getphoto")
-async def test(file_id: int, page_id: int, requests: Request, db: Session = Depends(get_db)):
-    username = requests.cookies["username"]
-    response = Response()
-    response.set_cookie(
-        key="username",
-        value=username 
-    )
-    user = get_user_by_email(db, username)
-    page = get_page(db, user.id)
-    return get_photo_name(db, page, file_id)
+# @mainpage_route.get("/api/v1/getphoto")
+# async def test(file_id: int, page_id: int, requests: Request, db: Session = Depends(get_db)):
+#     username = requests.cookies["username"]
+#     response = Response()
+#     response.set_cookie(
+#         key="username",
+#         value=username 
+#     )
+#     user = get_user_by_email(db, username)
+#     page = get_page(db, user.id)
+#     return get_photo_name(db, page, file_id)
 
-@mainpage_route.post("/api/v1/save")
-async def save_html(requests: Request, userInput: str, db: Session = Depends(get_db)):
-    username = requests.cookies["username"]
-    response = Response()
-    response.set_cookie(
-        key="username",
-        value=username 
-    )
-    page_script = get_html(db, userInput)
-    return page_script
+# @mainpage_route.post("/api/v1/save")
+# async def save_html(requests: Request, userInput: str, db: Session = Depends(get_db)):
+#     username = requests.cookies["username"]
+#     response = Response()
+#     response.set_cookie(
+#         key="username",
+#         value=username 
+#     )
+#     page_script = get_html(db, userInput)
+#     return page_script
 
-@mainpage_route.get("/api/v1/site")
-async def run_site(requests: Request,filename: str, db: Session = Depends(get_db)):
-    username = requests.cookies["username"]
-    response = Response()
-    response.set_cookie(
-        key="username",
-        value=username 
-    )
-    user = get_user_by_email(db, username)
-    if not user:
-        return "Invalid user."
-    path = "../frontend/src/images/testfiles/editor/" +filename
-    file = codecs.open(path, 'r')
-    return print(file.read())
+# @mainpage_route.get("/api/v1/site")
+# async def run_site(requests: Request,filename: str, db: Session = Depends(get_db)):
+#     username = requests.cookies["username"]
+#     response = Response()
+#     response.set_cookie(
+#         key="username",
+#         value=username 
+#     )
+#     user = get_user_by_email(db, username)
+#     if not user:
+#         return "Invalid user."
+#     path = "../frontend/src/images/testfiles/editor/" +filename
+#     file = codecs.open(path, 'r')
+#     return print(file.read())
     

@@ -36,7 +36,7 @@ app.include_router(album_route)
 
 @app.get("/")
 async def root():
-    return {"message": " Moze dziala"}
+    return {"message": " Test page"}
 
 @app.post("/api/v1/editor")
 async def renderPOST(userInput:str = Form(...)):

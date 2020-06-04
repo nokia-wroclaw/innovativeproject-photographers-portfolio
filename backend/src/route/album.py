@@ -51,17 +51,17 @@ async def add_album(album: schemas.List_of_contentsCreate, requests: Request, db
     album = create_album(db, username, page, album)
     return album
 
-@album_route.get("/api/v1/getallalbum")
-async def test(requests: Request, db: Session = Depends(get_db)):
-    username = requests.cookies["username"]
-    response = Response()
-    response.set_cookie(
-    key="username",
-    value=username 
-    )
-    user = get_user_by_email(db, username)
-    page = get_page(db, user.id)
-    return get_album_all(db, page)
+# @album_route.get("/api/v1/getallalbum")
+# async def test(requests: Request, db: Session = Depends(get_db)):
+#     username = requests.cookies["username"]
+#     response = Response()
+#     response.set_cookie(
+#     key="username",
+#     value=username 
+#     )
+#     user = get_user_by_email(db, username)
+#     page = get_page(db, user.id)
+#     return get_album_all(db, page)
     
 
 @album_route.post("/api/v1/subalbum")
@@ -95,7 +95,7 @@ async def add_subalbum(album_name: str, subalbum: schemas.Contents, requests: Re
 #     save_tolist = upl_photo(db, username, page_id, photo_id, album_name, subalbum_name, status)
 #     return response
 
-@album_route.post("/api/v1/addphototwoway")
+@album_route.post("/api/v1/addtwo")
 async def add_photo_toalbum(requests: Request, page_id: int, album_name: str, photo_id: int, subalbum_name: str = "", db: Session = Depends(get_db)):
     username = requests.cookies["username"]
     response = Response()

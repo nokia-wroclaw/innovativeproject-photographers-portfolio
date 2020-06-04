@@ -46,7 +46,7 @@ template = """
 <body>
 <p>Hi Please confirm your registration.
 <br> To log in please click the link below.
-<br> <a href="http://localhost:3000/login">Login!</a>
+<br> <a href="http://localhost:3000/mainPage">Login!</a>
 <br>Thank you.</p> 
 </body> 
 </html>
@@ -57,12 +57,12 @@ async def register_user(user: schemas.UserCreate, background_tasks: BackgroundTa
     if user.password != user.repassword:
         raise HTTPException(status_code=400, detail="Passwords don't match.")
     db_user = get_user_by_email(db, email=user.email_address)
-    g_mail = "photographers.portfolio2020@gmail.com"
-    g_pass = "Zdjecia1234"
+    g_mail = "photographers.ask@gmail.com"
+    g_pass = "ask"
     if db_user:
         raise HTTPException(status_code=400, detail="Email already exists.")
     us = create_user(db, user)
-    #us.user_token = jsonable_encoder(create_access_token(data={"sub": us.email_address}))
+    us.user_token = jsonable_encoder(create_access_token(data={"sub": us.email_address}))
     save_access_token(db, us)
     response = Response(status_code=200)
     response.set_cookie(
@@ -93,19 +93,19 @@ async def login_user(form_data: OAuth2PasswordRequestForm = Depends(), db: Sessi
     )
     return response
 
-@auth_route.get("/api/v1/get-access-token")
-async def get_access_token(requests: Request, db: Session = Depends(get_db)) -> Response:
-    try:
-        username = requests.cookies["username"]
-        verify_token(db, username)
-        response = Response()
-        response.set_cookie(
-            key="username",
-            value=username 
-        )
-        return response
-    except CookieVerificationError:
-        raise HTTPException(status_code=HTTP_400_BAD_REQUEST)
+# @auth_route.get("/api/v1/get-access-token")
+# async def get_access_token(requests: Request, db: Session = Depends(get_db)) -> Response:
+#     try:
+#         username = requests.cookies["username"]
+#         verify_token(db, username)
+#         response = Response()
+#         response.set_cookie(
+#             key="username",
+#             value=username 
+#         )
+#         return response
+#     except CookieVerificationError:
+#         raise HTTPException(status_code=HTTP_400_BAD_REQUEST)
 
 @auth_route.get("/api/v1/logout")
 async def logout_user(request: Request, db: Session = Depends(get_db)) -> Response:

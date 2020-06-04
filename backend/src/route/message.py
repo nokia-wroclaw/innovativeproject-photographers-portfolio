@@ -46,14 +46,3 @@ async def read(requests: Request, message_id: int, db: Session = Depends(get_db)
     )
     message_status = read_message(db, username, message_id)
     return message_status
-
-# @message_route.post("/api/v1/delete")
-# async def delete(requests: Request, message_id: int, db: Session = Depends(get_db)):
-#     username = requests.cookies["username"]
-#     response = Response()
-#     response.set_cookie(
-#         key="username",
-#         value=username 
-#     )
-#     get_todelete(db, username, message_id)
-#     return response
