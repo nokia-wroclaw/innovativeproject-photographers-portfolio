@@ -13,7 +13,7 @@ const ListAlbumForm = React.memo((props) => {
   };
   return (
     <Container className="add-element" fluid>
-      <h1 className="texth">Please enter Album Name:</h1>
+      <h1 className="texth">Please enter name:</h1>
       <span className="p-2"></span>
       <form id="to-do-form" onSubmit={submitHandler}>
         <input

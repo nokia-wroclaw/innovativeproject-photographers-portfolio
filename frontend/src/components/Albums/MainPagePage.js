@@ -1,4 +1,4 @@
-import React, { Component, useState } from "react";
+import React, { Component, useState, useEffect } from "react";
 import { Navbar, Nav } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import Modal from "./Modal";
@@ -7,59 +7,89 @@ import { Container, Row, Button, Col } from "reactstrap";
 import "../MainPage.scss";
 import { IoIosPower, IoIosAdd, IoIosImages, IoIosCube } from "react-icons/io";
 import { IconContext } from "react-icons";
+import Navi from "../Nav";
+import ListAlbumForm from "./ListAlbumForm";
+import ky from "ky";
 
-function MainPageAlbum(){
+const MainPageAlbum = () => {
+  const [userPages, setUserPages] = useState([]);
+  const [page, setPage] = useState("");
+  const [isPost, setPost] = useState(false);
+  const [errorMsg, setErrorMsg] = useState("");
+
+  const addAlbumHandler = pages =>{
+    setPage(pages);
+    const formData = new FormData();
+    formData.append("page_name", page);
+    (async () => {
+      await ky.post("/api/v1/mainpage", { body: formData });
+      setPost(true);
+    })();
+  };
+
+  useEffect(()=>{
+    const kyData =async () => {
+      if(isPost){
+    await ky
+      .get("/api/v1/mainpage")
+      .then((response) => response.text())
+      .then((data) => {
+        setUserPages(prevAlbums => [...prevAlbums, 
+          {id: data.name, ...page}]);
+      })
+      .catch((error) => {
+        console.log(error);
+        setErrorMsg( "Error retrieving data" );
+      });
+      setPost(false);
+    }
+   
+    };
+    kyData();},
+  [isPost]);
         return(
             <Container className="mainPageBkgd" fluid style={{paddingLeft:'0', paddingRight:'0'}}>
-                <Navbar collapseOnSelect expand="xl" className="color-nav" variant="dark" fixed="">
-                <Navbar.Brand>
-                    <Link to="/mainPage" className="text nav" style={{textDecoration:'none', color:'#077cc5'}}>
-                      Jan Kowalski
-                    </Link>
-                  </Navbar.Brand>
-                  <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-                  <Navbar.Collapse id="responsive-navbar-nav">
-                    <Nav className="mr-auto"></Nav>
-                    <Nav>
-                      <Nav.Link href="#deets" className="text" style={{color:'#077cc5'}}>Photos</Nav.Link>
-                      <Nav.Link href="/editor" className="text" style={{color:'#077cc5'}}>Edit Page</Nav.Link>
-                      <Nav.Link href="#deets" className="text" style={{color:'#077cc5'}}>Messages</Nav.Link>
-                      <Nav.Link href="#deets" className="text" style={{color:'#077cc5'}}>Settings</Nav.Link>
-                      <Nav.Link href="login" >
-                        <IconContext.Provider value={{size:'2em', color:'#077cc5'}}>
-                          <IoIosPower/>
-                        </IconContext.Provider>
-                      </Nav.Link>
-                    </Nav>
-                  </Navbar.Collapse>
-                </Navbar>
-                <Row>
-                <Col style={{maxWidth:'15%'}}>
-                <Nav className="flex-column color-nav verticalThin">
-                      <Nav.Link href="/mainPageAlbum" className="text verticalNav" >
-                        <IoIosImages/>
-                        <span className="p-2"></span>
-                        My albums
-                      </Nav.Link>
-                      <Nav.Link href="/mainPagePage" className="text verticalNav" >
-                        <IoIosCube/>
-                        <span className="p-2"></span>
-                        My pages
-                      </Nav.Link>
-                    </Nav></Col>
-                <Col>
-                <Row className="text-center" style={{paddingLeft:'10%'}}>
-                  <Container fluid style={{paddingTop:'80px', paddingLeft:'50px', paddingRight:'50px'}}>
-                    <Container className="text subHeader title" style={{paddingLeft:'40px'}}>My Pages</Container>
-                  </Container>
-                </Row>
-                <Row style={{paddingTop:'40px', paddingLeft:'50px', paddingLeft:'10%', paddingTop:'5%'}}>
-                <button  className="buttonLightPink">
-                  <IconContext.Provider value={{size:'15em', color:'#98878f'}}>
-                    <IoIosAdd/>
-                  </IconContext.Provider>
-                  </button>
-                </Row>
+                 <Navi />
+      <Row>
+        <Col style={{ maxWidth: "15%" }}>
+          <Nav className="flex-column color-nav verticalThin" fixed="left">
+            <Nav.Link href="/mainPageAlbum" className="text verticalNav">
+              <IconContext.Provider value={{ color: "#ceb1ba" }}>
+                <IoIosImages />
+              </IconContext.Provider>
+              <span className="p-2"></span>
+              My albums
+            </Nav.Link>
+            <Nav.Link href="/mainPagePage" className="text verticalNav">
+              <IconContext.Provider value={{ color: "#ceb1ba" }}>
+                <IoIosCube />
+              </IconContext.Provider>
+              <span className="p-2"></span>
+              My pages
+            </Nav.Link>
+          </Nav>
+        </Col>
+        <Col>
+          <Row className="text-center">
+            <Container
+              fluid
+              style={{
+                paddingTop: "150px",
+                alignItems: "center",
+                display: "flex",
+              }}
+            >
+              <Container
+                className="text subHeader title"
+                style={{ paddingLeft: "40px" }}
+              >
+                My Pages
+              </Container>
+            </Container>
+          </Row>
+          <Row className="text-center" style={{ paddingTop: "5%" }}>
+            <ListAlbumForm onAddAlbum={addAlbumHandler} />
+          </Row>
                 </Col>
                 </Row>
                 <Container fluid style={{position:'fixed', bottom:'0', paddingLeft:'0', paddingRight:'0'}}>

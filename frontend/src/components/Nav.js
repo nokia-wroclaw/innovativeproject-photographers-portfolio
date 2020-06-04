@@ -59,9 +59,9 @@ const Navi = () => {
          {/* <Nav.Link href="/messages" className="text" style={{ color: "#077cc5" }}>
             Messages
   </Nav.Link>*/}
-          <Nav.Link href="#deets" className="text" style={{ color: "#077cc5" }}>
+         {/* <Nav.Link href="#deets" className="text" style={{ color: "#077cc5" }}>
             Settings
-          </Nav.Link>
+</Nav.Link>*/}
           <Nav.Link /*onClick={() => {logout();}}*/>
             <IconContext.Provider value={{ size: "2em", color: "#077cc5" }}>
               <IoIosPower />

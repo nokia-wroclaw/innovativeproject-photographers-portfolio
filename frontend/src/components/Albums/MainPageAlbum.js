@@ -30,7 +30,7 @@ const MainPageAlbum = () => {
     const kyData =async () => {
       if(isPost){
     await ky
-      .get("/api/v1/album")
+      .get("/api/v1/getallalbum")
       .then((response) => response.text())
       .then((data) => {
         setUserAlbums(prevAlbums => [...prevAlbums, 
