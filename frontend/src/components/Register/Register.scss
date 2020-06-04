@@ -7,6 +7,25 @@
 
   h1.header {
     text-align: center;
+    padding-top: 5vh;
+    font-size: 80px;
+    font-family: "Raleway Light";
+    src: url("https://fonts.googleapis.com/css?family=Raleway&display=swap");
+    color: white;
+    text-shadow: 2px 2px 4px #000000;
+  }
+  .register-form {
+    width: 100%;
+    max-width: 800px;
+    padding-top: 5vh;
+    max-height: 100vh;
+    margin: auto;
+    margin-bottom: 0;
+    position: sticky;
+  }
+
+  h1.header {
+    text-align: center;
     padding-top: 10vh;
     font-size: 80px;
     font-family: "Raleway Light";

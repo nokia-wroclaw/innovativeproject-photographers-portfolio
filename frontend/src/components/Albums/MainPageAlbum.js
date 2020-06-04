@@ -1,226 +1,118 @@
-import React, { Component, useState } from "react";
-import { Navbar, Nav } from "react-bootstrap";
-import { Link } from "react-router";
+import React, { useState, setStatus, useEffect } from "react";
+import { Nav } from "react-bootstrap";
 import { Container, Row, Button, Col } from "reactstrap";
 import Footer from "../Footer/Footer";
-import Modal from "./Modal";
-import ListItems from "./ListAlbum";
+import ListAlbum from "./ListAlbum";
 import "../MainPage.scss";
-import { IoIosPower, IoIosAdd, IoIosImages, IoIosCube } from "react-icons/io";
+import { IoIosImages, IoIosCube } from "react-icons/io";
 import { IconContext } from "react-icons";
+import Navi from "../Nav";
+import ListAlbumForm from "./ListAlbumForm";
+import ky from "ky";
 
-class MainPageAlbum extends Component {
-  state = {
-    show: false,
-    items: [],
-    key: "",
-  };
-  showModal = (e) => {
-    this.setState({
-      show: !this.state.show,
-    });
+const MainPageAlbum = () => {
+  const [userAlbums, setUserAlbums] = useState([]);
+  const [album, setAlbum] = useState("");
+  const [isPost, setPost] = useState(false);
+  const [errorMsg, setErrorMsg] = useState("");
+
+  const addAlbumHandler = albums => {
+    setAlbum(albums);
+    const formData = new FormData();
+    formData.append("album_name", album);
+    (async () => {
+      await ky.post("/api/v1/album", { body: formData });
+      setPost(true);
+    })();
   };
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      items: [],
-      currentItem: {
-        text: "",
-        key: "",
-      },
-    };
-    this.addItem = this.addItem.bind(this);
-    this.handleInput = this.handleInput.bind(this);
-    this.deleteItem = this.deleteItem.bind(this);
-    this.setUpdate = this.setUpdate.bind(this);
-  }
-  addItem(e) {
-    e.preventDefault();
-    const newItem = this.state.currentItem;
-    if (newItem.text !== "") {
-      const items = [...this.state.items, newItem];
-      this.setState({
-        items: items,
-        currentItem: {
-          text: "",
-          key: "",
-        },
-      });
-    }
-  }
-  handleInput(e) {
-    this.setState({
-      currentItem: {
-        text: e.target.value,
-        key: Date.now(),
-      },
-    });
-  }
-  deleteItem(key) {
-    const filteredItems = this.state.items.filter((item) => item.key !== key);
-    this.setState({
-      items: filteredItems,
-    });
-  }
-  setUpdate(text, key) {
-    console.log("items:" + this.state.items);
-    const items = this.state.items;
-    items.map((item) => {
-      if (item.key === key) {
-        console.log(item.key + "    " + key);
-        item.text = text;
+  useEffect(() => {
+    const kyData = async () => {
+      if (isPost) {
+        await ky
+          .get("/api/v1/getallalbum")
+          .then((response) => response.text())
+          .then((data) => {
+            setUserAlbums(prevAlbums => [...prevAlbums,
+            { id: data.name, ...album }]);
+          })
+          .catch((error) => {
+            console.log(error);
+            setErrorMsg("Error retrieving data");
+          });
+        setPost(false);
       }
-    });
-    this.setState({
-      items: items,
-    });
-  }
 
-  render() {
-    return (
-      <Container
-        className="mainPageBkgd scroll"
-        fluid
-        style={{ paddingLeft: "0", paddingRight: "0" }}
-      >
-        <Navbar
-          collapseOnSelect
-          expand="xl"
-          className="color-nav"
-          variant="dark"
-          fixed="top"
-        >
-          <Navbar.Brand>
-            <Link
-              href="/mainPage"
-              className="text nav"
-              style={{ textDecoration: "none", color: "#077cc5" }}
-            >
-              Jan Kowalski
-            </Link>
-          </Navbar.Brand>
-          <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-          <Navbar.Collapse id="responsive-navbar-nav">
-            <Nav className="mr-auto"></Nav>
-            <Nav>
-              <Nav.Link
-                href="#deets"
-                className="text"
-                style={{ color: "#077cc5" }}
-              >
-                Photos
-              </Nav.Link>
-              <Nav.Link
-                href="/editor"
-                className="text"
-                style={{ color: "#077cc5" }}
-              >
-                Edit Page
-              </Nav.Link>
-              <Nav.Link
-                href="#deets"
-                className="text"
-                style={{ color: "#077cc5" }}
-              >
-                Messages
-              </Nav.Link>
-              <Nav.Link
-                href="#deets"
-                className="text"
-                style={{ color: "#077cc5" }}
-              >
-                Settings
-              </Nav.Link>
-              <Nav.Link href="/login">
-                <IconContext.Provider value={{ size: "2em", color: "#077cc5" }}>
-                  <IoIosPower />
-                </IconContext.Provider>
-              </Nav.Link>
-            </Nav>
-          </Navbar.Collapse>
-        </Navbar>
-        <Row>
-          <Col style={{ maxWidth: "15%" }}>
-            <Nav className="flex-column color-nav verticalThin" fixed="left">
-              <Nav.Link href="/mainPageAlbum" className="text verticalNav">
+    };
+    kyData();
+  },
+    [isPost]);
+
+  return (
+    <Container
+      className="mainPageBkgd scroll"
+      fluid
+      style={{ paddingLeft: "0", paddingRight: "0" }}
+    >
+      <Navi />
+      <Row>
+        <Col style={{ maxWidth: "15%" }}>
+          <Nav className="flex-column color-nav verticalThin" fixed="left">
+            <Nav.Link href="/mainPageAlbum" className="text verticalNav">
+              <IconContext.Provider value={{ color: "#7dbcff" }}>
                 <IoIosImages />
-                <span className="p-2"></span>
-                My albums
-              </Nav.Link>
-              <Nav.Link href="/mainPagePage" className="text verticalNav">
+              </IconContext.Provider>
+              <span className="p-2"></span>
+              My albums
+            </Nav.Link>
+            <Nav.Link href="/mainPagePage" className="text verticalNav">
+              <IconContext.Provider value={{ color: "#7dbcff" }}>
                 <IoIosCube />
-                <span className="p-2"></span>
-                My pages
-              </Nav.Link>
-            </Nav>
-          </Col>
-          <Col>
-            <Row className="text-center">
+              </IconContext.Provider>
+              <span className="p-2"></span>
+              My pages
+            </Nav.Link>
+          </Nav>
+        </Col>
+        <Col>
+          <Row className="text-center">
+            <Container
+              fluid
+              style={{
+                paddingTop: "150px",
+                alignItems: "center",
+                display: "flex",
+              }}
+            >
               <Container
-                fluid
-                style={{
-                  paddingTop: "150px",
-                  alignItems: "center",
-                  display: "flex",
-                }}
+                className="text subHeader title"
+                style={{ paddingLeft: "40px" }}
               >
-                <Container
-                  className="text subHeader title"
-                  style={{ paddingLeft: "40px" }}
-                >
-                  My Albums
-                </Container>
+                My Albums
               </Container>
-            </Row>
-            <Row className="text-center" style={{ paddingTop: "5%" }}>
-              <Container className="add-element" fluid>
-                <h1 className="texth">Please enter Album Name:</h1>
-                <span className="p-2"></span>
-                <form id="to-do-form" onSubmit={this.addItem}>
-                  <input
-                    type="text"
-                    placeholder="Enter name"
-                    value={this.state.currentItem.text}
-                    onChange={this.handleInput}
-                  ></input>
-                  <span className="p-2"></span>
-                  <button type="submit" className="buttonLightPink lightTheme">
-                    <IconContext.Provider
-                      value={{ size: "2em", color: "#ceb1ba" }}
-                    >
-                      <IoIosAdd />
-                    </IconContext.Provider>
-                  </button>
-                </form>
-                <p>{this.state.items.text}</p>
-              </Container>
-            </Row>
-            <Row style={{ paddingLeft: "15%", paddingTop: "5%" }}>
-              <Col>
-                <ListItems
-                  items={this.state.items}
-                  deleteItem={this.deleteItem}
-                  setUpdate={this.setUpdate}
-                />
-              </Col>
-            </Row>
-          </Col>
-        </Row>
-        <Container
-          fluid
-          style={{
-            position: "fixed",
-            bottom: "0",
-            paddingLeft: "0",
-            paddingRight: "0",
-          }}
-        >
-          <Footer />
-        </Container>
+            </Container>
+          </Row>
+          <Row className="text-center" style={{ paddingTop: "5%" }}>
+            <ListAlbumForm onAddAlbum={addAlbumHandler} />
+          </Row>
+          <Row style={{ paddingLeft: "15%", paddingTop: "5%" }}>
+            <Col><ListAlbum albums={userAlbums} onRemoveItem={() => { }} /></Col>
+          </Row>
+        </Col>
+      </Row>
+      <Container
+        fluid
+        style={{
+          position: "fixed",
+          bottom: "0",
+          paddingLeft: "0",
+          paddingRight: "0",
+        }}
+      >
+        <Footer />
       </Container>
-    );
-  }
+    </Container>
+  );
 }
 
 export default MainPageAlbum;

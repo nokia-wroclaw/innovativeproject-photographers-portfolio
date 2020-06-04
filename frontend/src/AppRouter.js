@@ -6,6 +6,8 @@ import MainPage from "./components/MainPage";
 import Editor from "./components/Editor/Editor";
 import MainPageAlbum from "./components/Albums/MainPageAlbum";
 import MainPagePage from "./components/Albums/MainPagePage";
+import Photos from "./components/Photos/Photos";
+import Messages from "./components/Messages/Messages";
 
 function AppRouter() {
   return (
@@ -20,6 +22,8 @@ function AppRouter() {
         <Route path="/mainPageAlbum" component={MainPageAlbum} />
         <Route path="/mainPagePage" component={MainPagePage} />
         <Route path="/editor" component={Editor} />
+        <Route path="/photos" component={Photos} />
+        <Route path="/messages" component={Messages} />
         <Route path="*">
           <Redirect to="/login" />
         </Route>

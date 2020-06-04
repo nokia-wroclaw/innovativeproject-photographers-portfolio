@@ -16,6 +16,7 @@
     "emotion-theming": "^10.0.27",
     "g": "^2.0.1",
     "http-proxy-middleware": "^1.0.3",
+    "js-cookie": "^2.2.1",
     "ky": "^0.19.1",
     "node-gyp": "^6.1.0",
     "node-sass": "^4.14.1",
@@ -31,7 +32,8 @@
     "react-social-login-buttons": "^3.0.0",
     "reactstrap": "^8.4.1",
     "semantic-ui-css": "^2.4.1",
-    "semantic-ui-react": "^0.88.2"
+    "semantic-ui-react": "^0.88.2",
+    "yup": "^0.29.1"
   },
   "scripts": {
     "start": "react-scripts start",
