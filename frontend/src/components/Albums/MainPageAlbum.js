@@ -1,4 +1,4 @@
-import React, { useState, setStatus } from "react";
+import React, { useState, setStatus, useEffect } from "react";
 import { Nav } from "react-bootstrap";
 import { Container, Row, Button, Col } from "reactstrap";
 import Footer from "../Footer/Footer";
@@ -13,28 +13,39 @@ import ky from "ky";
 const MainPageAlbum = () => {
   const [userAlbums, setUserAlbums] = useState([]);
   const [album, setAlbum] = useState("");
+  const [isPost, setPost] = useState(false);
+  const [errorMsg, setErrorMsg] = useState("");
 
   const addAlbumHandler = albums =>{
     setAlbum(albums);
-    /*(async () => {
-      
-        await ky
-        .post("/api/v1/album", {
-          json: {
-            album_name: album
-          },
-        })
-        .json()
-          
-          .then((response) => response.text())
-          .then((data) => {     
-            setUserAlbums(prevAlbums => [...prevAlbums, 
-            {id: data.name, ...albums}]);
-          });
-    
-    
-    })();*/
+    const formData = new FormData();
+    formData.append("album_name", album);
+    (async () => {
+      await ky.post("/api/v1/album", { body: formData });
+      setPost(true);
+    })();
   };
+
+  useEffect(()=>{
+    const kyData =async () => {
+      if(isPost){
+    await ky
+      .get("/api/v1/album")
+      .then((response) => response.text())
+      .then((data) => {
+        setUserAlbums(prevAlbums => [...prevAlbums, 
+          {id: data.name, ...album}]);
+      })
+      .catch((error) => {
+        console.log(error);
+        setErrorMsg( "Error retrieving data" );
+      });
+      setPost(false);
+    }
+   
+    };
+    kyData();},
+  [isPost]);
 
   return (
     <Container
