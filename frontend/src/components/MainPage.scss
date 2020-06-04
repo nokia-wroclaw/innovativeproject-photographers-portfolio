@@ -1,5 +1,5 @@
 .mainPageBkgd {
-  background-color: #262626;
+  background-color: #1a1a1a;
   height: 100vh;
   &.scroll {
     overflow-y: scroll;
@@ -12,7 +12,7 @@
     0 10px 30px 0 rgba(0, 0, 0, 0.19);
   border-style: none none solid none;
   border-width: 1px;
-  border-color: #5fbff9;
+  border-color: #7dbcff;
   position: fixed;
   &.verticalThin {
     width: 15%;
@@ -21,7 +21,7 @@
     //padding-bottom: 50%;
     border-style: none solid none none;
     border-width: 1px;
-    border-color: #66b3ba;
+    border-color: #7dbcff;
     padding-top: 100px;
   }
 }
@@ -29,7 +29,7 @@
 .title {
   border-style: none none solid none;
   border-width: 1px;
-  border-color: #5fbff9;
+  border-color: #7dbcff;
   background-color: rgba(26, 26, 26, 0.5);
   box-shadow: 0 10px 10px 0 rgba(0, 0, 0, 0.2),
     0 10px 30px 0 rgba(0, 0, 0, 0.19);
@@ -37,10 +37,10 @@
 .subTitle {
   border-style: none none solid none;
   border-width: 1px;
-  border-color: #5fbff9;
+  border-color: #7dbcff;
 }
 .text {
-  color: #66b3ba;
+  color: rgba(255,255,255, 0.85);
   font-family: "Raleway Light";
   src: url("https://fonts.googleapis.com/css?family=Raleway&display=swap");
   &.nav {
@@ -57,13 +57,13 @@
     font-family: "Raleway Light";
     src: url("https://fonts.googleapis.com/css?family=Raleway&display=swap");
     &:hover {
-      color: #077cc5;
+      color: #7dbcff;
     }
   }
   &.subHeader {
     @extend .text;
     font-size: 80px;
-    color: #5fbff9;
+    color: #7dbcff;
     float: left;
     text-shadow: 2px 2px 4px #333333;
     font-family: "Raleway Light";
@@ -74,7 +74,7 @@
 
 h1.texth {
   font-size: 30px;
-  color: #ceb1ba;
+  color: whitesmoke;
   float: left;
   text-shadow: 2px 2px 4px #333333;
   font-family: "Raleway Light";
@@ -105,8 +105,9 @@ h1.texth {
 }
 
 .buttonLightPink {
-  border-color: #5fbff9;
-  box-shadow: 0 10px 10px 0 rgba(0, 0, 0, 0.2),
+  border-color: #7dbcff;
+  border: none;
+  box-shadow: 0 10px 10px 0 rgba(0, 0, 0, 0.05),
     0 10px 30px 0 rgba(0, 0, 0, 0.19);
   border-width: 2px;
   border-radius: 5px;
@@ -119,9 +120,9 @@ h1.texth {
 }
 
 .iconPink {
-  color: #ceb1ba;
+  color: rgba(#fff, 0.85);
   &:hover {
-    color: #baa5ab;
+    color: rgba(#fff, 0.83);
   }
 }
 
@@ -135,7 +136,8 @@ h1.texth {
   background-color: #1a1a1a;
   border-style: solid;
   border-width: 1px;
-  border-color: #5fbff9;
+  border-color: #7dbcff;
+  
 }
 
 .borderBox {

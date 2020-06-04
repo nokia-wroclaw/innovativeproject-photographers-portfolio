@@ -26,7 +26,7 @@ class MainPage extends Component {
             <Link
               href="/mainPage"
               className="text nav"
-              style={{ textDecoration: "none", color: "#077cc5" }}
+              style={{ textDecoration: "none", color: "whitesmoke" }}
             >
               Jan Kowalski
             </Link>
@@ -38,33 +38,33 @@ class MainPage extends Component {
               <Nav.Link
                 href="#deets"
                 className="text"
-                style={{ color: "#077cc5" }}
+                style={{ color: "whitesmoke" }}
               >
                 Photos
               </Nav.Link>
               <Nav.Link
                 href="/editor"
                 className="text"
-                style={{ color: "#077cc5" }}
+                style={{ color: "whitesmoke" }}
               >
                 Edit Page
               </Nav.Link>
               <Nav.Link
                 href="#deets"
                 className="text"
-                style={{ color: "#077cc5" }}
+                style={{ color: "whitesmoke" }}
               >
                 Messages
               </Nav.Link>
               <Nav.Link
                 href="#deets"
                 className="text"
-                style={{ color: "#077cc5" }}
+                style={{ color: "whitesmoke" }}
               >
                 Settings
               </Nav.Link>
               <Nav.Link href="/login">
-                <IconContext.Provider value={{ size: "2em", color: "#077cc5" }}>
+                <IconContext.Provider value={{ size: "2em", color: "#7dbcff" }}>
                   <IoIosPower />
                 </IconContext.Provider>
               </Nav.Link>
@@ -80,12 +80,12 @@ class MainPage extends Component {
                 style={{ textDecoration: "none" }}
               >
                 <Row>
-                  <IconContext.Provider value={{ size: "30em" }}>
+                  <IconContext.Provider value={{ size: "25em" }}>
                     <IoIosImages />
                   </IconContext.Provider>
                 </Row>
                 <Row>
-                  <Container className="text" style={{ fontSize: "80px" }}>
+                  <Container className="text" style={{ fontSize: "60px" }}>
                     My Albums
                   </Container>
                 </Row>
@@ -100,12 +100,12 @@ class MainPage extends Component {
                 style={{ textDecoration: "none" }}
               >
                 <Row>
-                  <IconContext.Provider value={{ size: "30em" }}>
+                  <IconContext.Provider value={{ size: "25em" }}>
                     <IoIosCube />
                   </IconContext.Provider>
                 </Row>
                 <Row>
-                  <Container className="text" style={{ fontSize: "80px" }}>
+                  <Container className="text" style={{ fontSize: "60px" }}>
                     My Pages
                   </Container>
                 </Row>

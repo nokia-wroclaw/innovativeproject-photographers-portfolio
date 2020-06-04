@@ -57,7 +57,7 @@ class Login extends Component {
               Sign In
             </Button>
             <div className="text-center" style={{ paddingTop: "8%" }}>
-              <a className="btn btn-dark" role="button">
+              <a role="button">
                 <Link
                   href="/register"
                   style={{ textDecoration: "none", color: "#007bff" }}
@@ -66,7 +66,7 @@ class Login extends Component {
                 </Link>
               </a>
               <span className="p-2"></span>
-              <a href="/forgot-password" className="btn btn-dark" role="button">
+              <a href="/forgot-password" role="button">
                 Forgot Password
               </a>
             </div>

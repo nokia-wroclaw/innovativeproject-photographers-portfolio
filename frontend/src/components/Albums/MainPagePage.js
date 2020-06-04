@@ -37,7 +37,7 @@ class MainPageAlbum extends Component {
             <Link
               to="/mainPage"
               className="text nav"
-              style={{ textDecoration: "none", color: "#077cc5" }}
+              style={{ textDecoration: "none", color: "whitesmoke" }}
             >
               Jan Kowalski
             </Link>
@@ -49,33 +49,33 @@ class MainPageAlbum extends Component {
               <Nav.Link
                 href="#deets"
                 className="text"
-                style={{ color: "#077cc5" }}
+                style={{ color: "whitesmoke" }}
               >
                 Photos
               </Nav.Link>
               <Nav.Link
                 href="/editor"
                 className="text"
-                style={{ color: "#077cc5" }}
+                style={{ color: "whitesmoke" }}
               >
                 Edit Page
               </Nav.Link>
               <Nav.Link
                 href="#deets"
                 className="text"
-                style={{ color: "#077cc5" }}
+                style={{ color: "whitesmoke" }}
               >
                 Messages
               </Nav.Link>
               <Nav.Link
                 href="#deets"
                 className="text"
-                style={{ color: "#077cc5" }}
+                style={{ color: "whitesmoke" }}
               >
                 Settings
               </Nav.Link>
               <Nav.Link href="login">
-                <IconContext.Provider value={{ size: "2em", color: "#077cc5" }}>
+                <IconContext.Provider value={{ size: "2em", color: "#7dbcff" }}>
                   <IoIosPower />
                 </IconContext.Provider>
               </Nav.Link>
@@ -84,7 +84,7 @@ class MainPageAlbum extends Component {
         </Navbar>
         <Row>
           <Col style={{ maxWidth: "15%" }}>
-            <Nav className="flex-column color-nav verticalThin">
+            <Nav className="flex-column color-nav verticalThin" >
               <Nav.Link href="/mainPageAlbum" className="text verticalNav">
                 <IoIosImages />
                 <span className="p-2"></span>
@@ -128,7 +128,7 @@ class MainPageAlbum extends Component {
                 className="buttonLightPink"
               >
                 <IconContext.Provider
-                  value={{ size: "15em", color: "#98878f" }}
+                  value={{ size: "15em", color: "#7dbcff" }}
                 >
                   <IoIosAdd />
                 </IconContext.Provider>

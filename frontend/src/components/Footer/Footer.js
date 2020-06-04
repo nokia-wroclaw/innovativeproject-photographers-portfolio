@@ -9,13 +9,13 @@ class Footer extends Component {
     return (
       <Container className="text-center footer" fluid>
         <Row>
-          <Col className="text" style={{ color: "#077cc5", left: "0" }}>
+          <Col className="text" style={{ color: "whitesmoke", left: "0" }}>
             © {date.getFullYear()} Photographer's Portfolio, Inc.
             <span className="p-4"></span>
             <Link
               to="/term"
               className="text"
-              style={{ color: "#077cc5", left: "0" }}
+              style={{ color: "whitesmoke", left: "0" }}
             >
               Terms
             </Link>
@@ -23,7 +23,7 @@ class Footer extends Component {
             <Link
               to="/privacy"
               className="text"
-              style={{ color: "#077cc5", left: "0" }}
+              style={{ color: "whitesmoke", left: "0" }}
             >
               Privacy
             </Link>
