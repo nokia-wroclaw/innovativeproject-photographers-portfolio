@@ -45,3 +45,26 @@ textarea {
     0 10px 30px 0 rgba(0, 0, 0, 0.19);
   overflow: scroll;
 }
+
+.buttonPink {
+    box-shadow: 0 10px 10px 0 rgba(0, 0, 0, 0.2),
+      0 10px 30px 0 rgba(0, 0, 0, 0.19);
+    background-color: rgba(111, 68, 78, 1);
+    border-color: #7e4e59;
+    border-width: 5px;
+    border-radius: 5px;
+  }
+
+  .buttonLightPink {
+    border-color: #5fbff9;
+    box-shadow: 0 10px 10px 0 rgba(0, 0, 0, 0.2),
+      0 10px 30px 0 rgba(0, 0, 0, 0.19);
+    border-width: 2px;
+    border-radius: 5px;
+    &.darkTheme {
+      background-color: #1a1a1a;
+    }
+    &.lightTheme {
+      background-color: #333333;
+    }
+  }

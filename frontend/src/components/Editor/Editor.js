@@ -1,6 +1,8 @@
 import React, { Component, useState, useEffect } from "react";
 import "./Editor.scss";
 import { Form, Container, Row, Col } from "reactstrap";
+import DropdownButton from 'react-bootstrap/DropdownButton';
+import Dropdown from 'react-bootstrap/Dropdown';
 import ky from "ky";
 import { Navbar, Nav } from "react-bootstrap";
 import { Link } from "react-router-dom";
@@ -14,6 +16,7 @@ const Editor = () => {
   const [output, setOutput] = useState("");
   const [errorMsg, setErrorMsg] = useState("");
   const [isPost, setPost] = useState(false);
+  const [albums, setAlbums] = useState("");
 
   async function submitHandler(e) {
     e.preventDefault();
@@ -23,6 +26,17 @@ const Editor = () => {
       await ky.post("/api/v1/editor", { body: formData });
       setPost(true);
       // window.location.reload();
+    })();
+  }
+
+const GetAlbums = () => {
+    (async () => {
+      await ky
+      .get("/api/v1/getallalbum")
+      .then((response) => response.text())
+      .then((data) => {
+        console.log(data)
+      })
     })();
   }
 
@@ -41,11 +55,11 @@ const Editor = () => {
       });
       setPost(false);
     }
-   
+
     };
     kyData();},
   [isPost]);
-   
+
    return (
     <Container
       className="mainPageBkgd"
@@ -97,7 +111,7 @@ const Editor = () => {
               href="#deets"
               className="text"
               style={{ color: "#077cc5" }}
-            >
+              >
               Settings
               </Nav.Link>
             <Nav.Link href="/login">
@@ -113,23 +127,34 @@ const Editor = () => {
         <Col style={{ paddingLeft: "2%" }}>
           <Form className="editor-form" onSubmit={submitHandler}>
             <Row style={{ paddingLeft: "2%" }}>
+                <Col style={{ maxWidth: "10%" }}>
               <button
                 type="submit"
                 style={{ backgroundColor: "black", borderWidth: "0" }}
-              >
+                >
                 <IconContext.Provider
                   value={{ size: "4em", color: "#ceb1ba" }}
-                >
+                  >
                   <IoIosSettings />
                 </IconContext.Provider>
               </button>
-              <span className="p-2"></span>
+                </Col>
+                <Col style = {{ maxWidth: "70%" }}>
               <p
                 className="text"
                 style={{ fontSize: "30px", paddingTop: "2%" }}
-              >
-                Jinja Code
+                >
+                HTML Code
                 </p>
+                </Col>
+                <Col style = {{ maxWidth: "15%" , paddingTop: "2%"}}>
+                <div className = "upload-right">
+                <DropdownButton id="dropdown-item-button" title="Albums" onClick = {GetAlbums} className = "buttonLightPink">
+                <Dropdown.Item as="button">Album1</Dropdown.Item>
+                <Dropdown.Item as="button">Album2</Dropdown.Item>
+                </DropdownButton>
+                </div>
+                </Col>
             </Row>
             <Row style={{ paddingLeft: "5%", paddingTop: "1%" }}>
               <textarea
