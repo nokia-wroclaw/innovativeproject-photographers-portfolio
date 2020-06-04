@@ -9,7 +9,7 @@ const ListAlbumForm = React.memo((props) => {
 
   const submitHandler = (event) => {
     event.preventDefault();
-    props.onAddAlbum({name: name})
+    props.onAddAlbum({ name: name })
   };
   return (
     <Container className="add-element" fluid>
@@ -24,7 +24,7 @@ const ListAlbumForm = React.memo((props) => {
         />
         <span className="p-2"></span>
         <button type="submit" className="buttonLightPink lightTheme">
-          <IconContext.Provider value={{ size: "2em", color: "#ceb1ba" }}>
+          <IconContext.Provider value={{ size: "2em", color: "whitesmoke" }}>
             <IoIosAdd />
           </IconContext.Provider>
         </button>

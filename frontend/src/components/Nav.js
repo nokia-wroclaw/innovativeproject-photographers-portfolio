@@ -1,4 +1,4 @@
-import React, {useEffect, useContext} from "react";
+import React, { useEffect, useContext } from "react";
 import { Navbar, Nav } from "react-bootstrap";
 import { Link } from "react-router";
 import { IoIosPower } from "react-icons/io";
@@ -37,7 +37,7 @@ const Navi = () => {
         <Link
           href="/mainPage"
           className="text nav"
-          style={{ textDecoration: "none", color: "#077cc5" }}
+          style={{ textDecoration: "none", color: "whitesmoke" }}
         >
           Jan Kowalski
         </Link>
@@ -46,24 +46,24 @@ const Navi = () => {
       <Navbar.Collapse id="responsive-navbar-nav">
         <Nav className="mr-auto"></Nav>
         <Nav>
-          <Nav.Link href="/photos" className="text" style={{ color: "#077cc5" }}>
+          <Nav.Link href="/photos" className="text" style={{ color: "whitesmoke" }}>
             Photos
           </Nav.Link>
           <Nav.Link
             href="/editor"
             className="text"
-            style={{ color: "#077cc5" }}
+            style={{ color: "whitesmoke" }}
           >
             Edit Page
           </Nav.Link>
-         {/* <Nav.Link href="/messages" className="text" style={{ color: "#077cc5" }}>
+          {/* <Nav.Link href="/messages" className="text" style={{ color: "#077cc5" }}>
             Messages
   </Nav.Link>*/}
-         {/* <Nav.Link href="#deets" className="text" style={{ color: "#077cc5" }}>
+          {/* <Nav.Link href="#deets" className="text" style={{ color: "#077cc5" }}>
             Settings
 </Nav.Link>*/}
           <Nav.Link /*onClick={() => {logout();}}*/>
-            <IconContext.Provider value={{ size: "2em", color: "#077cc5" }}>
+            <IconContext.Provider value={{ size: "2em", color: "#7dbcff" }}>
               <IoIosPower />
             </IconContext.Provider>
           </Nav.Link>

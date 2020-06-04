@@ -16,7 +16,7 @@ const MainPageAlbum = () => {
   const [isPost, setPost] = useState(false);
   const [errorMsg, setErrorMsg] = useState("");
 
-  const addAlbumHandler = albums =>{
+  const addAlbumHandler = albums => {
     setAlbum(albums);
     const formData = new FormData();
     formData.append("album_name", album);
@@ -26,26 +26,27 @@ const MainPageAlbum = () => {
     })();
   };
 
-  useEffect(()=>{
-    const kyData =async () => {
-      if(isPost){
-    await ky
-      .get("/api/v1/getallalbum")
-      .then((response) => response.text())
-      .then((data) => {
-        setUserAlbums(prevAlbums => [...prevAlbums, 
-          {id: data.name, ...album}]);
-      })
-      .catch((error) => {
-        console.log(error);
-        setErrorMsg( "Error retrieving data" );
-      });
-      setPost(false);
-    }
-   
+  useEffect(() => {
+    const kyData = async () => {
+      if (isPost) {
+        await ky
+          .get("/api/v1/getallalbum")
+          .then((response) => response.text())
+          .then((data) => {
+            setUserAlbums(prevAlbums => [...prevAlbums,
+            { id: data.name, ...album }]);
+          })
+          .catch((error) => {
+            console.log(error);
+            setErrorMsg("Error retrieving data");
+          });
+        setPost(false);
+      }
+
     };
-    kyData();},
-  [isPost]);
+    kyData();
+  },
+    [isPost]);
 
   return (
     <Container
@@ -58,14 +59,14 @@ const MainPageAlbum = () => {
         <Col style={{ maxWidth: "15%" }}>
           <Nav className="flex-column color-nav verticalThin" fixed="left">
             <Nav.Link href="/mainPageAlbum" className="text verticalNav">
-              <IconContext.Provider value={{ color: "#ceb1ba" }}>
+              <IconContext.Provider value={{ color: "whitesmoke" }}>
                 <IoIosImages />
               </IconContext.Provider>
               <span className="p-2"></span>
               My albums
             </Nav.Link>
             <Nav.Link href="/mainPagePage" className="text verticalNav">
-              <IconContext.Provider value={{ color: "#ceb1ba" }}>
+              <IconContext.Provider value={{ color: "whitesmoke" }}>
                 <IoIosCube />
               </IconContext.Provider>
               <span className="p-2"></span>
@@ -95,7 +96,7 @@ const MainPageAlbum = () => {
             <ListAlbumForm onAddAlbum={addAlbumHandler} />
           </Row>
           <Row style={{ paddingLeft: "15%", paddingTop: "5%" }}>
-            <Col><ListAlbum albums={userAlbums} onRemoveItem={() => {}}/></Col>
+            <Col><ListAlbum albums={userAlbums} onRemoveItem={() => { }} /></Col>
           </Row>
         </Col>
       </Row>

@@ -8,54 +8,54 @@ const ListAlbum = (props) => {
     <Col >
       {props.albums.map((alb) => (
         <div className="list" key={alb.id}>
-          <Row style={{paddingBottom:"2%"}}>
+          <Row style={{ paddingBottom: "2%" }}>
             <Col style={{ maxWidth: "330px" }}>
               <button
                 className="buttonLightPink darkTheme"
                 style={{ height: "320px", width: "320px" }}
               >
                 <Row className="float-right">
-                 <div className="float-right" style={{ bottom: "0", paddingRight:"15px", paddingTop:"10px" }}>
-                  <button
-                    onClick={props.onRemoveItem.bind(this, alb.id)}
-                    style={{ borderWidth: "0", backgroundColor: "#1a1a1a" }}
-                  >
-                    <IconContext.Provider
-                      value={{ size: "2em", color: "#7e4e59" }}
+                  <div className="float-right" style={{ bottom: "0", paddingRight: "15px", paddingTop: "10px" }}>
+                    <button
+                      onClick={props.onRemoveItem.bind(this, alb.id)}
+                      style={{ borderWidth: "0", backgroundColor: "#1a1a1a" }}
                     >
-                      <IoIosTrash />
+                      <IconContext.Provider
+                        value={{ size: "2em", color: "#7dbcff" }}
+                      >
+                        <IoIosTrash />
+                      </IconContext.Provider>
+                    </button>
+
+                  </div>
+                </Row>
+                <Row>
+
+                  <div className="text-center" style={{ paddingLeft: "30px", paddingTop: "10px" }}>
+                    <IconContext.Provider
+                      value={{ size: "15em", color: " #7dbcff" }}
+                    >
+                      <IoIosCamera />
                     </IconContext.Provider>
-                  </button>
-                  
-                </div>
+                  </div>
                 </Row>
                 <Row>
-                  
-                <div className="text-center" style={{paddingLeft:"30px", paddingTop:"10px"}}>
-                <IconContext.Provider
-                  value={{ size: "15em", color: " #7e4e59"}}
-                >
-                  <IoIosCamera />
-                </IconContext.Provider>
-                </div>
+
+                  <Container
+                    className="text subHeader"
+                    style={{ fontSize: "42px", color: "#7dbcff" }}
+                  >
+                    {alb.name}
+
+                  </Container>
+
                 </Row>
-                <Row>
-                
-                <Container
-                className="text subHeader"
-                style={{ fontSize: "42px", color:"#ceb1ba"}}
-              >
-                 {alb.name}
-               
-              </Container>
-              
-              </Row>
-              
+
               </button>
-              </Col>
-              
+            </Col>
+
           </Row>
-          
+
         </div>
       ))}
     </Col>

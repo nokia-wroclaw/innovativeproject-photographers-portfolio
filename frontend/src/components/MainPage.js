@@ -27,12 +27,12 @@ const MainPage = () => {
               style={{ textDecoration: "none" }}
             >
               <Row>
-                <IconContext.Provider value={{ size: "30em" }}>
+                <IconContext.Provider value={{ size: "25em" }}>
                   <IoIosImages />
                 </IconContext.Provider>
               </Row>
               <Row>
-                <Container className="text" style={{ fontSize: "80px" }}>
+                <Container className="text" style={{ fontSize: "60px" }}>
                   My Albums
                 </Container>
               </Row>
@@ -47,12 +47,12 @@ const MainPage = () => {
               style={{ textDecoration: "none" }}
             >
               <Row>
-                <IconContext.Provider value={{ size: "30em" }}>
+                <IconContext.Provider value={{ size: "25em" }}>
                   <IoIosCube />
                 </IconContext.Provider>
               </Row>
               <Row>
-                <Container className="text" style={{ fontSize: "80px" }}>
+                <Container className="text" style={{ fontSize: "60px" }}>
                   My Pages
                 </Container>
               </Row>

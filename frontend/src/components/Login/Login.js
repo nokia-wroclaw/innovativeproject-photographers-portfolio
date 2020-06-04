@@ -26,7 +26,7 @@ const Login = () => {
     (async () => {
       try {
         await ky.post("/api/v1/login", { body: formData });
-        Cookies.set("username", email_address, {expires:7});
+        Cookies.set("username", email_address, { expires: 7 });
         history.push("/mainPage");
       } catch (e) {
         setStatus({ error: "loginError" });
@@ -80,10 +80,23 @@ const Login = () => {
                 Sign Up
               </Link>
             </Button>
-            <span className="p-2"></span>
-            <a href="/forgot-password" className="btn btn-dark" role="button">
-              Forgot Password
-            </a>
+            <div className="text-center" style={{ paddingTop: "8%" }}>
+              <a role="button">
+                <Link
+                  href="/register"
+                  style={{ textDecoration: "none", color: "#7dbcff" }}
+                >
+                  Sign Up
+                </Link>
+              </a>
+              <span className="p-2"></span>
+              <a role="button"> <Link href="/forgot-password"
+                style={{ textDecoration: "none", color: "#7dbcff" }}>
+                Forgot Password
+                </Link>
+              </a>
+            </div>
+
           </div>
           <div
             className="text-center"
