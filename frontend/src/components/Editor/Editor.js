@@ -147,12 +147,14 @@ const GetAlbums = () => {
                 HTML Code
                 </p>
                 </Col>
-                <Col style = {{ maxWidth: "15%" , paddingTop: "2%"}}>
-                <div className = "upload-right">
-                <DropdownButton id="dropdown-item-button" title="Albums" onClick = {GetAlbums} className = "buttonLightPink">
-                <Dropdown.Item as="button">Album1</Dropdown.Item>
-                <Dropdown.Item as="button">Album2</Dropdown.Item>
-                </DropdownButton>
+                <Col style = {{ maxWidth: "15%" , paddingTop: "1%"}}>
+                <div className = "dropdown">
+                <button onClick = {GetAlbums} className = "dropbtn buttonLightPink darkTheme">Albums</button>
+                <div class="dropdown-content">
+                <a href="#">Album1</a>
+                <a href="#">Album2</a>
+                
+                </div>
                 </div>
                 </Col>
             </Row>
