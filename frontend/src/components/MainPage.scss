@@ -139,7 +139,7 @@ h1.texth {
 }
 
 .borderBox {
-  background-color: #333333;
+  background-color: #1a1a1a;
   border-color: #5fbff9;
   box-shadow: 0 10px 10px 0 rgba(0, 0, 0, 0.2),
     0 10px 30px 0 rgba(0, 0, 0, 0.19);
@@ -149,4 +149,17 @@ h1.texth {
   border-right-color: #3e7ea5;
   border-bottom-color: #3e7ea5;
   height: 300px;
+}
+
+.boxUnderTitle{
+  //background-color: rgba(111, 68, 78, 0.2);
+  box-shadow: 0 10px 10px 0 rgba(0, 0, 0, 0.2),
+    0 10px 30px 0 rgba(0, 0, 0, 0.19);
+    border-width: 2px;
+  border-radius: 5px;
+  border-style: solid;
+  border-color: #5fbff9;
+  border-right-color: #3e7ea5;
+  border-bottom-color: #3e7ea5;
+  height: 220px;
 }
