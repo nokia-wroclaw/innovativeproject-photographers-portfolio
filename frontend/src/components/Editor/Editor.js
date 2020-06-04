@@ -29,38 +29,39 @@ const Editor = () => {
     })();
   }
 
-const GetAlbums = () => {
+  const GetAlbums = () => {
     (async () => {
       await ky
-      .get("/api/v1/getallalbum")
-      .then((response) => response.text())
-      .then((data) => {
-        console.log(data)
-      })
+        .get("/api/v1/getallalbum")
+        .then((response) => response.text())
+        .then((data) => {
+          console.log(data)
+        })
     })();
   }
 
-  useEffect(()=>{
-    const kyData =async () => {
-      if(isPost){
-    await ky
-      .get("/api/v1/editor")
-      .then((response) => response.text())
-      .then((data) => {
-        setOutput( data );
-      })
-      .catch((error) => {
-        console.log(error);
-        setErrorMsg( "Error retrieving data" );
-      });
-      setPost(false);
-    }
+  useEffect(() => {
+    const kyData = async () => {
+      if (isPost) {
+        await ky
+          .get("/api/v1/editor")
+          .then((response) => response.text())
+          .then((data) => {
+            setOutput(data);
+          })
+          .catch((error) => {
+            console.log(error);
+            setErrorMsg("Error retrieving data");
+          });
+        setPost(false);
+      }
 
     };
-    kyData();},
-  [isPost]);
+    kyData();
+  },
+    [isPost]);
 
-   return (
+  return (
     <Container
       className="mainPageBkgd"
       fluid
@@ -72,36 +73,36 @@ const GetAlbums = () => {
         <Col style={{ paddingLeft: "2%" }}>
           <Form className="editor-form" onSubmit={submitHandler}>
             <Row style={{ paddingLeft: "2%" }}>
-                <Col style={{ maxWidth: "10%" }}>
-              <button
-                type="submit"
-                style={{ backgroundColor: "black", borderWidth: "0" }}
+              <Col style={{ maxWidth: "10%" }}>
+                <button
+                  type="submit"
+                  style={{ backgroundColor: "black", borderWidth: "0" }}
                 >
-                <IconContext.Provider
-                  value={{ size: "4em", color: "#ceb1ba" }}
+                  <IconContext.Provider
+                    value={{ size: "4em", color: "#7dbcff" }}
                   >
-                  <IoIosSettings />
-                </IconContext.Provider>
-              </button>
-                </Col>
-                <Col style = {{ maxWidth: "70%" }}>
-              <p
-                className="text"
-                style={{ fontSize: "30px", paddingTop: "2%" }}
+                    <IoIosSettings />
+                  </IconContext.Provider>
+                </button>
+              </Col>
+              <Col style={{ maxWidth: "70%" }}>
+                <p
+                  className="text"
+                  style={{ fontSize: "30px", paddingTop: "2%" }}
                 >
-                HTML Code
+                  HTML Code
                 </p>
-                </Col>
-                <Col style = {{ maxWidth: "15%" , paddingTop: "1%"}}>
-                <div className = "dropdown">
-                <button onClick = {GetAlbums} className = "dropbtn buttonLightPink darkTheme">Albums</button>
-                <div class="dropdown-content">
-                <a href="#">Album1</a>
-                <a href="#">Album2</a>
-                
+              </Col>
+              <Col style={{ maxWidth: "15%", paddingTop: "1%" }}>
+                <div className="dropdown">
+                  <button onClick={GetAlbums} className="dropbtn buttonLightPink darkTheme">Albums</button>
+                  <div class="dropdown-content">
+                    <a href="#">Album1</a>
+                    <a href="#">Album2</a>
+
+                  </div>
                 </div>
-                </div>
-                </Col>
+              </Col>
             </Row>
             <Row style={{ paddingLeft: "5%", paddingTop: "1%" }}>
               <textarea
@@ -116,7 +117,7 @@ const GetAlbums = () => {
         <Col style={{ paddingRight: "2%" }}>
           <Form className="editor-form ">
             <Row style={{ paddingLeft: "2%" }}>
-              <IconContext.Provider value={{ size: "4em", color: "#ceb1ba" }}>
+              <IconContext.Provider value={{ size: "4em", color: "#7dbcff" }}>
                 <IoIosColorPalette />
               </IconContext.Provider>
               <span className="p-2"></span>

@@ -59,14 +59,14 @@ const MainPageAlbum = () => {
         <Col style={{ maxWidth: "15%" }}>
           <Nav className="flex-column color-nav verticalThin" fixed="left">
             <Nav.Link href="/mainPageAlbum" className="text verticalNav">
-              <IconContext.Provider value={{ color: "#7dbcff" }}>
+              <IconContext.Provider value={{ color: "whitesmoke" }}>
                 <IoIosImages />
               </IconContext.Provider>
               <span className="p-2"></span>
               My albums
             </Nav.Link>
             <Nav.Link href="/mainPagePage" className="text verticalNav">
-              <IconContext.Provider value={{ color: "#7dbcff" }}>
+              <IconContext.Provider value={{ color: "whitesmoke" }}>
                 <IoIosCube />
               </IconContext.Provider>
               <span className="p-2"></span>

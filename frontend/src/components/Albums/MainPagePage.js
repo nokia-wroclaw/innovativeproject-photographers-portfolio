@@ -17,7 +17,7 @@ const MainPageAlbum = () => {
   const [isPost, setPost] = useState(false);
   const [errorMsg, setErrorMsg] = useState("");
 
-  const addAlbumHandler = pages =>{
+  const addAlbumHandler = pages => {
     setPage(pages);
     const formData = new FormData();
     formData.append("page_name", page);
@@ -27,41 +27,42 @@ const MainPageAlbum = () => {
     })();
   };
 
-  useEffect(()=>{
-    const kyData =async () => {
-      if(isPost){
-    await ky
-      .get("/api/v1/mainpage")
-      .then((response) => response.text())
-      .then((data) => {
-        setUserPages(prevAlbums => [...prevAlbums, 
-          {id: data.name, ...page}]);
-      })
-      .catch((error) => {
-        console.log(error);
-        setErrorMsg( "Error retrieving data" );
-      });
-      setPost(false);
-    }
-   
+  useEffect(() => {
+    const kyData = async () => {
+      if (isPost) {
+        await ky
+          .get("/api/v1/mainpage")
+          .then((response) => response.text())
+          .then((data) => {
+            setUserPages(prevAlbums => [...prevAlbums,
+            { id: data.name, ...page }]);
+          })
+          .catch((error) => {
+            console.log(error);
+            setErrorMsg("Error retrieving data");
+          });
+        setPost(false);
+      }
+
     };
-    kyData();},
-  [isPost]);
-        return(
-            <Container className="mainPageBkgd" fluid style={{paddingLeft:'0', paddingRight:'0'}}>
-                 <Navi />
+    kyData();
+  },
+    [isPost]);
+  return (
+    <Container className="mainPageBkgd" fluid style={{ paddingLeft: '0', paddingRight: '0' }}>
+      <Navi />
       <Row>
         <Col style={{ maxWidth: "15%" }}>
           <Nav className="flex-column color-nav verticalThin" fixed="left">
             <Nav.Link href="/mainPageAlbum" className="text verticalNav">
-              <IconContext.Provider value={{ color: "#ceb1ba" }}>
+              <IconContext.Provider value={{ color: "whitesmoke" }}>
                 <IoIosImages />
               </IconContext.Provider>
               <span className="p-2"></span>
               My albums
             </Nav.Link>
             <Nav.Link href="/mainPagePage" className="text verticalNav">
-              <IconContext.Provider value={{ color: "#ceb1ba" }}>
+              <IconContext.Provider value={{ color: "whitesmoke" }}>
                 <IoIosCube />
               </IconContext.Provider>
               <span className="p-2"></span>
@@ -90,14 +91,14 @@ const MainPageAlbum = () => {
           <Row className="text-center" style={{ paddingTop: "5%" }}>
             <ListAlbumForm onAddAlbum={addAlbumHandler} />
           </Row>
-                </Col>
-                </Row>
-                <Container fluid style={{position:'fixed', bottom:'0', paddingLeft:'0', paddingRight:'0'}}>
-                  <Footer />
-                </Container>
-            </Container>
+        </Col>
+      </Row>
+      <Container fluid style={{ position: 'fixed', bottom: '0', paddingLeft: '0', paddingRight: '0' }}>
+        <Footer />
+      </Container>
+    </Container>
 
-        );
+  );
 }
 
 export default MainPageAlbum;

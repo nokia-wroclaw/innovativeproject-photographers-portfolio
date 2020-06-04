@@ -40,7 +40,7 @@
   border-color: #7dbcff;
 }
 .text {
-  color: #7dbcff;
+  color: whitesmoke;
   font-family: "Raleway Light";
   src: url("https://fonts.googleapis.com/css?family=Raleway&display=swap");
   &.nav {
@@ -63,7 +63,7 @@
   &.subHeader {
     @extend .text;
     font-size: 80px;
-    color: #7dbcff;
+    color: whitesmoke;
     float: left;
     text-shadow: 2px 2px 4px #333333;
     font-family: "Raleway Light";
@@ -74,7 +74,7 @@
 
 h1.texth {
   font-size: 30px;
-  color: #7dbcff;
+  color: whitesmoke;
   float: left;
   text-shadow: 2px 2px 4px #333333;
   font-family: "Raleway Light";
@@ -106,6 +106,7 @@ h1.texth {
 
 .buttonLightPink {
   border-color: #7dbcff;
+  border:none;
   box-shadow: 0 10px 10px 0 rgba(0, 0, 0, 0.2),
     0 10px 30px 0 rgba(0, 0, 0, 0.19);
   border-width: 2px;

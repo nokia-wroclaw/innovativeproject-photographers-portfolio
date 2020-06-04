@@ -24,7 +24,7 @@ const MainPage = () => {
             <Link
               to="/mainPageAlbum"
               className="iconPink"
-              style={{ textDecoration: "none", color: "whitesmoke" }}
+              style={{ textDecoration: "none" }}
             >
               <Row>
                 <IconContext.Provider value={{ size: "25em" }}>

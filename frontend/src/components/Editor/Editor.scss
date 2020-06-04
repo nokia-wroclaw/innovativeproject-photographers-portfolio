@@ -25,6 +25,7 @@ textarea {
   border-width: 1px;
   border-radius: 10px;
   border-color: #5fbff9;
+  border: none;
   overflow: scroll;
   color: white;
   padding: 20px;
@@ -70,7 +71,7 @@ textarea {
     }
     width: 100px;
     height: 50px;
-    color:#ceb1ba;    
+    color:whitesmoke;    
     font-family: "Raleway Light";
   }
   
@@ -89,7 +90,7 @@ textarea {
   }
   
   .dropdown-content a {
-    color: #ceb1ba;
+    color: whitesmoke;
     padding: 12px 16px;
     text-decoration: none;
     display: block;
@@ -97,7 +98,7 @@ textarea {
   
   .dropdown-content a:hover {
     background-color: black;
-    color:#ceb1ba;
+    color:#7dbcff;
     text-decoration: none;
   }
   
@@ -106,5 +107,5 @@ textarea {
   }
 
   .dropdown:hover .dropbtn {
-    background-color: black;
+    background-color: #7dbcff;
   }
