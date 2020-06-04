@@ -57,27 +57,20 @@ class Login extends Component {
               Sign In
             </Button>
             <div className="text-center" style={{ paddingTop: "8%" }}>
-              <Button className="btn btn-dark" role="button">
+              <a className="btn btn-dark" role="button">
                 <Link
                   href="/register"
-                  style={{ textDecoration: "none", color: "white" }}
+                  style={{ textDecoration: "none", color: "#007bff" }}
                 >
                   Sign Up
                 </Link>
-              </Button>
+              </a>
               <span className="p-2"></span>
               <a href="/forgot-password" className="btn btn-dark" role="button">
                 Forgot Password
               </a>
             </div>
-            <div
-              className="text-center"
-              style={{ paddingTop: "5%", color: "white" }}
-            >
-              By clicking “Sign up”, you agree to our{" "}
-              <a href="#">Terms of Service</a> and{" "}
-              <a href="#">Privacy Statement</a>.
-            </div>
+
           </div>
         </Form>
       </Container>
